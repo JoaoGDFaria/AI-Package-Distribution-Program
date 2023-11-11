@@ -3,8 +3,11 @@ import Graph as gr
 
 
 def main():
+
     g = gr.Graph()
 
+
+    # Definir nodos e arestas - Distância em km entre freguesias
     g.add_edge("Lousado", "Fradelos", weight=9.2)
     g.add_edge("Lousado", "Calendário", weight=5.7)
     g.add_edge("Fradelos", "Gondifelos", weight=10.2)
@@ -26,7 +29,33 @@ def main():
     g.add_edge("Telhado", "Cruz", weight=6.2)
     g.add_edge("Telhado", "Joane", weight=9.0)
 
-    # Coordenadas fixas para cada nó
+
+    # Definir eurísticas - Qualidade das estradas
+        # 1-> Estrada em muito boas condições
+        # 5-> Estrada em muito más condições
+    g.add_heuristica("Lousado", 5)
+    g.add_heuristica("Fradelos", 2)
+    g.add_heuristica("Cabeçudos", 4)
+    g.add_heuristica("Abade de Vermoim", 3)
+    g.add_heuristica("Calendário", 3)
+    g.add_heuristica("Outiz", 1)
+    g.add_heuristica("Gondifelos", 1)
+    g.add_heuristica("Bairro", 5)
+    g.add_heuristica("Riba de Ave", 1)
+    g.add_heuristica("Novais", 5)
+    g.add_heuristica("Castelões", 2)
+    g.add_heuristica("Mogege", 2)
+    g.add_heuristica("Requião", 3)
+    g.add_heuristica("Famalicão", 1)
+    g.add_heuristica("Louro", 5)
+    g.add_heuristica("Nine", 4)
+    g.add_heuristica("Cruz", 2)
+    g.add_heuristica("Arnoso (S.ta Maria)", 1)
+    g.add_heuristica("Telhado", 2)
+    g.add_heuristica("Joane", 3)
+
+
+    # Coordenadas fixas para cada nó no gráfico
     pos = {
         "Lousado": (486, 960 - 857),
         "Fradelos": (172, 960 - 744),
@@ -55,18 +84,25 @@ def main():
         print("1-Desenhar Grafo")
         print("2-DFS")
         print("3-BFS")
-        print("0-Saír")
+        print("4-A*")
+        print("5-Gulosa")
+        print("0-Sair")
 
-        saida = int(input("introduza a sua opcao-> "))
+        saida = int(input("Introduza a sua opção-> "))
+
         if saida == 0:
-            print("saindo.......")
+            print("Saindo .......")
+
+
         elif saida == 1:
             g.desenha(pos)
+
+
         elif saida == 2:
 
-            inicio = input("Nodo inicial->")
+            inicio = input("Nodo inicial-> ")
             if not g.node_exists(inicio): continue
-            fim = input("Nodo final->")
+            fim = input("Nodo final-> ")
             if not g.node_exists(fim): continue
 
             start_time = time.time()
@@ -84,13 +120,14 @@ def main():
 
             print(f"Ideal Path: {solucao} | Time taken: {round((time.time()-start_time))} ms")
 
-            l = input("prima enter para continuar")
+            l = input("Prima Enter para continuar")
+
 
         elif saida == 3:
 
-            inicio = input("Nodo inicial->")
+            inicio = input("Nodo inicial-> ")
             if not g.node_exists(inicio): continue
-            fim = input("Nodo final->")
+            fim = input("Nodo final-> ")
             if not g.node_exists(fim): continue
 
             start_time = time.time()
@@ -108,10 +145,61 @@ def main():
 
             print(f"Ideal Path: {solucao} | Time taken: {round((time.time()-start_time))} ms")
 
-            l = input("prima enter para continuar")
+            l = input("Prima Enter para continuar")
+
+
+        elif saida == 4:
+
+            inicio = input("Nodo inicial-> ")
+            if not g.node_exists(inicio): continue
+            fim = input("Nodo final-> ")
+            if not g.node_exists(fim): continue
+
+            start_time = time.time()
+
+            path_inicio_calendario = g.procura_aStar(inicio, "Calendário")
+            path_calendario_fim = g.procura_aStar("Calendário", fim)
+
+            path_inicio_casteloes = g.procura_aStar(inicio, "Castelões")
+            path_casteloes_fim = g.procura_aStar("Castelões", fim)
+
+            if path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]:
+                solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:], "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
+            else:
+                solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
+
+            print(f"Ideal Path: {solucao} | Time taken: {round((time.time()-start_time))} ms")
+
+            l = input("Prima Enter para continuar")
+
+        elif saida == 5:
+
+            inicio = input("Nodo inicial-> ")
+            if not g.node_exists(inicio): continue
+            fim = input("Nodo final-> ")
+            if not g.node_exists(fim): continue
+
+            start_time = time.time()
+
+            path_inicio_calendario = g.greedy(inicio, "Calendário")
+            path_calendario_fim = g.greedy("Calendário", fim)
+
+            path_inicio_casteloes = g.greedy(inicio, "Castelões")
+            path_casteloes_fim = g.greedy("Castelões", fim)
+
+            if path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]:
+                solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:], "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
+            else:
+                solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
+
+            print(f"Ideal Path: {solucao} | Time taken: {round((time.time()-start_time))} ms")
+
+            l = input("Prima Enter para continuar")
+
+
         else:
-            print("you didn't add anything")
-            l = input("prima enter para continuar")
+            print("You didn't add anything")
+            l = input("Prima Enter para continuar")
 
 
 if __name__ == "__main__":
