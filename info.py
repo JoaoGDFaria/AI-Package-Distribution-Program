@@ -12,6 +12,19 @@ infoVelocidadeMedia = {
 
 infoPerdaPorKg = {
     "bicicleta": 0.6,
-    "moto": 0.6,
+    "moto": 0.5,
     "carro": 0.1
+}
+
+infoTempo = {
+    "sol":{
+        "bicicleta": 0,
+        "mota": 0,
+        "carro": 0
+    },
+    "chuva":{
+        "bicicleta": 0,
+        "mota": 0,
+        "carro": 0
+    } 
 }

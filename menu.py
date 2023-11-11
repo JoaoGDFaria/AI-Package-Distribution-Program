@@ -26,6 +26,30 @@ def main():
     g.add_edge("Telhado", "Cruz", weight=6.2)
     g.add_edge("Telhado", "Joane", weight=9.0)
 
+    # Coordenadas fixas para cada nó
+    pos = {
+        "Lousado": (486, 960 - 857),
+        "Fradelos": (172, 960 - 744),
+        "Calendário": (486, 960 - 531),
+        "Gondifelos": (172, 960 - 432),
+        "Outiz": (349, 960 - 456),
+        "Abade de Vermoim": (639, 960 - 572),
+        "Famalicão": (527, 960 - 416),
+        "Louro": (428, 960 - 311),
+        "Nine": (428, 960 - 137),
+        "Requião": (705, 960 - 432),
+        "Castelões": (937, 960 - 448),
+        "Mogege": (1021, 960 - 371),
+        "Novais": (904, 960 - 572),
+        "Riba de Ave": (1125, 960 - 604),
+        "Bairro": (953, 960 - 712),
+        "Cruz": (648, 960 - 255),
+        "Arnoso (S.ta Maria)": (623, 960 - 96),
+        "Telhado": (836, 960 - 199),
+        "Joane": (970, 960 - 255),
+        "Cabeçudos": (615, 960 - 736),
+    }
+
     saida = -1
     while saida != 0:
         print("1-Desenhar Grafo")
@@ -37,7 +61,7 @@ def main():
         if saida == 0:
             print("saindo.......")
         elif saida == 1:
-            g.desenha()
+            g.desenha(pos)
         elif saida == 2:
 
             inicio = input("Nodo inicial->")

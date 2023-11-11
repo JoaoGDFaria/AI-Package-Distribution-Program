@@ -64,11 +64,12 @@ class Graph:
 
 
     # Desenha o grafo
-    def desenha(self):
+    def desenha(self, pos):
         ##criar lista de vertices
         lista_v = self.m_nodes
         lista_a = []
         g = nx.Graph()
+        plt.figure(figsize=(12.8, 9.6))
         for nodo in lista_v:
             n = nodo.getName()
             g.add_node(n)
@@ -77,10 +78,11 @@ class Graph:
                 # lista_a.append(lista)
                 g.add_edge(n, adjacente, weight=peso)
 
-        pos = nx.spring_layout(g)
+
         nx.draw_networkx(g, pos, with_labels=True, font_weight='bold')
         labels = nx.get_edge_attributes(g, 'weight')
         nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
+        plt.title("Freguesias de Famalicão")
 
         plt.draw()
         plt.show()
