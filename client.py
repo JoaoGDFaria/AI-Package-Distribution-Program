@@ -10,6 +10,6 @@ class Client:
 
 
     def definirRanking(self, idEncomenda):
-
+        pass
 
 
