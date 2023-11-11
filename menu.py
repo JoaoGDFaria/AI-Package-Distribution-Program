@@ -1,9 +1,9 @@
-import networkx as nx
-import matplotlib.pyplot as plt
+import time
+import Graph as gr
 
 
 def main():
-    g = nx.Graph()
+    g = gr.Graph()
 
     g.add_edge("Lousado", "Fradelos", weight=9.2)
     g.add_edge("Lousado", "Calendário", weight=5.7)
@@ -37,22 +37,30 @@ def main():
         if saida == 0:
             print("saindo.......")
         elif saida == 1:
-            pos = nx.spring_layout(g)
-            nx.draw_networkx(g, pos, with_labels=True, font_weight="bold")
-            labels = nx.get_edge_attributes(g, "weight")
-            nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
-            plt.title("Freguesias de Famalicão")
-            plt.show()
-            l = input("prima enter para continuar")
+            g.desenha()
         elif saida == 2:
+
             inicio = input("Nodo inicial->")
+            if not g.node_exists(inicio): continue
             fim = input("Nodo final->")
-            #print(g.procura_DFS(inicio, fim, path=[], visited=set()))
+            if not g.node_exists(fim): continue
+
+            start_time = time.time()
+            print(f"Ideal Path: {g.procura_DFS(inicio, fim, path=[], visited=set())}"
+                  f" | Time taken: {(time.time()-start_time)*1000} ms")
+
             l = input("prima enter para continuar")
+
         elif saida == 3:
+
             inicio = input("Nodo inicial->")
+            if not g.node_exists(inicio): continue
             fim = input("Nodo final->")
-            #print(g.procura_BFS(inicio, fim))
+            if not g.node_exists(fim): continue
+            start_time = time.time()
+            print(f"Ideal Path: {g.procura_BFS(inicio, fim)} |"
+                  f" Time taken: {(time.time()-start_time)*1000} ms")
+
             l = input("prima enter para continuar")
         else:
             print("you didn't add anything")

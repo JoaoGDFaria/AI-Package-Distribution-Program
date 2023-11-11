@@ -1,7 +1,5 @@
-# Classe nodo para definiçao dos nodos
-# cada nodo tem um nome e um id
 class Node:
-    def __init__(self, name, id=-1):     #  construtor do nodo....."
+    def __init__(self, name, id=-1):
         self.m_id = id
         self.m_name = str(name)
 
