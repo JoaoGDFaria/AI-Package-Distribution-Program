@@ -1,7 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-
 def main():
     g = nx.Graph()
 
@@ -26,40 +25,64 @@ def main():
     g.add_edge("Telhado", "Cruz", weight=6.2)
     g.add_edge("Telhado", "Joane", weight=9.0)
 
+    # Coordenadas fixas para cada nó
+    pos = {
+        "Lousado": (486, 857),
+        "Fradelos": (172, 744),
+        "Calendário": (486, 531),
+        "Gondifelos": (172, 432),
+        "Outiz": (349, 456),
+        "Abade de Vermoim": (639, 572),
+        "Famalicão": (527, 416),
+        "Louro": (428, 311),
+        "Nine": (428, 137),
+        "Requião": (705, 432),
+        "Castelões": (937, 448),
+        "Mogege": (1021, 371),
+        "Novais": (904, 572),
+        "Riba de Ave": (1125, 604),
+        "Bairro": (953, 712),
+        "Cruz": (648, 255),
+        "Arnoso (S.ta Maria)": (623, 96),
+        "Telhado": (836, 199),
+        "Joane": (970, 255),
+        "Cabeçudos": (615, 736),
+    }
+
+
+
     saida = -1
     while saida != 0:
         print("1-Desenhar Grafo")
         print("2-DFS")
         print("3-BFS")
-        print("0-Saír")
+        print("0-Sair")
 
         saida = int(input("introduza a sua opcao-> "))
         if saida == 0:
-            print("saindo.......")
+            print("Saindo.......")
         elif saida == 1:
-            pos = nx.spring_layout(g)
+            # Crie uma figura com o tamanho desejado
+            plt.figure(figsize=(12.8, 9.6))
             nx.draw_networkx(g, pos, with_labels=True, font_weight="bold")
             labels = nx.get_edge_attributes(g, "weight")
             nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
             plt.title("Freguesias de Famalicão")
             plt.show()
-            l = input("prima enter para continuar")
+            l = input("Prima Enter para continuar")
         elif saida == 2:
             inicio = input("Nodo inicial->")
             fim = input("Nodo final->")
-            #print(g.procura_DFS(inicio, fim, path=[], visited=set()))
-            l = input("prima enter para continuar")
+            # print(g.procura_DFS(inicio, fim, path=[], visited=set()))
+            l = input("Prima Enter para continuar")
         elif saida == 3:
             inicio = input("Nodo inicial->")
             fim = input("Nodo final->")
-            #print(g.procura_BFS(inicio, fim))
-            l = input("prima enter para continuar")
+            # print(g.procura_BFS(inicio, fim))
+            l = input("Prima Enter para continuar")
         else:
-            print("you didn't add anything")
-            l = input("prima enter para continuar")
-
-
-
+            print("You didn't add anything")
+            l = input("Prima Enter para continuar")
 
 if __name__ == "__main__":
     main()
