@@ -1,18 +1,18 @@
 infoPesoMaximo = {
     "bicicleta": 5,
-    "moto": 20,
+    "mota": 20,
     "carro": 100
 }
 
 infoVelocidadeMedia = {
     "bicicleta": 10,
-    "moto": 35,
+    "mota": 35,
     "carro": 50
 }
 
 infoPerdaPorKg = {
     "bicicleta": 0.6,
-    "moto": 0.5,
+    "mota": 0.5,
     "carro": 0.1
 }
 
