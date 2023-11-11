@@ -70,8 +70,19 @@ def main():
             if not g.node_exists(fim): continue
 
             start_time = time.time()
-            print(f"Ideal Path: {g.procura_DFS(inicio, fim, path=[], visited=set())}"
-                  f" | Time taken: {(time.time()-start_time)*1000} ms")
+
+            path_inicio_calendario = g.procura_DFS(inicio, "Calendário", path=[], visited=set())
+            path_calendario_fim = g.procura_DFS("Calendário", fim, path=[], visited=set())
+
+            path_inicio_casteloes = g.procura_DFS(inicio, "Castelões", path=[], visited=set())
+            path_casteloes_fim = g.procura_DFS("Castelões", fim, path=[], visited=set())
+
+            if path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]:
+                solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:], "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
+            else:
+                solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
+
+            print(f"Ideal Path: {solucao} | Time taken: {round((time.time()-start_time))} ms")
 
             l = input("prima enter para continuar")
 
@@ -81,16 +92,26 @@ def main():
             if not g.node_exists(inicio): continue
             fim = input("Nodo final->")
             if not g.node_exists(fim): continue
+
             start_time = time.time()
-            print(f"Ideal Path: {g.procura_BFS(inicio, fim)} |"
-                  f" Time taken: {(time.time()-start_time)*1000} ms")
+
+            path_inicio_calendario = g.procura_BFS(inicio, "Calendário")
+            path_calendario_fim = g.procura_BFS("Calendário", fim)
+
+            path_inicio_casteloes = g.procura_BFS(inicio, "Castelões")
+            path_casteloes_fim = g.procura_BFS("Castelões", fim)
+
+            if path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]:
+                solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:], "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
+            else:
+                solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
+
+            print(f"Ideal Path: {solucao} | Time taken: {round((time.time()-start_time))} ms")
 
             l = input("prima enter para continuar")
         else:
             print("you didn't add anything")
             l = input("prima enter para continuar")
-
-
 
 
 if __name__ == "__main__":
