@@ -1,8 +1,9 @@
 import info
+from Global import Global
 class Encomenda:
 
-    def __init__(self, idEncomenda, idEstafeta, peso, volume,localizacao, idCliente, tempoInicio, tempoPedido, tempo):
-        self.idEncomenda = idEncomenda
+    def __init__(self, idEstafeta, peso, volume, localizacao, idCliente, tempoInicio, tempoPedido, tempo):
+        self.gl = Global()
         self.idCliente = idCliente
         self.idEstafeta = idEstafeta
         self.peso = peso
@@ -13,6 +14,7 @@ class Encomenda:
         self.tempoInicio = tempoInicio
         self.tempoPedido = tempoPedido
         self.tempo = tempo
+        self.gl.add_encomenda(self)
 
 
     # Determinar estafeta a utilizar
@@ -38,8 +40,8 @@ class Encomenda:
 
     # Função para determinar a penalização em função
     # do tipo de veículo, estado de tempo e distância         
-    def tempoEntrega(self, id, distancia):
-        veiculo = x
+    def tempoEntrega(self, distancia):
+        veiculo = self.gl.get_estafeta(self.idEstafeta).veiculo
         condicoesTransporte = info.infoTempo[[self.tempo], veiculo]
         
         penalizacao = condicoesTransporte * distancia

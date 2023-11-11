@@ -1,12 +1,13 @@
 import info
-import encomenda
+from Global import Global
 import random
 import Graph as g
 from itertools import permutations
 
 class Estafeta:
 
-    def __init__(self, veiculo, id, localizacao):
+    def __init__(self, veiculo, localizacao):
+        self.gl = Global()
         self.veiculo = veiculo
         self.id = id
         self.rating = 0
@@ -17,6 +18,7 @@ class Estafeta:
         self.velocidadeMedia = info.infoVelocidadeMedia[veiculo]
         self.perdaPorKg = info.infoPerdaPorKg[veiculo]
         self.disponivel = True
+        self.gl.add_estafeta(self)
 
     def melhorCaminho(self, locaisentrega):
         i = []
