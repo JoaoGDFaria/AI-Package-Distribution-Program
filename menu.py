@@ -1,4 +1,4 @@
-import time
+from time import perf_counter
 import Graph as gr
 
 
@@ -105,7 +105,7 @@ def main():
             fim = input("Nodo final-> ")
             if not g.node_exists(fim): continue
 
-            start_time = time.time()
+            start_time = perf_counter()
 
             path_inicio_calendario = g.procura_DFS(inicio, "Calendário", path=[], visited=set())
             path_calendario_fim = g.procura_DFS("Calendário", fim, path=[], visited=set())
@@ -118,7 +118,7 @@ def main():
             else:
                 solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
 
-            print(f"Ideal Path: {solucao} | Time taken: {round((time.time()-start_time))} ms")
+            print(f"Ideal Path: {solucao} | Time taken: {(perf_counter()-start_time)*1000} ms")
 
             l = input("Prima Enter para continuar")
 
@@ -130,7 +130,7 @@ def main():
             fim = input("Nodo final-> ")
             if not g.node_exists(fim): continue
 
-            start_time = time.time()
+            start_time = perf_counter()
 
             path_inicio_calendario = g.procura_BFS(inicio, "Calendário")
             path_calendario_fim = g.procura_BFS("Calendário", fim)
@@ -143,7 +143,7 @@ def main():
             else:
                 solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
 
-            print(f"Ideal Path: {solucao} | Time taken: {round((time.time()-start_time))} ms")
+            print(f"Ideal Path: {solucao} | Time taken: {(perf_counter()-start_time)*1000} ms")
 
             l = input("Prima Enter para continuar")
 
@@ -155,7 +155,7 @@ def main():
             fim = input("Nodo final-> ")
             if not g.node_exists(fim): continue
 
-            start_time = time.time()
+            start_time = perf_counter()
 
             path_inicio_calendario = g.procura_aStar(inicio, "Calendário")
             path_calendario_fim = g.procura_aStar("Calendário", fim)
@@ -168,7 +168,7 @@ def main():
             else:
                 solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
 
-            print(f"Ideal Path: {solucao} | Time taken: {round((time.time()-start_time))} ms")
+            print(f"Ideal Path: {solucao} | Time taken: {(perf_counter()-start_time)*1000} ms")
 
             l = input("Prima Enter para continuar")
 
@@ -179,7 +179,7 @@ def main():
             fim = input("Nodo final-> ")
             if not g.node_exists(fim): continue
 
-            start_time = time.time()
+            start_time = perf_counter()
 
             path_inicio_calendario = g.greedy(inicio, "Calendário")
             path_calendario_fim = g.greedy("Calendário", fim)
@@ -192,7 +192,7 @@ def main():
             else:
                 solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
 
-            print(f"Ideal Path: {solucao} | Time taken: {round((time.time()-start_time))} ms")
+            print(f"Ideal Path: {solucao} | Time taken: {(perf_counter()-start_time)*1000} ms")
 
             l = input("Prima Enter para continuar")
 

@@ -26,3 +26,15 @@ class Global:
     def get_estafeta(self, id):
         return self.todos_estafetas.get(id, None)
 
+
+    def printAllGlobal(self):
+        for id, info in self.todos_clientes.items():
+            print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Encomendas: {info.encomendas}")
+        print("-----------------------------")
+        for id, info in self.todos_estafetas.items():
+            print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Veiculo: {info.veiculo}")
+        print("-----------------------------")
+        for id, info in self.todos_encomendas.items():
+            pass
+
+

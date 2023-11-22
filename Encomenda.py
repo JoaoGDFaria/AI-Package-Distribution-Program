@@ -2,8 +2,7 @@ import info
 from Global import Global
 class Encomenda:
 
-    def __init__(self, idEstafeta, peso, volume, localizacao, idCliente, tempoInicio, tempoPedido, tempo):
-        self.gl = Global()
+    def __init__(self, idEstafeta, peso, volume, localizacao, idCliente, tempoInicio, tempoPedido, tempo, gl):
         self.idCliente = idCliente
         self.idEstafeta = idEstafeta
         self.peso = peso
@@ -14,6 +13,7 @@ class Encomenda:
         self.tempoInicio = tempoInicio
         self.tempoPedido = tempoPedido
         self.tempo = tempo
+        self.gl = gl
         self.gl.add_encomenda(self)
 
 

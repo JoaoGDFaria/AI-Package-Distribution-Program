@@ -6,19 +6,24 @@ from itertools import permutations
 
 class Estafeta:
 
-    def __init__(self, veiculo, localizacao):
-        self.gl = Global()
+    def __init__(self, veiculo, localizacao, nome, gl):
         self.veiculo = veiculo
         self.id = id
         self.rating = 0
         self.atraso = 0
+        self.nome = nome
         self.entregas = 0
         self.localizacao = localizacao
         self.pesoMaximo = info.infoPesoMaximo[veiculo]
         self.velocidadeMedia = info.infoVelocidadeMedia[veiculo]
         self.perdaPorKg = info.infoPerdaPorKg[veiculo]
         self.disponivel = True
+        self.gl = gl
         self.gl.add_estafeta(self)
+
+
+    def mudarLocalizacao(self, localizacao):
+        self.localizacao = localizacao
 
     def melhorCaminho(self, locaisentrega):
         i = []
