@@ -7,6 +7,7 @@ class Global:
     def add_cliente(self, cliente):
         total_length = len(self.todos_clientes)
         self.todos_clientes[total_length+1] = cliente
+        return total_length+1
 
     def add_encomenda(self, encomenda):
         total_length = len(self.todos_encomendas)
@@ -35,6 +36,6 @@ class Global:
             print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Veiculo: {info.veiculo}")
         print("-----------------------------")
         for id, info in self.todos_encomendas.items():
-            pass
+            print(f"ID: {id}, IdCliente: {info.idCliente}, Peso: {info.peso}, Preço Base: {info.precoBase}, LocalEntrega: {info.localEntrega}, Tempo Inicio: {info.tempoInicio}, Tempo Fim: {info.tempoFim}")
 
 
