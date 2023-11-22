@@ -25,29 +25,45 @@ class Estafeta:
     def mudarLocalizacao(self, localizacao):
         self.localizacao = localizacao
 
-    def melhorCaminho(self, locaisentrega):
+    def melhorCaminho(self, locaisentrega, velocidadeMedia, encomendas):
         i = []
         valor=0
         temp=0
         mp=[]
+        pentempo = 0
+        perm = []
         all_permutations = list(permutations(locaisentrega))
         for i in all_permutations:
-            temp = self.pesoCaminho(i)
-            if temp[0] < valor:
+            temp = self.pesoCaminho(i, velocidadeMedia, encomendas)
+            if pentempo == 0:
+                valor = temp[0]
+                mp = temp[1]
+                pentempo = temp[2]
+                perm = i
+            if temp[2] < pentempo:
                 valor = temp[0]
                 mp=temp[1]
-        return valor,mp,i
+                pentempo = temp[2]
+                perm = i
+        return valor,mp,perm,pentempo
 
-    def pesoCaminho(self, locaisentrega):
+    def pesoCaminho(self, locaisentrega, velocidadeMedia, encomendas):
         t = ([],0)
         valor = 0
+        tp = 0
         caminho = []
         for i in locaisentrega:
             t = g.procura_BFS(self.localizacao, i)
+            for j in encomendas:
+                if j.localizacao == i:
+                    tp = j.tempoPedido
+            pen = t[1] / velocidadeMedia
+            if(tp < pen):
+                pen = pen - tp
             caminho.append(t[0])
             valor+=t[1]
             self.localizacao = i
-        return valor,caminho
+        return valor,caminho,pen
 
     def mudaRating(self, rate):
         total = self.rating * self.entregas
@@ -96,15 +112,15 @@ class Estafeta:
         inicio = self.localizacao
         distanciapornodo = 0
 
-        distancia = self.melhorCaminho(locaisEntrega) # distancia[0] = distancia total, distancia[1] = caminho, distancia[2] = locaisEntrega
-        valortotal = distancia[0]
-        caminho= distancia[1]
-        ordem= distancia[2]
-
         pesoTotalEncomendas = sum(encomendas.peso)
         self.velocidadeMedia -= self.perdaPorKg * pesoTotalEncomendas
 
         vm = self.calculaVelocidadeMedia(metereologia)
+
+        distancia = self.melhorCaminho(locaisEntrega, vm, encomendas) # distancia[0] = distancia total, distancia[1] = caminho, distancia[2] = locaisEntrega
+        valortotal = distancia[0]
+        caminho= distancia[1]
+        ordem= distancia[2]
 
         da = g.procura_BFS(self.localizacao, "Calendário")
         db = g.procura_BFS(self.localizacao, "Castelões")
