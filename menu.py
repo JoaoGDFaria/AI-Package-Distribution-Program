@@ -13,6 +13,7 @@ def main():
     caminho_arquivo_posicoes = os.path.join('files', 'posfamalicao.csv')
     plevantamento = os.path.join('files', 'pontosdelevantamento.csv')
 
+
     with open(gfamalicao, 'r') as grafo:
         leitor_csv = csv.DictReader(grafo)
 
@@ -96,11 +97,15 @@ def main():
             path_inicio_maximinos = g.procura_DFS(inicio, "Maximinos", path=[], visited=set())
             path_maximinos_fim = g.procura_DFS("Maximinos", fim, path=[], visited=set())
 
-            if (path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
-                    and path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_maximinos[1] + path_maximinos_fim[1]):
+            calendario = path_inicio_calendario[1] + path_calendario_fim[1]
+            casteloes = path_inicio_casteloes[1] + path_casteloes_fim[1]
+            maximinos = path_inicio_maximinos[1] + path_maximinos_fim[1]
+
+            value = min(calendario, casteloes, maximinos)
+
+            if value == calendario:
                 solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:], "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
-            elif(path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
-                 and path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_casteloes[1] + path_casteloes_fim[1]):
+            elif value == maximinos:
                 solucao = (path_inicio_maximinos[0] + path_maximinos_fim[0][1:], "{:.1f}".format(path_inicio_maximinos[1] + path_maximinos_fim[1]))
             else:
                 solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
@@ -128,11 +133,15 @@ def main():
             path_inicio_maximinos = g.procura_BFS(inicio, "Maximinos")
             path_maximinos_fim = g.procura_BFS("Maximinos", fim)
 
-            if (path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
-                    and path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_maximinos[1] + path_maximinos_fim[1]):
+            calendario = path_inicio_calendario[1] + path_calendario_fim[1]
+            casteloes = path_inicio_casteloes[1] + path_casteloes_fim[1]
+            maximinos = path_inicio_maximinos[1] + path_maximinos_fim[1]
+
+            value = min(calendario, casteloes, maximinos)
+
+            if value == calendario:
                 solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:], "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
-            elif(path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
-                 and path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_casteloes[1] + path_casteloes_fim[1]):
+            elif value == maximinos:
                 solucao = (path_inicio_maximinos[0] + path_maximinos_fim[0][1:], "{:.1f}".format(path_inicio_maximinos[1] + path_maximinos_fim[1]))
             else:
                 solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
@@ -161,14 +170,16 @@ def main():
             path_inicio_maximinos = g.procura_aStar(inicio, "Maximinos")
             path_maximinos_fim = g.procura_aStar("Maximinos", fim)
 
-            if (path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
-                    and path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_maximinos[1] +
-                    path_maximinos_fim[1]):
+            calendario = path_inicio_calendario[1] + path_calendario_fim[1]
+            casteloes = path_inicio_casteloes[1] + path_casteloes_fim[1]
+            maximinos = path_inicio_maximinos[1] + path_maximinos_fim[1]
+
+            value = min(calendario, casteloes, maximinos)
+
+            if value == calendario:
                 solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:],
                            "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
-            elif (path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
-                  and path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_casteloes[1] + path_casteloes_fim[
-                      1]):
+            elif value == maximinos:
                 solucao = (path_inicio_maximinos[0] + path_maximinos_fim[0][1:],
                            "{:.1f}".format(path_inicio_maximinos[1] + path_maximinos_fim[1]))
             else:
@@ -197,19 +208,19 @@ def main():
             path_inicio_maximinos = g.greedy(inicio, "Maximinos")
             path_maximinos_fim = g.greedy("Maximinos", fim)
 
-            if (path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
-                    and path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_maximinos[1] +
-                    path_maximinos_fim[1]):
-                solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:],
-                           "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
-            elif (path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
-                  and path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_casteloes[1] + path_casteloes_fim[
-                      1]):
-                solucao = (path_inicio_maximinos[0] + path_maximinos_fim[0][1:],
-                           "{:.1f}".format(path_inicio_maximinos[1] + path_maximinos_fim[1]))
+            calendario = path_inicio_calendario[1] + path_calendario_fim[1]
+            casteloes = path_inicio_casteloes[1] + path_casteloes_fim[1]
+            maximinos = path_inicio_maximinos[1] + path_maximinos_fim[1]
+
+            value = min(calendario, casteloes, maximinos)
+
+            if value == calendario:
+                solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:], "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
+            elif value == maximinos:
+                solucao = (path_inicio_maximinos[0] + path_maximinos_fim[0][1:], "{:.1f}".format(path_inicio_maximinos[1] + path_maximinos_fim[1]))
             else:
-                solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:],
-                           "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
+                solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
+
 
             print(f"Ideal Path: {solucao} | Time taken: {(perf_counter()-start_time)*1000} ms")
 

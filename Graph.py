@@ -82,7 +82,7 @@ class Graph:
         nx.draw_networkx(g, pos, with_labels=True, font_weight='bold')
         labels = nx.get_edge_attributes(g, 'weight')
         nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
-        plt.title("Freguesias de Famalicão")
+        plt.title("Freguesias de Famalicão e Braga")
 
         plt.draw()
         plt.show()
