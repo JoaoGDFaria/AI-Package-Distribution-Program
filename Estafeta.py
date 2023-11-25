@@ -70,26 +70,26 @@ class Estafeta:
         total += rate
         self.rating = total / (self.entregas + 1)
 
-    def calculaPenalizacao(self, veiculo, entrega, suposto, ratingdadocliente, atual):
-        atual+=entrega
-        divisor = 1
-        cont = 0
-        val = 0
-        demora = atual - suposto
+    def calculaPenalizacao(self, veiculo, entrega, suposto, ratingdadocliente):
+        multiplicador = 1
+        pen = 0
+        
+        if veiculo == "carro":
+            multiplicador = 1
 
-        if(demora > 0):
-            return 0
+        elif veiculo == "mota":
+            multiplicador = 1.5
 
-        else:
-            if veiculo == "carro":
-                divisor = 1
-                ############## FALTA DECIDIR COMO PENALIZAR O RATING DO ESTAFETA ################
-            elif veiculo == "mota":
-                divisor = 1.5
-                ############## FALTA DECIDIR COMO PENALIZAR O RATING DO ESTAFETA ################
-            elif veiculo == "bicicleta":
-                divisor = 2
-                ############## FALTA DECIDIR COMO PENALIZAR O RATING DO ESTAFETA ################
+        elif veiculo == "bicicleta":
+            multiplicador = 2
+
+        pen = (entrega / suposto) * multiplicador
+
+        if pen > 4:
+            pen = 4
+        pen += 1
+
+        return pen
 
     def calculaVelocidadeMedia(self, metereologia):
         if metereologia == False and (self.veiculo == "bicicleta" or self.veiculo == "mota"): # False = chuva, veiculos que sofrem penalizacao
@@ -117,11 +117,6 @@ class Estafeta:
 
         vm = self.calculaVelocidadeMedia(metereologia)
 
-        distancia = self.melhorCaminho(locaisEntrega, vm, encomendas) # distancia[0] = distancia total, distancia[1] = caminho, distancia[2] = locaisEntrega
-        valortotal = distancia[0]
-        caminho= distancia[1]
-        ordem= distancia[2]
-
         da = g.procura_BFS(self.localizacao, "Calendário")
         db = g.procura_BFS(self.localizacao, "Castelões")
 
@@ -137,6 +132,11 @@ class Estafeta:
 
         tempolevantamento = encomendas.length * 60
         timeatual += tempolevantamento
+
+        distancia = self.melhorCaminho(locaisEntrega, vm, encomendas)  # distancia[0] = distancia total, distancia[1] = caminho, distancia[2] = locaisEntrega
+        valortotal = distancia[0]
+        caminho = distancia[1]
+        ordem = distancia[2]
 
         iterar = 0
         for i in caminho:

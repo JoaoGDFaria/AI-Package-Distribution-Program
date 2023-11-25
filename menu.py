@@ -1,83 +1,63 @@
 from time import perf_counter
 import Graph as gr
+import os
+import csv
 
 
 def main():
 
     g = gr.Graph()
 
+    gfamalicao = os.path.join('files', 'grafofamalicao.csv')
+    hfamalicao = os.path.join('files', 'heuristicasfamalicao.csv')
+    caminho_arquivo_posicoes = os.path.join('files', 'posfamalicao.csv')
+    plevantamento = os.path.join('files', 'pontosdelevantamento.csv')
 
-    # Definir nodos e arestas - Distância em km entre freguesias
-    g.add_edge("Lousado", "Fradelos", weight=9.2)
-    g.add_edge("Lousado", "Calendário", weight=5.7)
-    g.add_edge("Fradelos", "Gondifelos", weight=10.2)
-    g.add_edge("Gondifelos", "Outiz", weight=5.1)
-    g.add_edge("Outiz", "Calendário", weight=4.2)
-    g.add_edge("Calendário", "Abade de Vermoim", weight=6.0)
-    g.add_edge("Abade de Vermoim", "Cabeçudos", weight=5.2)
-    g.add_edge("Calendário", "Famalicão", weight=4.0)
-    g.add_edge("Famalicão", "Louro", weight=5.1)
-    g.add_edge("Louro", "Nine", weight=4.2)
-    g.add_edge("Famalicão", "Requião", weight=5.2)
-    g.add_edge("Requião", "Castelões", weight=8.0)
-    g.add_edge("Mogege", "Castelões", weight=3.1)
-    g.add_edge("Novais", "Castelões", weight=3.9)
-    g.add_edge("Novais", "Riba de Ave", weight=4.9)
-    g.add_edge("Novais", "Bairro", weight=3.0)
-    g.add_edge("Famalicão", "Cruz", weight=11.4)
-    g.add_edge("Arnoso (S.ta Maria)", "Cruz", weight=3.9)
-    g.add_edge("Telhado", "Cruz", weight=6.2)
-    g.add_edge("Telhado", "Joane", weight=9.0)
+    with open(gfamalicao, 'r') as grafo:
+        leitor_csv = csv.DictReader(grafo)
 
+        for linha in leitor_csv:
+            origem = linha['origem']
+            destino = linha['destino']
+            distancia = float(linha['distancia'])
 
-    # Definir eurísticas - Qualidade das estradas
-        # 1-> Estrada em muito boas condições
-        # 5-> Estrada em muito más condições
-    g.add_heuristica("Lousado", 5)
-    g.add_heuristica("Fradelos", 2)
-    g.add_heuristica("Cabeçudos", 4)
-    g.add_heuristica("Abade de Vermoim", 3)
-    g.add_heuristica("Calendário", 3)
-    g.add_heuristica("Outiz", 1)
-    g.add_heuristica("Gondifelos", 1)
-    g.add_heuristica("Bairro", 5)
-    g.add_heuristica("Riba de Ave", 1)
-    g.add_heuristica("Novais", 5)
-    g.add_heuristica("Castelões", 2)
-    g.add_heuristica("Mogege", 2)
-    g.add_heuristica("Requião", 3)
-    g.add_heuristica("Famalicão", 1)
-    g.add_heuristica("Louro", 5)
-    g.add_heuristica("Nine", 4)
-    g.add_heuristica("Cruz", 2)
-    g.add_heuristica("Arnoso (S.ta Maria)", 1)
-    g.add_heuristica("Telhado", 2)
-    g.add_heuristica("Joane", 3)
+            g.add_edge(origem, destino, distancia)
+
+    pos = {}
+
+    with open(caminho_arquivo_posicoes, 'r') as arquivo_csv_posicoes:
+        leitor_csv_posicoes = csv.DictReader(arquivo_csv_posicoes)
+
+        # Itere sobre as linhas do arquivo CSV das posições
+        for linha in leitor_csv_posicoes:
+            nodo = linha['nodo']
+            posx = int(linha['x'])
+            posy = int(linha['y'])  # Ajuste para inverter a posição y
+
+            # Adicione a posição ao dicionário pos
+            pos[nodo] = (posx, posy)
 
 
-    # Coordenadas fixas para cada nó no gráfico
-    pos = {
-        "Lousado": (486, 960 - 857),
-        "Fradelos": (172, 960 - 744),
-        "Calendário": (486, 960 - 531),
-        "Gondifelos": (172, 960 - 432),
-        "Outiz": (349, 960 - 456),
-        "Abade de Vermoim": (639, 960 - 572),
-        "Famalicão": (527, 960 - 416),
-        "Louro": (428, 960 - 311),
-        "Nine": (428, 960 - 137),
-        "Requião": (705, 960 - 432),
-        "Castelões": (937, 960 - 448),
-        "Mogege": (1021, 960 - 371),
-        "Novais": (904, 960 - 572),
-        "Riba de Ave": (1125, 960 - 604),
-        "Bairro": (953, 960 - 712),
-        "Cruz": (648, 960 - 255),
-        "Arnoso (S.ta Maria)": (623, 960 - 96),
-        "Telhado": (836, 960 - 199),
-        "Joane": (970, 960 - 255),
-        "Cabeçudos": (615, 960 - 736),
-    }
+    with open(hfamalicao, 'r') as h:
+        leitor_csv_heuristicas = csv.DictReader(h)
+
+        # Itere sobre as linhas do arquivo CSV das heurísticas
+        for linha in leitor_csv_heuristicas:
+            nodo = linha['nodo']
+            heuristica = int(linha['heuristica'])
+
+            # Adicione a heurística ao dicionário de heurísticas
+            g.add_heuristica(nodo, heuristica)
+
+    pontoslevantamento = []
+
+    with open(plevantamento, 'r') as lev:
+        l = csv.DictReader(lev)
+
+        for linha in l:
+            nodo = linha['nodo']
+
+            pontoslevantamento.append(nodo)
 
     saida = -1
     while saida != 0:
@@ -113,8 +93,15 @@ def main():
             path_inicio_casteloes = g.procura_DFS(inicio, "Castelões", path=[], visited=set())
             path_casteloes_fim = g.procura_DFS("Castelões", fim, path=[], visited=set())
 
-            if path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]:
+            path_inicio_maximinos = g.procura_DFS(inicio, "Maximinos", path=[], visited=set())
+            path_maximinos_fim = g.procura_DFS("Maximinos", fim, path=[], visited=set())
+
+            if (path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
+                    and path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_maximinos[1] + path_maximinos_fim[1]):
                 solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:], "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
+            elif(path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
+                 and path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_casteloes[1] + path_casteloes_fim[1]):
+                solucao = (path_inicio_maximinos[0] + path_maximinos_fim[0][1:], "{:.1f}".format(path_inicio_maximinos[1] + path_maximinos_fim[1]))
             else:
                 solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
 
@@ -138,10 +125,18 @@ def main():
             path_inicio_casteloes = g.procura_BFS(inicio, "Castelões")
             path_casteloes_fim = g.procura_BFS("Castelões", fim)
 
-            if path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]:
+            path_inicio_maximinos = g.procura_BFS(inicio, "Maximinos")
+            path_maximinos_fim = g.procura_BFS("Maximinos", fim)
+
+            if (path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
+                    and path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_maximinos[1] + path_maximinos_fim[1]):
                 solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:], "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
+            elif(path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
+                 and path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_casteloes[1] + path_casteloes_fim[1]):
+                solucao = (path_inicio_maximinos[0] + path_maximinos_fim[0][1:], "{:.1f}".format(path_inicio_maximinos[1] + path_maximinos_fim[1]))
             else:
                 solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
+
 
             print(f"Ideal Path: {solucao} | Time taken: {(perf_counter()-start_time)*1000} ms")
 
@@ -163,10 +158,22 @@ def main():
             path_inicio_casteloes = g.procura_aStar(inicio, "Castelões")
             path_casteloes_fim = g.procura_aStar("Castelões", fim)
 
-            if path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]:
-                solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:], "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
+            path_inicio_maximinos = g.procura_aStar(inicio, "Maximinos")
+            path_maximinos_fim = g.procura_aStar("Maximinos", fim)
+
+            if (path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
+                    and path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_maximinos[1] +
+                    path_maximinos_fim[1]):
+                solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:],
+                           "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
+            elif (path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
+                  and path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_casteloes[1] + path_casteloes_fim[
+                      1]):
+                solucao = (path_inicio_maximinos[0] + path_maximinos_fim[0][1:],
+                           "{:.1f}".format(path_inicio_maximinos[1] + path_maximinos_fim[1]))
             else:
-                solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
+                solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:],
+                           "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
 
             print(f"Ideal Path: {solucao} | Time taken: {(perf_counter()-start_time)*1000} ms")
 
@@ -187,10 +194,22 @@ def main():
             path_inicio_casteloes = g.greedy(inicio, "Castelões")
             path_casteloes_fim = g.greedy("Castelões", fim)
 
-            if path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]:
-                solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:], "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
+            path_inicio_maximinos = g.greedy(inicio, "Maximinos")
+            path_maximinos_fim = g.greedy("Maximinos", fim)
+
+            if (path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
+                    and path_inicio_casteloes[1] + path_casteloes_fim[1] >= path_inicio_maximinos[1] +
+                    path_maximinos_fim[1]):
+                solucao = (path_inicio_calendario[0] + path_calendario_fim[0][1:],
+                           "{:.1f}".format(path_inicio_calendario[1] + path_calendario_fim[1]))
+            elif (path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_calendario[1] + path_calendario_fim[1]
+                  and path_inicio_maximinos[1] + path_maximinos_fim[1] >= path_inicio_casteloes[1] + path_casteloes_fim[
+                      1]):
+                solucao = (path_inicio_maximinos[0] + path_maximinos_fim[0][1:],
+                           "{:.1f}".format(path_inicio_maximinos[1] + path_maximinos_fim[1]))
             else:
-                solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:], "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
+                solucao = (path_inicio_casteloes[0] + path_casteloes_fim[0][1:],
+                           "{:.1f}".format(path_inicio_casteloes[1] + path_casteloes_fim[1]))
 
             print(f"Ideal Path: {solucao} | Time taken: {(perf_counter()-start_time)*1000} ms")
 
