@@ -4,6 +4,10 @@ import random
 import Graph as g
 from itertools import permutations
 
+#TODO - O calculo do melhor caminho so usa um algoritmo
+#TODO - Verificar antes de encomenda qual o veiculo mais proveitoso para a entrega
+#TODO - Verificar se é suposto escolher o veiculo aquando do pedido
+
 class Estafeta:
 
     def __init__(self, veiculo, localizacao, nome, gl):

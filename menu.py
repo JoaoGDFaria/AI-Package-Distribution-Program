@@ -4,6 +4,9 @@ import os
 import csv
 
 
+#TODO Reutilizar código das pesquisas do menu
+#TODO Gerar a encomenda e tratar da sua entrega
+
 def main():
 
     g = gr.Graph()
