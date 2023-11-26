@@ -1,7 +1,6 @@
 from time import perf_counter
 import Graph as gr
-import os
-import csv
+import pandas as pd
 
 
 #TODO Reutilizar código das pesquisas do menu
@@ -11,57 +10,28 @@ def main():
 
     g = gr.Graph()
 
-    gfamalicao = os.path.join('files', 'grafofamalicao.csv')
-    hfamalicao = os.path.join('files', 'heuristicasfamalicao.csv')
-    caminho_arquivo_posicoes = os.path.join('files', 'posfamalicao.csv')
-    plevantamento = os.path.join('files', 'pontosdelevantamento.csv')
+    df_grafo = pd.read_csv("files/Grafo/grafo.csv", encoding='utf-8')
+    for linha in df_grafo.itertuples(index=False):
+        g.add_edge(linha.origem, linha.destino, float(linha.distancia))
 
-
-    with open(gfamalicao, 'r') as grafo:
-        leitor_csv = csv.DictReader(grafo)
-
-        for linha in leitor_csv:
-            origem = linha['origem']
-            destino = linha['destino']
-            distancia = float(linha['distancia'])
-
-            g.add_edge(origem, destino, distancia)
 
     pos = {}
-
-    with open(caminho_arquivo_posicoes, 'r') as arquivo_csv_posicoes:
-        leitor_csv_posicoes = csv.DictReader(arquivo_csv_posicoes)
-
-        # Itere sobre as linhas do arquivo CSV das posições
-        for linha in leitor_csv_posicoes:
-            nodo = linha['nodo']
-            posx = int(linha['x'])
-            posy = int(linha['y'])  # Ajuste para inverter a posição y
-
-            # Adicione a posição ao dicionário pos
-            pos[nodo] = (posx, posy)
+    df_posicoes = pd.read_csv("files/Grafo/posGrafo.csv", encoding='utf-8')
+    for linha in df_posicoes.itertuples(index=False):
+        pos[linha.nodo] = (int(linha.x), int(linha.y))
 
 
-    with open(hfamalicao, 'r') as h:
-        leitor_csv_heuristicas = csv.DictReader(h)
+    df_h_grafo = pd.read_csv("files/Grafo/heristicasGrafo.csv", encoding='utf-8')
+    for linha in df_h_grafo.itertuples(index=False):
+        g.add_heuristica(linha.nodo, int(linha.heuristica))
 
-        # Itere sobre as linhas do arquivo CSV das heurísticas
-        for linha in leitor_csv_heuristicas:
-            nodo = linha['nodo']
-            heuristica = int(linha['heuristica'])
-
-            # Adicione a heurística ao dicionário de heurísticas
-            g.add_heuristica(nodo, heuristica)
 
     pontoslevantamento = []
+    df_postosLevantamento = pd.read_csv("files/Grafo/postosLevantamento.csv", encoding='utf-8')
+    for linha in df_postosLevantamento.itertuples(index=False):
+        pontoslevantamento.append(linha.nodo)
 
-    with open(plevantamento, 'r') as lev:
-        l = csv.DictReader(lev)
 
-        for linha in l:
-            nodo = linha['nodo']
-
-            pontoslevantamento.append(nodo)
 
     saida = -1
     while saida != 0:

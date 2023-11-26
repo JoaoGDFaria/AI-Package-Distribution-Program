@@ -4,7 +4,6 @@ class Encomenda:
 
     def __init__(self, peso, precoBase, localEntrega, idCliente, tempoInicio, tempoFim, gl):
         self.idCliente = idCliente
-        ## self.idEstafeta = idEstafeta     A determinar por algoritmo
         self.peso = peso
         self.precoBase = precoBase
         self.localEntrega = localEntrega
@@ -12,12 +11,20 @@ class Encomenda:
         self.tempoFim = tempoFim
         self.gl = gl
         self.gl.add_encomenda(self)
+        self.determinarEstafeta()
+
+        # Segundos de diferença para calcular velocidade média
+        seconds_difference = (tempoFim-tempoInicio).total_seconds()
 
 
     # Determinar estafeta a utilizar
     def determinarEstafeta(self):
-        if self.peso > 20:
+        if self.peso > 100:
+            print("Não é possível transportar encomendas com mais de 100kg!")
+            return
+        elif self.peso > 20:
             self.veiculo = "carro"
+            self.gl.get_estafetasByVehicle(self.veiculo)
 
 
         self.precoEntrega()

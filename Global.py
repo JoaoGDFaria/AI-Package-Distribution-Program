@@ -27,6 +27,12 @@ class Global:
     def get_estafeta(self, id):
         return self.todos_estafetas.get(id, None)
 
+    def get_estafetasByVehicle(self, veiculo):
+        list = []
+        for estafeta in self.todos_estafetas.values():
+            list.append(estafeta)
+        return list
+
 
     def printAllGlobal(self):
         for id, info in self.todos_clientes.items():
