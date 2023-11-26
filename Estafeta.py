@@ -10,13 +10,13 @@ from itertools import permutations
 
 class Estafeta:
 
-    def __init__(self, veiculo, localizacao, nome, gl):
+    def __init__(self, veiculo, localizacao, nome, rating, num, gl):
         self.veiculo = veiculo
         self.id = id
-        self.rating = 0
+        self.rating = rating
         self.atraso = 0
         self.nome = nome
-        self.entregas = 0
+        self.entregas = num
         self.localizacao = localizacao
         self.pesoMaximo = info.infoPesoMaximo[veiculo]
         self.velocidadeMedia = info.infoVelocidadeMedia[veiculo]
@@ -30,31 +30,31 @@ class Estafeta:
         self.localizacao = localizacao
 
     def melhorCaminho(self, locaisentrega, velocidadeMedia, encomendas):
-        i = []
-        valor=0
-        temp=0
-        mp=[]
-        pentempo = 0
-        perm = []
+        localinicial = self.localizacao
+        caminho = []
+        penalizacao = -1
+        ordementrega = []
+
         all_permutations = list(permutations(locaisentrega))
         for i in all_permutations:
-            temp = self.pesoCaminho(i, velocidadeMedia, encomendas)
-            if pentempo == 0:
-                valor = temp[0]
-                mp = temp[1]
-                pentempo = temp[2]
-                perm = i
-            if temp[2] < pentempo:
-                valor = temp[0]
-                mp=temp[1]
-                pentempo = temp[2]
-                perm = i
-        return valor,mp,perm,pentempo
+            temp = self.tempoCaminho(localinicial, i, velocidadeMedia, encomendas)
 
-    def pesoCaminho(self, locaisentrega, velocidadeMedia, encomendas):
+            if penalizacao == -1:
+                penalizacao = temp[1]
+                caminho = temp[0]
+                ordementrega = i
+
+            if temp[1] < penalizacao:
+                penalizacao = temp[1]
+                caminho = temp[0]
+                ordementrega = i
+
+        return penalizacao, caminho, ordementrega
+
+    def tempoCaminho(self, localinicial, locaisentrega, velocidadeMedia, encomendas):
         t = ([],0)
-        valor = 0
         tp = 0
+        pen = 0
         caminho = []
         for i in locaisentrega:
             t = g.procura_BFS(self.localizacao, i)
@@ -62,12 +62,12 @@ class Estafeta:
                 if j.localizacao == i:
                     tp = j.tempoPedido
             pen = t[1] / velocidadeMedia
-            if(tp < pen):
+            if tp < pen:
                 pen = pen - tp
             caminho.append(t[0])
-            valor+=t[1]
             self.localizacao = i
-        return valor,caminho,pen
+        self.localizacao = localinicial
+        return caminho,pen
 
     def mudaRating(self, rate):
         total = self.rating * self.entregas
@@ -112,6 +112,7 @@ class Estafeta:
 
     # Fazer uma determianda entrega com base nas encomendas a entregar
     def fazerEntrega(self, encomendas, locaisEntrega, metereologia, ratingdadocliente, timeatual):
+        tinicio = timeatual
         self.disponivel = False
         inicio = self.localizacao
         distanciapornodo = 0
@@ -137,8 +138,8 @@ class Estafeta:
         tempolevantamento = encomendas.length * 60
         timeatual += tempolevantamento
 
-        distancia = self.melhorCaminho(locaisEntrega, vm, encomendas)  # distancia[0] = distancia total, distancia[1] = caminho, distancia[2] = locaisEntrega
-        valortotal = distancia[0]
+        distancia = self.melhorCaminho(locaisEntrega, vm, encomendas)  # distancia[0] -> tempo geral penalização, distancia[1] -> caminho, distancia[2] -> ordem de entrega
+        tempototalpenalizacao = distancia[0]
         caminho = distancia[1]
         ordem = distancia[2]
 
@@ -146,11 +147,21 @@ class Estafeta:
         for i in caminho:
             while(i!=ordem[iterar]):
                 distanciapornodo += g.procura_BFS(self.localizacao, i)[1]
+
             if(i==ordem[iterar]):
                 tempogastoporencomenda = distanciapornodo/self.velocidadeMedia
                 pen = self.calculaPenalizacao(self.veiculo, tempogastoporencomenda, encomendas[iterar].tempoEntrega, ratingdadocliente, timeatual)
-                rate = 5 - pen
+                timeatual += tempogastoporencomenda
+
+                tempogastonestaencomenda = timeatual - tinicio
+                tempogastonestaencomenda -= encomendas[iterar].tempoEntrega
+                if tempogastonestaencomenda <= 0:
+                    tempogastonestaencomenda = 0
+
+                ratingdadocliente = int(input(f"A encomenda chegou com {tempogastonestaencomenda} segundos de atraso \n Qual a avaliação que faz da entrega? -> "))
+                rate = 5 - (pen + ratingdadocliente) / 2
                 self.mudaRating(rate)
+
                 iterar+=1
 
         # Redifine tudo para o estado inicial
