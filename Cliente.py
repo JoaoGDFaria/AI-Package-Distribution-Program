@@ -13,6 +13,7 @@ class Cliente:
     def criarEncomenda(self, peso, precoBase, tempoInicio, tempoFim):
         enc = Encomenda(peso, precoBase, self.localizacao, self.id, tempoInicio, tempoFim, self.gl)
         self.encomendas.append(enc)
+        return enc
 
     def mudarLocalizacao(self, localizacao):
         self.localizacao = localizacao

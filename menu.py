@@ -37,29 +37,36 @@ def main():
         print("5-Gulosa")
         print("0-Sair")
 
-        saida = int(input("Introduza a sua opção-> "))
 
-        if saida == 0:
-            print("Saindo .......")
-            break
+        try:
 
-        elif saida == 1:
-            g.desenha(pos)
+            saida = int(input("Introduza a sua opção-> "))
 
-        elif saida == 2:
-            auxFunction(g.procura_DFS, pontoslevantamento, g)
+            if saida == 0:
+                print("Saindo .......")
+                break
 
-        elif saida == 3:
-            auxFunction(g.procura_BFS, pontoslevantamento, g)
+            elif saida == 1:
+                g.desenha(pos)
 
-        elif saida == 4:
-            auxFunction(g.procura_aStar, pontoslevantamento, g)
+            elif saida == 2:
+                auxFunction(g.procura_DFS, pontoslevantamento, g)
 
-        elif saida == 5:
-            auxFunction(g.greedy, pontoslevantamento, g)
+            elif saida == 3:
+                auxFunction(g.procura_BFS, pontoslevantamento, g)
 
-        else:
-            print("You didn't add anything")
+            elif saida == 4:
+                auxFunction(g.procura_aStar, pontoslevantamento, g)
+
+            elif saida == 5:
+                auxFunction(g.greedy, pontoslevantamento, g)
+
+            else:
+                print("Please insert a valid number")
+                input("Prima Enter para continuar")
+
+        except ValueError:
+            print("Please insert a valid input")
             input("Prima Enter para continuar")
 
 
