@@ -11,74 +11,60 @@ class Entrega:
         self.graph = graph
         self.metereologia = metereologia
         self.tempoInicio = tempoInicio
-
         self.estafeta.disponivel = False
         self.localizacaoInicio = self.estafeta.localizacao
         self.distanciatotal = 0
         self.locaisEntrega = [encomenda.localEntrega for encomenda in self.listaEncomendas]
-        #self.pesoTotalEncomendas = sum(self.listaEncomendas.peso)
-        #self.calculaVelocidadeMedia(self.metereologia, self.pesoTotalEncomendas)
+        self.pesoTotalEncomendas = sum(encomenda.peso for encomenda in self.listaEncomendas)
+        self.calculaVelocidadeMedia(self.metereologia, self.pesoTotalEncomendas)
         self.velocidadeMedia = self.estafeta.velocidadeMedia
         self.pontosRecolha = pontosRecolha
+        (a, b, c) = self.melhorCaminho()
+        print((a, b, c))
 
-
-
-
-
-        all_permutations_path = list(permutations(self.locaisEntrega))
-        all_paths = []
-
-        for pRecolha in self.pontosRecolha:
-            for path in all_permutations_path:
-                all_paths.append([self.localizacaoInicio, pRecolha] + list(path))
-
-
-        for p in all_paths:
-            print(f"{p}\n")
 
     def melhorCaminho(self):
-        caminho = []
-        penalizacao = -1
-        ordementrega = []
-
         all_permutations_path = list(permutations(self.locaisEntrega))
-        all_paths = [[]]
+        penalizacao = -1
 
         for pRecolha in self.pontosRecolha:
             for path in all_permutations_path:
-                all_paths.append([self.localizacaoInicio, pRecolha] + path)
+                all_paths = [pRecolha] + list(path)
+                print(self.localizacaoInicio, all_paths, self.velocidadeMedia, self.listaEncomendas)
+                temp = self.tempoCaminho(self.localizacaoInicio, all_paths, self.velocidadeMedia, self.listaEncomendas)
 
+                if penalizacao == -1:
+                    penalizacao = temp[1]
+                    caminho = temp[0]
+                    ordementrega = all_paths
 
-        for i in all_permutations:
-            temp = self.tempoCaminho(self.estafeta.localizacao, i, velocidadeMedia, listaEncomendas)
-
-            if penalizacao == -1:
-                penalizacao = temp[1]
-                caminho = temp[0]
-                ordementrega = i
-
-            if temp[1] < penalizacao:
-                penalizacao = temp[1]
-                caminho = temp[0]
-                ordementrega = i
+                if temp[1] < penalizacao:
+                    penalizacao = temp[1]
+                    caminho = temp[0]
+                    ordementrega = all_paths
 
         return penalizacao, caminho, ordementrega
 
     def tempoCaminho(self, localinicial, locaisentrega, velocidadeMedia, listaEncomendas):
-        t = ([], 0)
-        tp = 0
         pen = 0
         caminho = []
-        for i in locaisentrega:
-            t = self.graph.procura_BFS(self.estafeta.localizacao, i)
-            for j in listaEncomendas:
-                if j.localizacao == i:
-                    tp = j.tempoPedido
-            pen = t[1] / velocidadeMedia
-            if tp < pen:
-                pen = pen - tp
+
+        for local in locaisentrega:
+            t = self.graph.procura_BFS(self.estafeta.localizacao, local)
+            tempoFim = datetime(year=2023, month=11, day=22, hour=22, minute=30)
+
+            for encomenda in listaEncomendas:
+                if encomenda.localizacao == local:
+                    tempoFim = encomenda.tempoFim
+
+            tempoEntrega = (t[1] / velocidadeMedia)*3600
+            finalizacaoRealDaEncomenda = encomenda.tempoInicio+timedelta(seconds=tempoEntrega)
+
+            if tempoFim < finalizacaoRealDaEncomenda:
+                tempoPenalizacao = finalizacaoRealDaEncomenda - tempoFim
             caminho.append(t[0])
-            self.estafeta.localizacao = i
+            self.estafeta.localizacao = local
+
         self.estafeta.localizacao = localinicial
         return caminho, pen
 
@@ -133,26 +119,27 @@ class Entrega:
 
         tempoFinal = self.tempoInicio + timedelta(minutes=self.listaEncomendas.length)
 
-        distancia = self.melhorCaminho(self.locaisEntrega, self.velocidadeMedia, self.listaEncomendas)  # distancia[0] -> tempo geral penalização, distancia[1] -> caminho, distancia[2] -> ordem de entrega
+        distancia = self.melhorCaminho()  # distancia[0] -> tempo geral penalização, distancia[1] -> caminho, distancia[2] -> ordem de entrega
         tempototalpenalizacao = distancia[0]
         caminho = distancia[1]
         ordem = distancia[2]
-
+        timeatual=0
         iterar = 0
         numparagens = self.listaEncomendas.length
         cont = 0
+
         for i in caminho:
             while cont < numparagens:
                 self.distanciatotal += self.graph.get_arc_cost(self.estafeta.localizacao, i)
                 self.estafeta.localizacao = i
 
-                if (i == ordem[iterar]):
-                    tempogastoporencomenda = distanciatotal / self.estafeta.velocidadeMedia
-                    pen = self.estafeta.calculaPenalizacao(self.estafeta.veiculo, tempogastoporencomenda, listaEncomendas[iterar].tempoEntrega)
+                if i == ordem[iterar]:
+                    tempogastoporencomenda = self.distanciatotal / self.estafeta.velocidadeMedia
+                    pen = self.estafeta.calculaPenalizacao(self.estafeta.veiculo, tempogastoporencomenda, self.listaEncomendas[iterar].tempoEntrega)
                     timeatual += tempogastoporencomenda
 
-                    tempogastonestaencomenda = timeatual - tempoInicio
-                    tempogastonestaencomenda -= listaEncomendas[iterar].tempoEntrega
+                    tempogastonestaencomenda = timeatual - self.tempoInicio
+                    tempogastonestaencomenda -= self.listaEncomendas[iterar].tempoEntrega
                     if tempogastonestaencomenda <= 0:
                         tempogastonestaencomenda = 0
 
@@ -166,6 +153,6 @@ class Entrega:
 
         # Redifine tudo para o estado inicial
         self.estafeta.velocidadeMaxima = info.infoVelocidadeMedia[self.estafeta.veiculo]
-        self.estafeta.localizacao = locaisEntrega[-1]
+        self.estafeta.localizacao = self.locaisEntrega[-1]
         self.estafeta.disponivel = True
 

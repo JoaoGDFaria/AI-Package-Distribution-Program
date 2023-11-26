@@ -2,14 +2,16 @@ import info
 from Global import Global
 class Encomenda:
 
-    def __init__(self, peso, precoBase, localEntrega, idCliente, tempoInicio, tempoFim, gl):
+    def __init__(self, peso, precoBase, localEntrega, idCliente, tempoInicio, tempoFim, localizacao, gl):
         self.idCliente = idCliente
         self.peso = peso
+        self.localizacao = localizacao
         self.precoBase = precoBase
         self.localEntrega = localEntrega
         self.tempoInicio = tempoInicio
         self.tempoFim = tempoFim
         self.gl = gl
+        self.veiculo = ""
         self.gl.add_encomenda(self)
         self.determinarEstafeta()
 
