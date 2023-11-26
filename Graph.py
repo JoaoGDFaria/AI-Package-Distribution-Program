@@ -107,11 +107,12 @@ class Graph:
 
 
 
-
-
-
     # Procura em profundidade
-    def procura_DFS(self, start, end, path=[], visited=set()):
+    def procura_DFS(self, start, end):
+        return self.procura_DFS_aux(start, end, path=[], visited=set())
+
+
+    def procura_DFS_aux(self, start, end, path, visited):
         path.append(start)
         visited.add(start)
 
@@ -121,7 +122,7 @@ class Graph:
             return (path, custoT)
         for (adjacente, peso) in self.m_graph[start]:
             if adjacente not in visited:
-                resultado = self.procura_DFS(adjacente, end, path, visited)
+                resultado = self.procura_DFS_aux(adjacente, end, path, visited)
                 if resultado is not None:
                     return resultado
         path.pop()  # Se nao encontra, remover o que está no caminho

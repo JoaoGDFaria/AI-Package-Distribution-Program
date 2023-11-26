@@ -39,7 +39,7 @@ class Global:
             print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Encomendas: {info.encomendas}")
         print("-----------------------------")
         for id, info in self.todos_estafetas.items():
-            print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Veiculo: {info.veiculo}")
+            print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Veiculo: {info.veiculo}, Rating: {info.rating}, Número de Viagens: {info.entregas}")
         print("-----------------------------")
         for id, info in self.todos_encomendas.items():
             print(f"ID: {id}, IdCliente: {info.idCliente}, Peso: {info.peso}, Preço Base: {info.precoBase}, LocalEntrega: {info.localEntrega}, Tempo Inicio: {info.tempoInicio}, Tempo Fim: {info.tempoFim}")
