@@ -35,6 +35,7 @@ def main():
         print("3-BFS")
         print("4-A*")
         print("5-Gulosa")
+        #print("9-Remover ligação do grafo")
         print("0-Sair")
 
 
@@ -60,6 +61,14 @@ def main():
 
             elif saida == 5:
                 auxFunction(g.greedy, pontoslevantamento, g)
+
+            #elif saida == 9:
+                #origem = input("Nodo de origem-> ")
+                #destino = input("Nodo de destino-> ")
+
+                #g.del_route(origem, destino)
+
+                #input("Prima Enter para continuar")
 
             else:
                 print("Please insert a valid number")

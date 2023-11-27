@@ -1,5 +1,8 @@
 import math
 from queue import Queue
+
+from networkx import is_connected
+
 from Nodo import Node
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -307,3 +310,23 @@ class Graph:
 
         print('Path does not exist!')
         return None
+
+    def del_route(self, nodea, nodeb):
+        print("Entrei")
+        value = self.get_arc_cost(nodea, nodeb)
+        print(value)
+        copia = self.m_graph.copy()
+        print("Fiz copia")
+        #copia[nodea].remove(nodeb)
+        #print("Removi da copia")
+        #copia[nodeb].remove(nodea)
+        #print("Removi da copia")
+
+
+        #if is_connected(copia):
+            #print("Grafo continua conexo, alterações efetuadas.")
+            #self.m_graph = copia
+
+        #else:
+            #print("Grafo desconexo, alterações não efetuadas.")
+
