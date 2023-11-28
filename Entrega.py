@@ -1,3 +1,5 @@
+from time import perf_counter
+
 import info
 import random
 from itertools import permutations
@@ -5,68 +7,84 @@ from datetime import datetime, timedelta
 
 
 class Entrega:
-    def __init__(self, listaEncomendas, estafeta, graph, metereologia, tempoInicio, pontosRecolha):
+    def __init__(self, listaEncomendas, graph, metereologia, tempoInicio, tempoFim, pontosRecolha, gl):
         self.listaEncomendas = listaEncomendas
-        self.estafeta = estafeta
         self.graph = graph
         self.metereologia = metereologia
         self.tempoInicio = tempoInicio
-        self.estafeta.disponivel = False
-        self.localizacaoInicio = self.estafeta.localizacao
-        self.distanciatotal = 0
+        self.tempoFim = tempoFim
         self.locaisEntrega = [encomenda.localEntrega for encomenda in self.listaEncomendas]
         self.pesoTotalEncomendas = sum(encomenda.peso for encomenda in self.listaEncomendas)
-        self.calculaVelocidadeMedia(self.metereologia, self.pesoTotalEncomendas)
-        self.velocidadeMedia = self.estafeta.velocidadeMedia
         self.pontosRecolha = pontosRecolha
+        self.gl = gl
+
         (a, b, c) = self.melhorCaminho()
         print((a, b, c))
+
+        # self.calculaVelocidadeMedia(self.metereologia, self.pesoTotalEncomendas)
+        # self.localizacaoInicio = self.estafeta.localizacao
 
 
     def melhorCaminho(self):
         all_permutations_path = list(permutations(self.locaisEntrega))
-        penalizacao = -1
+        path_ideal = []
+        custo_ideal = float("inf")
 
-        for pRecolha in self.pontosRecolha:
-            for path in all_permutations_path:
-                all_paths = [pRecolha] + list(path)
-                print(self.localizacaoInicio, all_paths, self.velocidadeMedia, self.listaEncomendas)
-                temp = self.tempoCaminho(self.localizacaoInicio, all_paths, self.velocidadeMedia, self.listaEncomendas)
+        start_time = perf_counter()
+        for posicaoInicial in self.gl.get_estafetas_available(self.pesoTotalEncomendas):
+            for pontoRecolha in self.pontosRecolha:
+                for path in all_permutations_path:
+                    all_paths = [pontoRecolha] + list(path)
 
-                if penalizacao == -1:
-                    penalizacao = temp[1]
-                    caminho = temp[0]
-                    ordementrega = all_paths
+                    (path, custo) = self.calculaMelhorCaminho(posicaoInicial, all_paths)
 
-                if temp[1] < penalizacao:
-                    penalizacao = temp[1]
-                    caminho = temp[0]
-                    ordementrega = all_paths
+                    if custo < custo_ideal:
+                        custo_ideal = custo
+                        path_ideal = path
+                        print(all_paths)
+        print(f"Time taken: {(perf_counter() - start_time) * 1000 :.2f} ms")
+        print(path_ideal)
+        print(custo_ideal)
 
-        return penalizacao, caminho, ordementrega
+        velocidade_media = self.calculaVelocidadeDeEntrega(custo_ideal)
+        print(f"Velocidade média: {velocidade_media} km/h")
+        print(f"Peso: {self.pesoTotalEncomendas} kg")
 
-    def tempoCaminho(self, localinicial, locaisentrega, velocidadeMedia, listaEncomendas):
-        pen = 0
-        caminho = []
+                    #temp = self.tempoCaminho(posicaoInicial, all_paths, self.listaEncomendas)
+
+                    # if penalizacao == -1:
+                    #     penalizacao = temp[1]
+                    #     caminho = temp[0]
+                    #     ordementrega = all_paths
+                    #
+                    # if temp[1] < penalizacao:
+                    #     penalizacao = temp[1]
+                    #     caminho = temp[0]
+                    #     ordementrega = all_paths
+
+        #return penalizacao, caminho, ordementrega
+
+    def tempoCaminho(self, localinicial, locaisentrega, listaEncomendas):
+        penalizacao = 0
+        caminho_ideal = []
 
         for local in locaisentrega:
-            t = self.graph.procura_BFS(self.estafeta.localizacao, local)
-            tempoFim = datetime(year=2023, month=11, day=22, hour=22, minute=30)
+            (path,custo) = self.graph.procura_BFS(self.estafeta.localizacao, local)
 
             for encomenda in listaEncomendas:
                 if encomenda.localizacao == local:
                     tempoFim = encomenda.tempoFim
 
-            tempoEntrega = (t[1] / velocidadeMedia)*3600
+            tempoEntrega = (path / velocidadeMedia)*3600
             finalizacaoRealDaEncomenda = encomenda.tempoInicio+timedelta(seconds=tempoEntrega)
 
             if tempoFim < finalizacaoRealDaEncomenda:
-                tempoPenalizacao = finalizacaoRealDaEncomenda - tempoFim
-            caminho.append(t[0])
+                penalizacao = finalizacaoRealDaEncomenda - tempoFim
+            caminho_ideal.append(custo)
             self.estafeta.localizacao = local
 
         self.estafeta.localizacao = localinicial
-        return caminho, pen
+        return caminho_ideal, penalizacao
 
     def mudaRating(self, rate):
         total = self.estafeta.rating * self.estafeta.numentregas
@@ -155,4 +173,40 @@ class Entrega:
         self.estafeta.velocidadeMaxima = info.infoVelocidadeMedia[self.estafeta.veiculo]
         self.estafeta.localizacao = self.locaisEntrega[-1]
         self.estafeta.disponivel = True
+
+
+    def calculaVelocidadeDeEntrega(self, distancia):
+        intervaloDeTempo = self.get_tempo_encomenda() -self.tempoInicio
+        intervaloDeTempoEmHoras = intervaloDeTempo.total_seconds() / 3600
+
+        velocidadeMedia = distancia/intervaloDeTempoEmHoras
+        return velocidadeMedia
+
+
+    def calculaMelhorCaminho(self, localinicial, locaisentrega):
+        custo_final = 0
+        caminho_final = []
+
+        for local in locaisentrega:
+            (path, custo) = self.graph.procura_BFS(localinicial, local)
+            localinicial = local
+
+            if caminho_final != [] and caminho_final[-1] == path[0]:
+                caminho_final.extend(path[1:])
+            else:
+                caminho_final.extend(path)
+            custo_final += custo
+
+        return caminho_final, custo_final
+
+
+    def get_tempo_encomenda(self):
+        tempoMinimo = datetime.max
+        for encomenda in self.listaEncomendas:
+            if encomenda.tempoFim < tempoMinimo:
+                tempoMinimo = encomenda.tempoFim
+        return tempoMinimo
+
+
+
 
