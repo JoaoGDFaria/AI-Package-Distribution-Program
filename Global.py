@@ -34,16 +34,28 @@ class Global:
         return list
 
     def get_all_estafetas_available(self, peso):
-        localizacao_set = set()
+        todas_possibilidades = {}
         for estafeta in self.todos_estafetas.values():
             if estafeta.disponivel and estafeta.pesoMaximo >= peso:
-                localizacao_set.add(estafeta.localizacao)
-        return localizacao_set
+                value = (estafeta.rating, estafeta.veiculo, estafeta.localizacao)
+                key = (value[2], value[1])
+                rat = value[0]
+
+                if key in todas_possibilidades:
+                    rating_estafeta = todas_possibilidades.get(key)
+
+                    if rating_estafeta < rat:
+                        todas_possibilidades[key] = rat
+
+                else:
+                    todas_possibilidades[key] = rat
+
+        return todas_possibilidades
 
 
-    def get_estafeta_available_by_location(self, peso, localizacao):
+    def get_estafeta_available_by_location(self, localizacao, veiculo):
         for estafeta in self.todos_estafetas.values():
-            if estafeta.disponivel and estafeta.pesoMaximo >= peso and estafeta.localizacao == localizacao:
+            if estafeta.disponivel and estafeta.veiculo == veiculo and estafeta.localizacao == localizacao:
                 return estafeta
 
 
