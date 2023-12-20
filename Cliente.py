@@ -11,6 +11,9 @@ class Cliente:
         self.id = self.gl.add_cliente(self)
 
     def criarEncomenda(self, peso, precoBase, tempoInicio, tempoFim):
+        if peso > 100:
+            print("Não é possível transportar encomendas com mais de 100kg!")
+            return
         enc = Encomenda(peso, precoBase, self.localizacao, self.id, tempoInicio, tempoFim, self.localizacao, self.gl)
         self.encomendas.append(enc)
         return enc

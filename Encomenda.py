@@ -21,14 +21,7 @@ class Encomenda:
 
     # Determinar estafeta a utilizar
     def determinarEstafeta(self):
-        if self.peso > 100:
-            print("Não é possível transportar encomendas com mais de 100kg!")
-            return
-        elif self.peso > 20:
-            self.veiculo = "carro"
-            self.gl.get_estafetasByVehicle(self.veiculo)
-
-
+        self.gl.get_estafetasByVehicle(self.veiculo)
         self.precoEntrega()
 
 
