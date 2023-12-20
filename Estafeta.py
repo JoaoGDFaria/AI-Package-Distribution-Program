@@ -1,7 +1,5 @@
 import info
-
-#TODO - Verificar antes de encomenda qual o veiculo mais proveitoso para a entrega
-#TODO - Verificar se é suposto escolher o veiculo aquando do pedido
+import random
 
 class Estafeta:
 
@@ -19,3 +17,34 @@ class Estafeta:
         self.disponivel = True
         self.gl = gl
         self.gl.add_estafeta(self)
+
+
+    def setDisponivel (self, disponivel):
+        self.disponivel = disponivel
+
+
+
+    def calculaVelocidadeMedia(self, metereologia, pesoTotalEncomendas):
+        velocidadeInicial = self.velocidadeMedia
+        self.velocidadeMedia -= self.perdaPorKg * pesoTotalEncomendas
+
+        if not metereologia and (not self.estafeta.veiculo == "carro"):  # False = chuva, veiculos que sofrem penalizacao
+            self.estafeta.velocidadeMedia *= 0.8
+
+        num = random.randint(1, 100)
+        rand = random.randint(60, 100)
+        rand /= 100
+        if self.estafeta.veiculo == "carro" and num < 10:
+            self.estafeta.velocidadeMedia *= rand
+        elif self.estafeta.veiculo == "mota" and num < 20:
+            self.estafeta.velocidadeMedia *= rand
+        elif self.estafeta.veiculo == "bicicleta" and num < 30:
+            self.estafeta.velocidadeMedia *= rand
+
+        # fator de multiplicacao
+        return self.estafeta.velocidadeMedia / velocidadeInicial
+
+        # Fazer uma determianda entrega com base nas listaEncomendas a entregar
+
+
+

@@ -3,6 +3,7 @@ class Global:
         self.todos_clientes = {}
         self.todos_encomendas = {}
         self.todos_estafetas = {}
+        self.estaAChover = False
 
     def add_cliente(self, cliente):
         total_length = len(self.todos_clientes)
@@ -64,7 +65,7 @@ class Global:
             print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Encomendas: {info.encomendas}")
         print("-----------------------------")
         for id, info in self.todos_estafetas.items():
-            print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Veiculo: {info.veiculo}, Rating: {info.rating}, Número de Viagens: {info.entregas}")
+            print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Veiculo: {info.veiculo}, Rating: {info.rating}, Número de Viagens: {info.numentregas} , Disponível: {info.disponivel}")
         print("-----------------------------")
         for id, info in self.todos_encomendas.items():
             print(f"ID: {id}, IdCliente: {info.idCliente}, Peso: {info.peso}, Preço Base: {info.precoBase}, LocalEntrega: {info.localEntrega}, Tempo Inicio: {info.tempoInicio}, Tempo Fim: {info.tempoFim}")

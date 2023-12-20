@@ -62,14 +62,6 @@ def main():
             elif saida == 5:
                 auxFunction(g.greedy, pontoslevantamento, g)
 
-            #elif saida == 9:
-                #origem = input("Nodo de origem-> ")
-                #destino = input("Nodo de destino-> ")
-
-                #g.del_route(origem, destino)
-
-                #input("Prima Enter para continuar")
-
             else:
                 print("Please insert a valid number")
                 input("Prima Enter para continuar")

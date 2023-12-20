@@ -11,17 +11,11 @@ class Encomenda:
         self.tempoInicio = tempoInicio
         self.tempoFim = tempoFim
         self.gl = gl
-        self.veiculo = ""
         self.gl.add_encomenda(self)
-        self.determinarEstafeta()
-
-        # Segundos de diferença para calcular velocidade média
-        seconds_difference = (tempoFim-tempoInicio).total_seconds()
 
 
     # Determinar estafeta a utilizar
     def determinarEstafeta(self):
-        self.gl.get_estafetasByVehicle(self.veiculo)
         self.precoEntrega()
 
 
@@ -36,6 +30,7 @@ class Encomenda:
         # Carro
         elif self.veiculo == "carro":
             self.precoBase *= 1.5
+
 
     # Função para determinar a penalização em função
     # do tipo de veículo, estado de tempo e distância         
