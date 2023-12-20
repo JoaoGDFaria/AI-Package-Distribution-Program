@@ -71,7 +71,7 @@ class Entrega:
             velocidade_media = self.calculaVelocidadeDeEntrega(ab[1])
             print(f"Velocidade média: {velocidade_media} km/h")
             print(f"Peso: {self.pesoTotalEncomendas} kg")
-            list_information.append((ab[0][0], velocidade_media))
+            list_information.append((ab[0], velocidade_media))
 
 
         am = melhorEntregaVeiculo.get("mota")
@@ -84,7 +84,7 @@ class Entrega:
             velocidade_media = self.calculaVelocidadeDeEntrega(am[1])
             print(f"Velocidade média: {velocidade_media} km/h")
             print(f"Peso: {self.pesoTotalEncomendas} kg")
-            list_information.append((am[0][0], velocidade_media))
+            list_information.append((am[0], velocidade_media))
 
 
         ac = melhorEntregaVeiculo.get("carro")
@@ -97,7 +97,7 @@ class Entrega:
             velocidade_media = self.calculaVelocidadeDeEntrega(ac[1])
             print(f"Velocidade média: {velocidade_media} km/h")
             print(f"Peso: {self.pesoTotalEncomendas} kg")
-            list_information.append((ac[0][0], velocidade_media))
+            list_information.append((ac[0], velocidade_media))
 
         self.determina_estafeta(list_information)
 
@@ -138,21 +138,28 @@ class Entrega:
 
 
     def determina_estafeta(self, list_information):
-        equacao_velocidade = self.perdaPorKg * self.pesoTotalEncomendas
+        equacao_velocidade_bicicleta = info.infoVelocidadeMedia["bicicleta"] - (info.infoPerdaPorKg["bicicleta"] * self.pesoTotalEncomendas)
+        equacao_velocidade_mota = info.infoVelocidadeMedia["mota"] - (info.infoPerdaPorKg["mota"] * self.pesoTotalEncomendas)
+        equacao_velocidade_carro = info.infoVelocidadeMedia["carro"] - (info.infoPerdaPorKg["carro"] * self.pesoTotalEncomendas)
 
-        self.localizacao = localizacao
-        self.pesoMaximo = info.infoPesoMaximo[veiculo]
-        self.velocidadeMedia = info.infoVelocidadeMedia[veiculo]
-        self.perdaPorKg = info.infoPerdaPorKg[veiculo]
+        print(f"\nVelocidade média da bicicleta: {equacao_velocidade_bicicleta}")
+        print(f"Velocidade média da mota:  {equacao_velocidade_mota}")
+        print(f"Velocidade média do carro:  {equacao_velocidade_carro}")
 
+        finalPath = []
 
+        if (list_information[0] is not None and list_information[0][1]<=equacao_velocidade_bicicleta):
+            estafeta = self.gl.get_estafeta_available_by_location(list_information[0][0][0], "bicicleta")
+            finalPath = list_information[0][0]
 
-        if (list_information[0] is not None and list_information[0][1]<=(10)):
-            estafeta = self.gl.get_estafeta_available_by_location(list_information[0][0], "bicicleta")
-        elif (list_information[1] is not None and list_information[1][1]<=35):
-            estafeta = self.gl.get_estafeta_available_by_location(list_information[1][0], "mota")
-        elif (list_information[2] is not None and list_information[2][1]<=50):
-            estafeta = self.gl.get_estafeta_available_by_location(list_information[2][0], "carro")
+        elif (list_information[1] is not None and list_information[1][1]<=equacao_velocidade_mota):
+            estafeta = self.gl.get_estafeta_available_by_location(list_information[1][0][0], "mota")
+            finalPath = list_information[1][0]
+
+        elif (list_information[2] is not None and list_information[2][1]<=equacao_velocidade_carro):
+            estafeta = self.gl.get_estafeta_available_by_location(list_information[2][0][0], "carro")
+            finalPath = list_information[2][0]
+
         else:
             print(f"Não existe nenhum estafeta ")
             return
@@ -162,60 +169,11 @@ class Entrega:
         print(estafeta.nome)
         print(estafeta.localizacao)
         print(estafeta.veiculo)
-        estafeta.calculaVelocidadeMedia()
+
+        estafeta.calculaVelocidadeMedia(self.pesoTotalEncomendas)
+
+        estafeta.efetuarEncomenda(finalPath, self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas)
 
         return estafeta
-
-
-    def fazerEntrega(self):
-
-        multiplicador = self.calculaVelocidadeMedia(self.metereologia, self.pesoTotalEncomendas)
-        self.localizacaoInicio = self.estafeta.localizacao
-
-        tempoFinal = self.tempoInicio + timedelta(minutes=self.listaEncomendas.length)
-
-        distancia = self.melhorCaminho()  # distancia[0] -> tempo geral penalização, distancia[1] -> caminho, distancia[2] -> ordem de entrega
-        tempototalpenalizacao = distancia[0]
-        caminho = distancia[1]
-        ordem = distancia[2]
-        timeatual = 0
-        iterar = 0
-        numparagens = self.listaEncomendas.length
-        cont = 0
-
-        for i in caminho:
-            while cont < numparagens:
-                self.distanciatotal += self.graph.get_arc_cost(self.estafeta.localizacao, i)
-                self.estafeta.localizacao = i
-
-                if i == ordem[iterar]:
-                    tempogastoporencomenda = self.distanciatotal / self.estafeta.velocidadeMedia
-                    pen = self.estafeta.calculaPenalizacao(self.estafeta.veiculo, tempogastoporencomenda,
-                                                           self.listaEncomendas[iterar].tempoEntrega)
-                    timeatual += tempogastoporencomenda
-
-                    tempogastonestaencomenda = timeatual - self.tempoInicio
-                    tempogastonestaencomenda -= self.listaEncomendas[iterar].tempoEntrega
-                    if tempogastonestaencomenda <= 0:
-                        tempogastonestaencomenda = 0
-
-                    ratingdadocliente = int(input(
-                        f"A encomenda chegou com {tempogastonestaencomenda} segundos de atraso \n Qual a avaliação que faz da entrega? -> "))
-                    rate = 5 - (pen + (5 - ratingdadocliente)) / 2
-                    self.estafeta.mudaRating(rate)
-
-                    pesoEntrega = 0
-                    for encomenda in self.listaEncomendas:
-                        if i == encomenda.localEntrega:
-                            pesoEntrega += encomenda.peso
-
-                    self.estafeta.velocidadeMedia += self.estafeta.perdaPorKg * pesoEntrega * multiplicador
-                    cont += 1
-                    iterar += 1
-
-        # Redifine tudo para o estado inicial
-        self.estafeta.velocidadeMaxima = info.infoVelocidadeMedia[self.estafeta.veiculo]
-        self.estafeta.localizacao = self.locaisEntrega[-1]
-        self.estafeta.disponivel = True
 
 

@@ -1,3 +1,5 @@
+import math
+
 import info
 from Global import Global
 class Encomenda:
@@ -31,29 +33,19 @@ class Encomenda:
         elif self.veiculo == "carro":
             self.precoBase *= 1.5
 
-
-    # Função para determinar a penalização em função
-    # do tipo de veículo, estado de tempo e distância         
-    def tempoEntrega(self, distancia):
-        veiculo = self.gl.get_estafeta(self.idEstafeta).veiculo
-        condicoesTransporte = info.infoTempo[[self.tempo], veiculo]
-        
-        penalizacao = condicoesTransporte * distancia
-        
-        return penalizacao
-        
-           
             
     # Função para determinar a penalização de uma encomenda
     # com base no seu atraso em minutos
-    def penalizacaoEncomenda(self, tempoEntrega, id, distancia):
-        tempoUtil = int (tempoEntrega - self.tempoInicio)/60
-        
-        if(tempoUtil >= self.tempoPedido):
-            tempoMinutos = tempoUtil - self.tempoPedido
-            penalizacaoEncomenda = tempoMinutos * tempoEntrega(self, id, distancia)
+    def penalizacaoEncomenda(self, tempoEntrega):
+        rating_final = 5
 
-        return penalizacaoEncomenda
+        if(tempoEntrega >= self.tempoFim):
+            tempoMinutos = ((tempoEntrega - self.tempoFim).total_seconds()) / 60
+            intervalos15Minutos = math.ceil(tempoMinutos // 15)
+            rating_final = 5-(intervalos15Minutos * 0.2)
+            if rating_final < 0: rating_final = 0
+
+        return rating_final
              
            
         

@@ -3,7 +3,6 @@ class Global:
         self.todos_clientes = {}
         self.todos_encomendas = {}
         self.todos_estafetas = {}
-        self.estaAChover = False
 
     def add_cliente(self, cliente):
         total_length = len(self.todos_clientes)
