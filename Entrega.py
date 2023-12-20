@@ -66,7 +66,7 @@ class Entrega:
             print(f"\nPath ideal bicicleta: {ab[0]}")
             print(f"Custo ideal bicicleta: {ab[1]}")
             velocidade_media = self.calculaVelocidadeDeEntrega(ab[1])
-            print(f"Velocidade média: {velocidade_media} km/h")
+            print(f"Velocidade média mínima: {velocidade_media} km/h")
             print(f"Peso: {self.pesoTotalEncomendas} kg")
             list_information.append((ab[0], velocidade_media))
 
@@ -79,7 +79,7 @@ class Entrega:
             print(f"\nPath ideal mota: {am[0]}")
             print(f"Custo ideal mota: {am[1]}")
             velocidade_media = self.calculaVelocidadeDeEntrega(am[1])
-            print(f"Velocidade média: {velocidade_media} km/h")
+            print(f"Velocidade média mínima: {velocidade_media} km/h")
             print(f"Peso: {self.pesoTotalEncomendas} kg")
             list_information.append((am[0], velocidade_media))
 
@@ -92,7 +92,7 @@ class Entrega:
             print(f"\nPath ideal carro: {ac[0]}")
             print(f"Custo ideal carro: {ac[1]}")
             velocidade_media = self.calculaVelocidadeDeEntrega(ac[1])
-            print(f"Velocidade média: {velocidade_media} km/h")
+            print(f"Velocidade média mínima: {velocidade_media} km/h")
             print(f"Peso: {self.pesoTotalEncomendas} kg")
             list_information.append((ac[0], velocidade_media))
 
@@ -171,7 +171,7 @@ class Entrega:
 
 
         print("ENTREGAS:::::::::::::::\n")
-        estafeta.efetuarEncomenda(finalPath, self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas)
+        estafeta.efetuarEncomenda(finalPath, self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas, self.pontosRecolha)
 
         return estafeta
 

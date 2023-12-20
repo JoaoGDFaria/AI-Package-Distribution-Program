@@ -66,6 +66,7 @@ cliente3 = Cliente("António", "Bairro", gl)
 
 enc1 = cliente2.criarEncomenda(peso=2, precoBase=54.23, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=23, minute=30))
 enc2 = cliente1.criarEncomenda(peso=2, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=25, hour=22, minute=30))
+enc3 = cliente3.criarEncomenda(peso=4, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=17, minute=30))
 
 list = [enc1, enc2]
 ent = Entrega(list, g, False, datetimeStart, datetime(year=2023, month=11, day=22, hour=22, minute=30), pontoslevantamento, gl)

@@ -1,4 +1,5 @@
 import math
+from datetime import timedelta
 
 import info
 from Global import Global
@@ -46,7 +47,7 @@ class Encomenda:
             rating_final = 5-(intervalos15Minutos * 0.2)
             if rating_final < 0: rating_final = 0
 
-        return (rating_final, tempoMinutos)
+        return (rating_final, timedelta(minutes=tempoMinutos))
              
            
         

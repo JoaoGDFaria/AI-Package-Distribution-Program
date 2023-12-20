@@ -42,44 +42,55 @@ class Estafeta:
             self.velocidadeMedia = round(self.velocidadeMedia * rand, 2)
 
 
-    def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas):
+    def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, pontosRecolha):
         self.setDisponivel(False)
         tempoFinal = tempoInicio + timedelta(minutes=len(locaisEntrega))
         distancia_percorrida = 0
         caminho_anterior = path[0]
         encomenda = None
+        flag = False
 
         for caminho in path:
             distancia_percorrida += graph.get_arc_cost(caminho_anterior, caminho)
-            while caminho in locaisEntrega:  # Entrega
 
-                for encomenda in listaEncomendas:
-                    if encomenda.localEntrega == caminho:
-                        listaEncomendas.remove(encomenda)
-                        break
+            if caminho in pontosRecolha: flag = True
 
-                locaisEntrega.remove(caminho)
+            if flag:
+                while caminho in locaisEntrega:  # Entrega
 
-                self.localizacao = caminho
+                    for encomenda in listaEncomendas:
+                        if encomenda.localEntrega == caminho:
+                            listaEncomendas.remove(encomenda)
+                            break
 
-                tempoGastoPorEncomenda = tempoFinal + timedelta(hours=(distancia_percorrida / self.velocidadeMedia)) + timedelta(minutes=1)
-                tempoFinal = tempoGastoPorEncomenda
-                distancia_percorrida = 0
+                    locaisEntrega.remove(caminho)
 
-                (rating, atraso) = encomenda.penalizacaoEncomenda(tempoGastoPorEncomenda)
+                    self.localizacao = caminho
 
-                ratingCliente = float(input(f"Encomenda chegou a {self.localizacao} com {atraso} minutos de atraso!\nQue rating pretende dar à/ao estafeta {self.nome}? "))
-                if ratingCliente < 0: ratingCliente = 0
-                elif ratingCliente > 5: ratingCliente = 5
+                    tempoGastoPorEncomenda = tempoFinal + timedelta(hours=(distancia_percorrida / self.velocidadeMedia)) + timedelta(minutes=1)
+                    tempoFinal = tempoGastoPorEncomenda
+                    distancia_percorrida = 0
 
-                ratingEntrega = (rating + ratingCliente)/2
-                print(f"Rating global: {ratingEntrega}\n")
+                    (rating, atraso) = encomenda.penalizacaoEncomenda(tempoGastoPorEncomenda)
 
-                self.rating = ((self.rating * self.numentregas) + ratingEntrega) / (self.numentregas + 1)
-                self.numentregas += 1
+                    hours1, remainder1 = divmod((tempoFinal-tempoInicio).seconds, 3600)
+                    minutes1 = remainder1 // 60
 
-                pesoTotalEncomendas -= encomenda.peso
-                self.calculaVelocidadeMedia(pesoTotalEncomendas)
+                    hours2, remainder2 = divmod(atraso.seconds, 3600)
+                    minutes2 = remainder2 // 60
+
+                    ratingCliente = float(input(f"Encomenda chegou {hours1} horas e {minutes1} minutos depois a {self.localizacao} com {hours2} horas e {minutes2} minutos de atraso!\nQue rating pretende dar à/ao estafeta {self.nome}? "))
+
+                    if ratingCliente < 0: ratingCliente = 0
+                    elif ratingCliente > 5: ratingCliente = 5
+                    ratingEntrega = (rating + ratingCliente)/2
+                    print(f"Rating global: {ratingEntrega}\n")
+
+                    self.rating = ((self.rating * self.numentregas) + ratingEntrega) / (self.numentregas + 1)
+                    self.numentregas += 1
+
+                    pesoTotalEncomendas -= encomenda.peso
+                    self.calculaVelocidadeMedia(pesoTotalEncomendas)
 
             caminho_anterior = caminho
 
