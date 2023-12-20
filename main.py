@@ -9,11 +9,9 @@ import Graph as gr
 
 gl = Global()
 
-
 df_estafetas = pd.read_csv("Files/Utilizadores/estafetas.csv", encoding='utf-8')
 for linha in df_estafetas.itertuples(index=False):
     Estafeta(linha.veiculo, linha.freguesia, linha.nome, linha.rating, linha.numEntregas, gl)
-
 
 df_clientes = pd.read_csv("Files/Utilizadores/clientes.csv", encoding='utf-8')
 for linha in df_clientes.itertuples(index=False):
@@ -60,16 +58,15 @@ for linha in df_clientes.itertuples(index=False):
 
 
 
-estafeta1 = Estafeta("bicicleta", "Bairro", "Anacleto",4.5,10, gl)
 datetimeStart = datetime(year=2023, month=11, day=22, hour=18, minute=30)
 cliente1 = Cliente("João", "Nine", gl)
 cliente2 = Cliente("Ana", "Fradelos", gl)
 cliente3 = Cliente("António", "Bairro", gl)
+
+
 enc1 = cliente2.criarEncomenda(peso=2, precoBase=54.23, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=23, minute=30))
-enc2 = cliente1.criarEncomenda(peso=3, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=25, hour=22, minute=30))
+enc2 = cliente1.criarEncomenda(peso=5, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=25, hour=22, minute=30))
 
 
-list = []
-list.append(enc1)
-list.append(enc2)
+list = [enc1, enc2]
 ent = Entrega(list, g, False, datetimeStart, datetime(year=2023, month=11, day=22, hour=22, minute=30), pontoslevantamento, gl)

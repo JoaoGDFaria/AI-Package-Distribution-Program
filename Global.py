@@ -33,12 +33,19 @@ class Global:
             list.append(estafeta)
         return list
 
-    def get_estafetas_available(self, peso):
+    def get_all_estafetas_available(self, peso):
         localizacao_set = set()
         for estafeta in self.todos_estafetas.values():
             if estafeta.disponivel and estafeta.pesoMaximo >= peso:
                 localizacao_set.add(estafeta.localizacao)
         return localizacao_set
+
+
+    def get_estafeta_available_by_location(self, peso, localizacao):
+        for estafeta in self.todos_estafetas.values():
+            if estafeta.disponivel and estafeta.pesoMaximo >= peso and estafeta.localizacao == localizacao:
+                return estafeta
+
 
     def printAllGlobal(self):
         for id, info in self.todos_clientes.items():
