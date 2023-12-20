@@ -38,6 +38,7 @@ class Encomenda:
     # com base no seu atraso em minutos
     def penalizacaoEncomenda(self, tempoEntrega):
         rating_final = 5
+        tempoMinutos = 0
 
         if(tempoEntrega >= self.tempoFim):
             tempoMinutos = ((tempoEntrega - self.tempoFim).total_seconds()) / 60
@@ -45,7 +46,7 @@ class Encomenda:
             rating_final = 5-(intervalos15Minutos * 0.2)
             if rating_final < 0: rating_final = 0
 
-        return rating_final
+        return (rating_final, tempoMinutos)
              
            
         

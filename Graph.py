@@ -47,6 +47,7 @@ class Graph:
 
     # Devolver o custo de uma determianda aresta (caminho entre 2 nodos)
     def get_arc_cost(self, node1, node2):
+        if node1 == node2: return 0
         custoT = math.inf
         a = self.m_graph[node1]
         for (nodo, custo) in a:

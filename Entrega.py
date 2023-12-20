@@ -19,9 +19,6 @@ class Entrega:
 
         self.melhorCaminho()
 
-        # self.calculaVelocidadeMedia(self.metereologia, self.pesoTotalEncomendas)
-        # self.localizacaoInicio = self.estafeta.localizacao
-
 
     def melhorCaminho(self):
         all_permutations_path = list(permutations(self.locaisEntrega))
@@ -99,9 +96,7 @@ class Entrega:
             print(f"Peso: {self.pesoTotalEncomendas} kg")
             list_information.append((ac[0], velocidade_media))
 
-        self.determina_estafeta(list_information)
-
-        print(f"\nTime taken: {(perf_counter() - start_time) * 1000 :.2f} ms\n")
+        self.determina_estafeta(list_information, start_time)
 
 
     def calculaVelocidadeDeEntrega(self, distancia):
@@ -137,16 +132,15 @@ class Entrega:
         return tempoMinimo
 
 
-    def determina_estafeta(self, list_information):
+    def determina_estafeta(self, list_information, start_time):
         equacao_velocidade_bicicleta = info.infoVelocidadeMedia["bicicleta"] - (info.infoPerdaPorKg["bicicleta"] * self.pesoTotalEncomendas)
         equacao_velocidade_mota = info.infoVelocidadeMedia["mota"] - (info.infoPerdaPorKg["mota"] * self.pesoTotalEncomendas)
         equacao_velocidade_carro = info.infoVelocidadeMedia["carro"] - (info.infoPerdaPorKg["carro"] * self.pesoTotalEncomendas)
 
-        print(f"\nVelocidade média da bicicleta: {equacao_velocidade_bicicleta}")
-        print(f"Velocidade média da mota:  {equacao_velocidade_mota}")
-        print(f"Velocidade média do carro:  {equacao_velocidade_carro}")
+        print(f"\nVelocidade média da bicicleta: {equacao_velocidade_bicicleta} km/h")
+        print(f"Velocidade média da mota: {equacao_velocidade_mota} km/h")
+        print(f"Velocidade média do carro: {equacao_velocidade_carro} km/h")
 
-        finalPath = []
 
         if (list_information[0] is not None and list_information[0][1]<=equacao_velocidade_bicicleta):
             estafeta = self.gl.get_estafeta_available_by_location(list_information[0][0][0], "bicicleta")
@@ -166,12 +160,17 @@ class Entrega:
 
 
         print("\n\n---------------")
-        print(estafeta.nome)
-        print(estafeta.localizacao)
-        print(estafeta.veiculo)
+        print(f"Nome: {estafeta.nome}")
+        print(f"Localização Inicial: {estafeta.localizacao}")
+        print(f"Veículo: {estafeta.veiculo}")
 
         estafeta.calculaVelocidadeMedia(self.pesoTotalEncomendas)
+        print("---------------\n")
 
+        print(f"Time taken: {(perf_counter() - start_time) * 1000 :.2f} ms\n\n")
+
+
+        print("ENTREGAS:::::::::::::::\n")
         estafeta.efetuarEncomenda(finalPath, self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas)
 
         return estafeta
