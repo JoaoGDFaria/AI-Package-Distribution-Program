@@ -43,6 +43,10 @@ class Estafeta:
 
     def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, pontosRecolha):
         self.setDisponivel(False)
+
+        for encomenda in listaEncomendas:
+            encomenda.idEstafeta = self.id
+
         tempoFinal = tempoInicio + timedelta(minutes=len(locaisEntrega))
         distancia_percorrida = 0
         caminho_anterior = path[0]
@@ -66,7 +70,7 @@ class Estafeta:
 
                     self.localizacao = caminho
 
-                    tempoGastoPorEncomenda = tempoFinal + timedelta(hours=(distancia_percorrida / self.velocidadeMedia)) + timedelta(minutes=1)
+                    tempoGastoPorEncomenda = (tempoFinal + timedelta(hours=(distancia_percorrida / self.velocidadeMedia)) + timedelta(minutes=1)).replace(second=0, microsecond=0)
                     tempoFinal = tempoGastoPorEncomenda
                     distancia_percorrida = 0
 
@@ -83,17 +87,19 @@ class Estafeta:
 
                     if ratingCliente < 0: ratingCliente = 0
                     elif ratingCliente > 5: ratingCliente = 5
-                    ratingEntrega = (rating + ratingCliente)/2
+                    ratingEntrega = round((rating + ratingCliente)/2, 1)
                     print(f"Rating global: {ratingEntrega}\n")
 
-                    self.rating = ((self.rating * self.numentregas) + ratingEntrega) / (self.numentregas + 1)
+                    self.rating = round(((self.rating * self.numentregas) + ratingEntrega) / (self.numentregas + 1), 1)
                     self.numentregas += 1
+                    encomenda.tempoEntrega = tempoFinal
+                    encomenda.rating = ratingEntrega
 
                     pesoTotalEncomendas -= encomenda.peso
                     self.calculaVelocidadeMedia(pesoTotalEncomendas)
 
             caminho_anterior = caminho
-
         # Redefine tudo para o estado inicial
         self.velocidadeMedia = info.infoVelocidadeMedia[self.veiculo]
         self.setDisponivel(True)
+        #self.gl.printAllGlobal()

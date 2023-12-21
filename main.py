@@ -53,7 +53,15 @@ cliente3 = Cliente("António", "Bairro", gl)
 
 enc1 = cliente2.criarEncomenda(peso=2, precoBase=54.23, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=23, minute=30))
 enc2 = cliente1.criarEncomenda(peso=2, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=25, hour=22, minute=30))
-enc3 = cliente3.criarEncomenda(peso=4, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=17, minute=30))
+enc3 = cliente3.criarEncomenda(peso=1, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=19, minute=35))
+enc4 = cliente2.criarEncomenda(peso=2, precoBase=54.23, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=21, minute=15))
+enc5 = cliente1.criarEncomenda(peso=2, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=28, hour=20, minute=45))
+enc6 = cliente3.criarEncomenda(peso=1, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=23, minute=0))
+enc7 = cliente2.criarEncomenda(peso=2, precoBase=54.23, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=23, hour=18, minute=30))
+enc8 = cliente1.criarEncomenda(peso=2, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=26, hour=22, minute=15))
+
 
 list = [enc1, enc2, enc3]
 ent = Entrega(list, g, False, datetimeStart, datetime(year=2023, month=11, day=22, hour=22, minute=30), pontoslevantamento, gl)
+
+print(len(gl.get_encomendas_sem_entregador()))

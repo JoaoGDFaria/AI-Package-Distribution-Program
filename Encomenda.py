@@ -3,13 +3,16 @@ from datetime import timedelta
 
 class Encomenda:
 
-    def __init__(self, peso, precoBase, localEntrega, idCliente, tempoInicio, tempoFim, gl):
+    def __init__(self, peso, precoBase, localEntrega, idCliente, tempoInicio, prazoLimite, gl):
         self.idCliente = idCliente
         self.peso = peso
         self.precoBase = precoBase
         self.localEntrega = localEntrega
         self.tempoInicio = tempoInicio
-        self.tempoFim = tempoFim
+        self.prazoLimite = prazoLimite
+        self.tempoEntrega = None
+        self.rating = None
+        self.idEstafeta = None
         self.gl = gl
         self.id = self.gl.add_encomenda(self)
 
@@ -20,8 +23,8 @@ class Encomenda:
         rating_final = 5
         tempoMinutos = 0
 
-        if(tempoEntrega >= self.tempoFim):
-            tempoMinutos = ((tempoEntrega - self.tempoFim).total_seconds()) / 60
+        if(tempoEntrega >= self.prazoLimite):
+            tempoMinutos = ((tempoEntrega - self.prazoLimite).total_seconds()) / 60
             intervalos15Minutos = math.ceil(tempoMinutos // 15)
             rating_final = 5-(intervalos15Minutos * 0.5)
             if rating_final < 0: rating_final = 0

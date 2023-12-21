@@ -53,9 +53,9 @@ class Entrega:
                     if veiculo in melhorEntregaVeiculo:
                         (p, c) = melhorEntregaVeiculo.get(veiculo)
                         if custo < c:
-                            melhorEntregaVeiculo[veiculo] = (path, custo)
+                            melhorEntregaVeiculo[veiculo] = (path, round(custo, 2))
                     else:
-                        melhorEntregaVeiculo[veiculo] = (path, custo)
+                        melhorEntregaVeiculo[veiculo] = (path, round(custo, 2))
 
 
         ab = melhorEntregaVeiculo.get("bicicleta")
@@ -65,7 +65,7 @@ class Entrega:
         else:
             print(f"\nPath ideal bicicleta: {ab[0]}")
             print(f"Custo ideal bicicleta: {ab[1]}")
-            velocidade_media = self.calculaVelocidadeDeEntrega(ab[1])
+            velocidade_media = self.calculaVelocidadeDeEntrega(ab[1], ab[0])
             print(f"Velocidade média mínima: {velocidade_media} km/h")
             print(f"Peso: {self.pesoTotalEncomendas} kg")
             list_information.append((ab[0], velocidade_media))
@@ -78,7 +78,7 @@ class Entrega:
         else:
             print(f"\nPath ideal mota: {am[0]}")
             print(f"Custo ideal mota: {am[1]}")
-            velocidade_media = self.calculaVelocidadeDeEntrega(am[1])
+            velocidade_media = self.calculaVelocidadeDeEntrega(am[1], am[0])
             print(f"Velocidade média mínima: {velocidade_media} km/h")
             print(f"Peso: {self.pesoTotalEncomendas} kg")
             list_information.append((am[0], velocidade_media))
@@ -91,7 +91,7 @@ class Entrega:
         else:
             print(f"\nPath ideal carro: {ac[0]}")
             print(f"Custo ideal carro: {ac[1]}")
-            velocidade_media = self.calculaVelocidadeDeEntrega(ac[1])
+            velocidade_media = self.calculaVelocidadeDeEntrega(ac[1], ac[0])
             print(f"Velocidade média mínima: {velocidade_media} km/h")
             print(f"Peso: {self.pesoTotalEncomendas} kg")
             list_information.append((ac[0], velocidade_media))
@@ -99,11 +99,25 @@ class Entrega:
         self.determina_estafeta(list_information, start_time)
 
 
-    def calculaVelocidadeDeEntrega(self, distancia):
-        intervaloDeTempo = self.get_tempo_encomenda() - self.tempoInicio
-        intervaloDeTempoEmHoras = intervaloDeTempo.total_seconds() / 3600
+    def distanceToEncomenda(self, path, posicaoEncomenda):
+        flag = False
+        distancia = 0
+        posicaoAnterior = path[0]
+        for posicao in path:
+            distancia += self.graph.get_arc_cost(posicaoAnterior, posicao)
+            if posicao in self.pontosRecolha: flag = True
 
-        velocidadeMedia = distancia/intervaloDeTempoEmHoras
+            if posicaoEncomenda == posicao and flag is True:
+                break
+
+            posicaoAnterior = posicao
+        return round(distancia, 1)
+
+    def calculaVelocidadeDeEntrega(self, distancia, path):
+        (tempoMinimo, encomenda) = self.get_tempo_encomenda()
+        intervaloDeTempo = tempoMinimo - self.tempoInicio
+        intervaloDeTempoEmHoras = intervaloDeTempo.total_seconds() / 3600
+        velocidadeMedia = self.distanceToEncomenda(path, encomenda.localEntrega)/intervaloDeTempoEmHoras
         return round(velocidadeMedia, 2)
 
 
@@ -126,10 +140,12 @@ class Entrega:
 
     def get_tempo_encomenda(self):
         tempoMinimo = datetime.max
+        fastest = None
         for encomenda in self.listaEncomendas:
-            if encomenda.tempoFim < tempoMinimo:
-                tempoMinimo = encomenda.tempoFim
-        return tempoMinimo
+            if encomenda.prazoLimite < tempoMinimo:
+                tempoMinimo = encomenda.prazoLimite
+                fastest = encomenda
+        return tempoMinimo, fastest
 
 
     def determina_estafeta(self, list_information, start_time):
@@ -163,6 +179,7 @@ class Entrega:
         print(f"Nome: {estafeta.nome}")
         print(f"Localização Inicial: {estafeta.localizacao}")
         print(f"Veículo: {estafeta.veiculo}")
+
 
         estafeta.calculaVelocidadeMedia(self.pesoTotalEncomendas)
         print("---------------\n")

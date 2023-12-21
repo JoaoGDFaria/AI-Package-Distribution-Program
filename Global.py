@@ -30,10 +30,10 @@ class Global:
         return self.todos_estafetas.get(id, None)
 
     def get_estafetasByVehicle(self, veiculo):
-        list = []
+        all_estaf = []
         for estafeta in self.todos_estafetas.values():
-            list.append(estafeta)
-        return list
+            all_estaf.append(estafeta)
+        return all_estaf
 
     def get_all_estafetas_available(self, peso):
         todas_possibilidades = {}
@@ -60,6 +60,13 @@ class Global:
             if estafeta.disponivel and estafeta.veiculo == veiculo and estafeta.localizacao == localizacao:
                 return estafeta
 
+    def get_encomendas_sem_entregador(self):
+        all_enc = []
+        for encomenda in self.todos_encomendas.values():
+            if encomenda.idEstafeta is None:
+                all_enc.append(encomenda)
+        return all_enc
+
 
     def printAllGlobal(self):
         for id, info in self.todos_clientes.items():
@@ -69,6 +76,6 @@ class Global:
             print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Veiculo: {info.veiculo}, Rating: {info.rating}, Número de Viagens: {info.numentregas} , Disponível: {info.disponivel}")
         print("-----------------------------")
         for id, info in self.todos_encomendas.items():
-            print(f"ID: {id}, IdCliente: {info.idCliente}, Peso: {info.peso}, Preço Base: {info.precoBase}, LocalEntrega: {info.localEntrega}, Tempo Inicio: {info.tempoInicio}, Tempo Fim: {info.tempoFim}")
+            print(f"ID: {id}, IdCliente: {info.idCliente}, Peso: {info.peso}, Preço Base: {info.precoBase}, Local Entrega: {info.localEntrega}, Tempo Inicio: {info.tempoInicio}, Prazo Limite: {info.prazoLimite}, Tempo Entrega: {info.tempoEntrega}, Rating: {info.rating}")
 
 
