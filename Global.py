@@ -67,6 +67,19 @@ class Global:
                 all_enc.append(encomenda)
         return all_enc
 
+    # def veiculoMinimo(self, encomendas):
+    #     pesoTotal = sum(encomenda.peso for encomenda in encomendas)
+    #     distanciaMaxBicicleta, distanciaMaxMota, distanciaMaxCarro = 0, 0, 0
+    #
+    #     if pesoTotal <= 5:
+    #         distanciaMaxBicicleta = 6 * (10 - 0.6 * pesoTotal)
+    #         distanciaMaxMota = 8 * (35 - 0.5 * pesoTotal)
+    #         distanciaMaxCarro = 10 * (50 - 0.1 * pesoTotal)
+    #     elif 5 < pesoTotal <= 20:
+    #         distanciaMaxMota = 8 * (35 - 0.5 * pesoTotal)
+    #         distanciaMaxCarro = 10 * (50 - 0.1 * pesoTotal)
+    #     elif 20 < pesoTotal <= 100:
+    #         distanciaMaxCarro = 10 * (50 - 0.1 * pesoTotal)
 
     def printAllGlobal(self):
         for id, info in self.todos_clientes.items():

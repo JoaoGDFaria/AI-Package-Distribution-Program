@@ -17,10 +17,10 @@ class Entrega:
         self.pontosRecolha = pontosRecolha
         self.gl = gl
 
-        self.melhorCaminho()
+        self.melhorCaminho(self.graph.procura_BFS)
 
 
-    def melhorCaminho(self):
+    def melhorCaminho(self, algorithmFunction):
         all_permutations_path = list(permutations(self.locaisEntrega))
         start_time = perf_counter()
         list_information = []
@@ -44,7 +44,7 @@ class Entrega:
                     veiculo = localizacao_veiculo[1]
 
 
-                    (path, custo) = self.calculaMelhorCaminho(posicaoInicial, all_paths)
+                    (path, custo) = self.calculaMelhorCaminho(posicaoInicial, all_paths, algorithmFunction)
 
                     aux = "Inicio:"+posicaoInicial + "||" + str(all_paths)
                     print(aux)
@@ -121,12 +121,12 @@ class Entrega:
         return round(velocidadeMedia, 2)
 
 
-    def calculaMelhorCaminho(self, localinicial, locaisentrega):
+    def calculaMelhorCaminho(self, localinicial, locaisentrega, algorithmFunction):
         custo_final = 0
         caminho_final = []
 
         for local in locaisentrega:
-            (path, custo) = self.graph.procura_BFS(localinicial, local)
+            (path, custo) = algorithmFunction(localinicial, local)
             localinicial = local
 
             if caminho_final != [] and caminho_final[-1] == path[0]:
