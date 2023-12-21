@@ -16,15 +16,8 @@ infoPerdaPorKg = {
     "carro": 0.1
 }
 
-infoTempo = {
-    "sol":{
-        "bicicleta": 0,
-        "mota": 0,
-        "carro": 0
-    },
-    "chuva":{
-        "bicicleta": 0,
-        "mota": 0,
-        "carro": 0
-    } 
+horasMaximasDeTrabalho = {
+    "bicicleta": 6,
+    "mota": 8,
+    "carro": 10
 }
