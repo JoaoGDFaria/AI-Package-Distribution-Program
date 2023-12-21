@@ -1,6 +1,7 @@
 from itertools import permutations
 from Graph import Graph as gr
 import info
+from itertools import chain, combinations
 
 class Global:
     def __init__(self):
@@ -89,6 +90,19 @@ class Global:
         for id, info in self.todos_encomendas.items():
             print(f"ID: {id}, IdCliente: {info.idCliente}, Peso: {info.peso}, Preço Base: {info.precoBase}, Local Entrega: {info.localEntrega}, Tempo Inicio: {info.tempoInicio}, Prazo Limite: {info.prazoLimite}, Tempo Entrega: {info.tempoEntrega}, Rating: {info.rating}")
 
+    def get_all_subsets(lst):
+        subsets = []
+        for subset_size in range(1, len(lst) + 1):
+            subsets.extend(combinations(lst, subset_size))
+        return subsets
+
+    def get_all_permutations(lst):
+        all_subsets = lst.get_all_subsets()
+        all_permutations = []
+        for subset in all_subsets:
+            all_permutations.extend(permutations(subset))
+        return set(all_permutations)
+
     def veiculoMax(self, encomendas):
 
         pesoTotal = sum(encomenda.peso for encomenda in encomendas)
@@ -114,42 +128,77 @@ class Global:
 
     def qualFaz(self, g):
         encomendas = self.get_encomendas_sem_entregador()
+        possibilidades = self.get_all_permutations(encomendas)
         pontosEntrega = []
+        pesoTotal = sum(encomenda.peso for encomenda in encomendas)
 
         for encomenda in encomendas:
             pontosEntrega.append(encomenda.localEntrega)
 
 
-        minimum = 0
+        minimumCamPEstafeta = 0
+        minTotal = 0
+        maxPeso = 0
 
         (distanciaMaxBicicleta, distanciaMaxMota, distanciaMaxCarro) = self.veiculoMax(encomendas)
 
-        permutation = list(permutations(encomendas))
 
-        for locInicial in self.get_all_available_estafeta_location():
-            for path in permutation:
-                custoDFS = 0
-                custoBFS = 0
-                custoAStar = 0
-                custoGreedy = 0
-                custoUniform = 0
-                for next in path:
-                    custoDFS += gr.procura_DFS(g, locInicial, next.localEntrega)[1]
-                    custoBFS += gr.procura_BFS(g, locInicial, next.localEntrega)[1]
-                    custoAStar += gr.procura_aStar(g, locInicial, next.localEntrega)[1]
-                    custoGreedy += gr.greedy(g, locInicial, next.localEntrega)[1]
-                    custoUniform += gr.procura_UCS(g, locInicial, next.localEntrega)[1]
-                    locInicial = next.localEntrega
 
-                temp = min(custoDFS, custoBFS, custoAStar, custoGreedy, custoUniform)
-                if (temp < minimum or temp == 0):
-                    minimum = temp
+        for le in possibilidades:
+            temp = sum(encomenda.peso for encomenda in le)
+            pontosEntrega = []
+            for encomenda in le:
+                pontosEntrega += encomenda.localEntrega
+            permutation = list(permutations(pontosEntrega))
+            for estafeta in self.get_all_estafetas_available(pesoTotal):
+                for path in permutation:
+                    locInicial = estafeta.localizacao
+                    custoDFS = 0
+                    custoBFS = 0
+                    custoAStar = 0
+                    custoGreedy = 0
+                    custoUniform = 0
+                    pathDFS = []
+                    pathBFS = []
+                    pathAStar = []
+                    pathGreedy = []
+                    pathUniform = []
+                    for next in path:
+                        pathDFS += gr.procura_DFS(g, locInicial, next.localEntrega)[0]
+                        pathBFS += gr.procura_BFS(g, locInicial, next.localEntrega)[0]
+                        pathAStar += gr.procura_aStar(g, locInicial, next.localEntrega)[0]
+                        pathGreedy += gr.greedy(g, locInicial, next.localEntrega)[0]
+                        pathUniform += gr.procura_UCS(g, locInicial, next.localEntrega)[0]
+                        locInicial = next.localEntrega
 
-            if (minimum <= distanciaMaxBicicleta):
-                return "bicicleta"
-            elif (minimum <= distanciaMaxMota):
-                return "mota"
-            elif (minimum <= distanciaMaxCarro):
-                return "carro"
-            else:
-                return None
+                    for i in range(len(pathDFS)-1):
+                        custoDFS += g.get_edge(pathDFS[i], pathDFS[i+1]).weight
+                    for i in range(len(pathBFS)-1):
+                        custoBFS += g.get_edge(pathBFS[i], pathBFS[i+1]).weight
+                    for i in range(len(pathAStar)-1):
+                        custoAStar += g.get_edge(pathAStar[i], pathAStar[i+1]).weight
+                    for i in range(len(pathGreedy)-1):
+                        custoGreedy += g.get_edge(pathGreedy[i], pathGreedy[i+1]).weight
+                    for i in range(len(pathUniform)-1):
+                        custoUniform += g.get_edge(pathUniform[i], pathUniform[i+1]).weight
+
+
+                    tempE = min(custoDFS, custoBFS, custoAStar, custoGreedy, custoUniform)
+                    if tempE < minimumCamPEstafeta or tempE == 0:
+                        minimumCamPEstafeta = tempE
+
+                if minimumCamPEstafeta < minTotal or minTotal == 0:
+                    minTotal = minimumCamPEstafeta
+
+            if maxPeso < temp or maxPeso == 0:
+                maxPeso = temp
+
+
+        if minTotal <= distanciaMaxBicicleta:
+            return "bicicleta"
+        elif minTotal <= distanciaMaxMota:
+            return "mota"
+        elif minTotal <= distanciaMaxCarro:
+            return "carro"
+        else:
+            return None
