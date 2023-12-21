@@ -64,6 +64,13 @@ class Global:
             if estafeta.disponivel and estafeta.veiculo == veiculo and estafeta.localizacao == localizacao:
                 return estafeta
 
+    def get_all_available_estafeta_location(self):
+        different_locations = set()
+        for estafeta in self.todos_estafetas.values():
+            if estafeta.disponivel and estafeta.localizacao not in different_locations:
+                different_locations.add(estafeta.localizacao)
+        return different_locations
+
     def get_encomendas_sem_entregador(self):
         all_enc = []
         for encomenda in self.todos_encomendas.values():
@@ -118,31 +125,31 @@ class Global:
         (distanciaMaxBicicleta, distanciaMaxMota, distanciaMaxCarro) = self.veiculoMax(encomendas)
 
         permutation = list(permutations(encomendas))
-        locInicial = entrega.estafeta.localizacao
 
-        for path in permutation:
-            custoDFS = 0
-            custoBFS = 0
-            custoAStar = 0
-            custoGreedy = 0
-            custoUniform = 0
-            for next in path:
-                custoDFS += gr.procura_DFS(g, locInicial, next.localEntrega)[1]
-                custoBFS += gr.procura_BFS(g, locInicial, next.localEntrega)[1]
-                custoAStar += gr.procura_aStar(g, locInicial, next.localEntrega)[1]
-                custoGreedy += gr.greedy(g, locInicial, next.localEntrega)[1]
-                custoUniform += gr.procura_UCS(g, locInicial, next.localEntrega)[1]
-                locInicial = next.localEntrega
+        for locInicial in self.get_all_available_estafeta_location():
+            for path in permutation:
+                custoDFS = 0
+                custoBFS = 0
+                custoAStar = 0
+                custoGreedy = 0
+                custoUniform = 0
+                for next in path:
+                    custoDFS += gr.procura_DFS(g, locInicial, next.localEntrega)[1]
+                    custoBFS += gr.procura_BFS(g, locInicial, next.localEntrega)[1]
+                    custoAStar += gr.procura_aStar(g, locInicial, next.localEntrega)[1]
+                    custoGreedy += gr.greedy(g, locInicial, next.localEntrega)[1]
+                    custoUniform += gr.procura_UCS(g, locInicial, next.localEntrega)[1]
+                    locInicial = next.localEntrega
 
-            temp = min(custoDFS, custoBFS, custoAStar, custoGreedy, custoUniform)
-            if (temp < minimum or temp == 0):
-                minimum = temp
+                temp = min(custoDFS, custoBFS, custoAStar, custoGreedy, custoUniform)
+                if (temp < minimum or temp == 0):
+                    minimum = temp
 
-        if (minimum <= distanciaMaxBicicleta):
-            return "bicicleta"
-        elif (distanciaMaxBicicleta < minimum <= distanciaMaxMota):
-            return "mota"
-        elif (distanciaMaxMota < minimum <= distanciaMaxCarro):
-            return "carro"
-        else:
-            return None
+            if (minimum <= distanciaMaxBicicleta):
+                return "bicicleta"
+            elif (minimum <= distanciaMaxMota):
+                return "mota"
+            elif (minimum <= distanciaMaxCarro):
+                return "carro"
+            else:
+                return None
