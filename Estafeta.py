@@ -8,7 +8,6 @@ class Estafeta:
 
     def __init__(self, veiculo, localizacao, nome, rating, num, gl):
         self.veiculo = veiculo
-        self.id = id
         self.rating = rating
         self.nome = nome
         self.numentregas = num
@@ -18,7 +17,7 @@ class Estafeta:
         self.perdaPorKg = info.infoPerdaPorKg[veiculo]
         self.disponivel = True
         self.gl = gl
-        self.gl.add_estafeta(self)
+        self.id = self.gl.add_estafeta(self)
 
 
     def setDisponivel (self, disponivel):
@@ -79,7 +78,8 @@ class Estafeta:
                     hours2, remainder2 = divmod(atraso.seconds, 3600)
                     minutes2 = remainder2 // 60
 
-                    ratingCliente = float(input(f"Encomenda chegou {hours1} horas e {minutes1} minutos depois a {self.localizacao} com {hours2} horas e {minutes2} minutos de atraso!\nQue rating pretende dar à/ao estafeta {self.nome}? "))
+                    cliente = self.gl.get_cliente(encomenda.idCliente)
+                    ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome)
 
                     if ratingCliente < 0: ratingCliente = 0
                     elif ratingCliente > 5: ratingCliente = 5

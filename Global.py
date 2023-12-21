@@ -12,10 +12,12 @@ class Global:
     def add_encomenda(self, encomenda):
         total_length = len(self.todos_encomendas)
         self.todos_encomendas[total_length+1] = encomenda
+        return total_length + 1
 
     def add_estafeta(self, estafeta):
         total_length = len(self.todos_estafetas)
         self.todos_estafetas[total_length+1] = estafeta
+        return total_length + 1
 
 
     def get_cliente(self, id):

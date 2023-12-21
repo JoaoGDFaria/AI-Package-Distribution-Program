@@ -9,6 +9,8 @@ import Graph as gr
 
 gl = Global()
 
+
+# Read all .csv Utilizadores
 df_estafetas = pd.read_csv("Files/Utilizadores/estafetas.csv", encoding='utf-8')
 for linha in df_estafetas.itertuples(index=False):
     Estafeta(linha.veiculo, linha.freguesia, linha.nome, linha.rating, linha.numEntregas, gl)
@@ -18,41 +20,26 @@ for linha in df_clientes.itertuples(index=False):
     Cliente(linha.nome, linha.localização, gl)
 
 
+# Read all .csv Grafo
+g = gr.Graph()
 
+df_grafo = pd.read_csv("Files/Grafo/grafo.csv", encoding='utf-8')
+for linha in df_grafo.itertuples(index=False):
+    g.add_edge(linha.origem, linha.destino, float(linha.distancia))
 
+pos = {}
+df_posicoes = pd.read_csv("Files/Grafo/posGrafo.csv", encoding='utf-8')
+for linha in df_posicoes.itertuples(index=False):
+    pos[linha.nodo] = (int(linha.x), int(linha.y))
 
+df_h_grafo = pd.read_csv("Files/Grafo/heristicasGrafo.csv", encoding='utf-8')
+for linha in df_h_grafo.itertuples(index=False):
+    g.add_heuristica(linha.nodo, int(linha.heuristica))
 
-
-
-
-
-
-
-
-
-
-######TESTES
-
-
-    g = gr.Graph()
-
-    df_grafo = pd.read_csv("Files/Grafo/grafo.csv", encoding='utf-8')
-    for linha in df_grafo.itertuples(index=False):
-        g.add_edge(linha.origem, linha.destino, float(linha.distancia))
-
-    pos = {}
-    df_posicoes = pd.read_csv("Files/Grafo/posGrafo.csv", encoding='utf-8')
-    for linha in df_posicoes.itertuples(index=False):
-        pos[linha.nodo] = (int(linha.x), int(linha.y))
-
-    df_h_grafo = pd.read_csv("Files/Grafo/heristicasGrafo.csv", encoding='utf-8')
-    for linha in df_h_grafo.itertuples(index=False):
-        g.add_heuristica(linha.nodo, int(linha.heuristica))
-
-    pontoslevantamento = []
-    df_postosLevantamento = pd.read_csv("Files/Grafo/postosLevantamento.csv", encoding='utf-8')
-    for linha in df_postosLevantamento.itertuples(index=False):
-        pontoslevantamento.append(linha.nodo)
+pontoslevantamento = []
+df_postosLevantamento = pd.read_csv("Files/Grafo/postosLevantamento.csv", encoding='utf-8')
+for linha in df_postosLevantamento.itertuples(index=False):
+    pontoslevantamento.append(linha.nodo)
 
 
 
@@ -68,5 +55,5 @@ enc1 = cliente2.criarEncomenda(peso=2, precoBase=54.23, tempoInicio=datetimeStar
 enc2 = cliente1.criarEncomenda(peso=2, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=25, hour=22, minute=30))
 enc3 = cliente3.criarEncomenda(peso=4, precoBase=543, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=17, minute=30))
 
-list = [enc1, enc2]
+list = [enc1, enc2, enc3]
 ent = Entrega(list, g, False, datetimeStart, datetime(year=2023, month=11, day=22, hour=22, minute=30), pontoslevantamento, gl)

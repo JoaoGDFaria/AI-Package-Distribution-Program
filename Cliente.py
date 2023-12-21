@@ -1,4 +1,3 @@
-from Global import Global
 from Encomenda import Encomenda
 
 class Cliente:
@@ -14,15 +13,16 @@ class Cliente:
         if peso > 100:
             print("Não é possível transportar encomendas com mais de 100kg!")
             return
-        enc = Encomenda(peso, precoBase, self.localizacao, self.id, tempoInicio, tempoFim, self.localizacao, self.gl)
-        self.encomendas.append(enc)
+        enc = Encomenda(peso, precoBase, self.localizacao, self.id, tempoInicio, tempoFim,  self.gl)
+        self.addEncomenda(enc)
         return enc
-
-    def mudarLocalizacao(self, localizacao):
-        self.localizacao = localizacao
-
-    def definirRanking(self, idEncomenda):
-        pass
 
     def printAll(self):
         self.gl.printAllGlobal()
+
+    def addEncomenda(self, enc):
+        self.encomendas.append(enc)
+
+    def avaliarEstafeta(self, hours1, minutes1, hours2, minutes2, nomeEstafeta):
+        ratingCliente = float(input(f"Encomenda chegou {hours1} horas e {minutes1} minutos depois a {self.localizacao} com {hours2} horas e {minutes2} minutos de atraso!\nQue rating pretende dar à/ao estafeta {nomeEstafeta}? "))
+        return ratingCliente
