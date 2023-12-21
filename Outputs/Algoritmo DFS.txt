@@ -25,6 +25,6 @@ Localização Inicial: Mogege
 Veículo: mota
 ---------------
 
-Time taken: 11.34 ms
+Time taken: 10.95 ms
 
 

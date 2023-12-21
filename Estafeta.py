@@ -49,12 +49,14 @@ class Estafeta:
 
         tempoFinal = tempoInicio + timedelta(minutes=len(locaisEntrega))
         distancia_percorrida = 0
+        distancia_acumulativa = 0
         caminho_anterior = path[0]
         encomenda = None
         flag = False
 
         for caminho in path:
             distancia_percorrida += graph.get_arc_cost(caminho_anterior, caminho)
+            distancia_acumulativa += distancia_percorrida
 
             if caminho in pontosRecolha: flag = True
 
@@ -82,9 +84,12 @@ class Estafeta:
                     hours2, remainder2 = divmod(atraso.seconds, 3600)
                     minutes2 = remainder2 // 60
 
-                    cliente = self.gl.get_cliente(encomenda.idCliente)
-                    ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome)
+                    encomenda.preco = round(encomenda.preco+(distancia_acumulativa//10), 2)
 
+
+                    cliente = self.gl.get_cliente(encomenda.idCliente)
+                    ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome, encomenda.preco)
+                    df.at[row, 'Distância percorrida'] = f"{round(distancia_acumulativa, 2)} km"
                     if ratingCliente < 0: ratingCliente = 0
                     elif ratingCliente > 5: ratingCliente = 5
                     ratingEntrega = round((rating + ratingCliente)/2, 1)

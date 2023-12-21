@@ -3,10 +3,11 @@ from datetime import timedelta
 
 class Encomenda:
 
-    def __init__(self, peso, precoBase, localEntrega, idCliente, tempoInicio, prazoLimite, gl):
+    def __init__(self, peso, preco, volume, localEntrega, idCliente, tempoInicio, prazoLimite, gl):
         self.idCliente = idCliente
         self.peso = peso
-        self.precoBase = precoBase
+        self.preco = preco
+        self.volume = volume
         self.localEntrega = localEntrega
         self.tempoInicio = tempoInicio
         self.prazoLimite = prazoLimite

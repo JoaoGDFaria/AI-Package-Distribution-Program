@@ -6,11 +6,10 @@ from datetime import datetime, timedelta
 
 
 class Entrega:
-    def __init__(self, listaEncomendas, graph, tempoInicio, tempoFim, pontosRecolha, gl, algorithm, fileName, df, row):
+    def __init__(self, listaEncomendas, graph, tempoInicio, pontosRecolha, gl, algorithm, fileName, df, row):
         self.listaEncomendas = listaEncomendas
         self.graph = graph
         self.tempoInicio = tempoInicio
-        self.tempoFim = tempoFim
         self.locaisEntrega = [encomenda.localEntrega for encomenda in self.listaEncomendas]
         self.pesoTotalEncomendas = sum(encomenda.peso for encomenda in self.listaEncomendas)
         self.pontosRecolha = pontosRecolha
@@ -23,7 +22,6 @@ class Entrega:
             file.truncate(0)
             self.file = file
             self.melhorCaminho(algorithm)
-
 
 
 

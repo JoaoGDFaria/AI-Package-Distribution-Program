@@ -25,6 +25,6 @@ Localização Inicial: Gondifelos
 Veículo: mota
 ---------------
 
-Time taken: 38.48 ms
+Time taken: 43.56 ms
 
 
