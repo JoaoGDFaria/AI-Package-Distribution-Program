@@ -115,41 +115,65 @@ class Global:
     def qualFaz(self, g):
         encomendas = self.get_encomendas_sem_entregador()
         pontosEntrega = []
+        pesoTotal = sum(encomenda.peso for encomenda in encomendas)
 
         for encomenda in encomendas:
             pontosEntrega.append(encomenda.localEntrega)
 
 
-        minimum = 0
+        minimumCamPEstafeta = 0
+        minTotal = 0
 
         (distanciaMaxBicicleta, distanciaMaxMota, distanciaMaxCarro) = self.veiculoMax(encomendas)
 
         permutation = list(permutations(encomendas))
 
-        for locInicial in self.get_all_available_estafeta_location():
+        for estafeta in self.get_all_estafetas_available(pesoTotal):
             for path in permutation:
+                locInicial = estafeta.localizacao
                 custoDFS = 0
                 custoBFS = 0
                 custoAStar = 0
                 custoGreedy = 0
                 custoUniform = 0
+                pathDFS = []
+                pathBFS = []
+                pathAStar = []
+                pathGreedy = []
+                pathUniform = []
                 for next in path:
-                    custoDFS += gr.procura_DFS(g, locInicial, next.localEntrega)[1]
-                    custoBFS += gr.procura_BFS(g, locInicial, next.localEntrega)[1]
-                    custoAStar += gr.procura_aStar(g, locInicial, next.localEntrega)[1]
-                    custoGreedy += gr.greedy(g, locInicial, next.localEntrega)[1]
-                    custoUniform += gr.procura_UCS(g, locInicial, next.localEntrega)[1]
+                    pathDFS += gr.procura_DFS(g, locInicial, next.localEntrega)[0]
+                    pathBFS += gr.procura_BFS(g, locInicial, next.localEntrega)[0]
+                    pathAStar += gr.procura_aStar(g, locInicial, next.localEntrega)[0]
+                    pathGreedy += gr.greedy(g, locInicial, next.localEntrega)[0]
+                    pathUniform += gr.procura_UCS(g, locInicial, next.localEntrega)[0]
                     locInicial = next.localEntrega
 
-                temp = min(custoDFS, custoBFS, custoAStar, custoGreedy, custoUniform)
-                if (temp < minimum or temp == 0):
-                    minimum = temp
+                for i in range(len(pathDFS)-1):
+                    custoDFS += g.get_edge(pathDFS[i], pathDFS[i+1]).weight
+                for i in range(len(pathBFS)-1):
+                    custoBFS += g.get_edge(pathBFS[i], pathBFS[i+1]).weight
+                for i in range(len(pathAStar)-1):
+                    custoAStar += g.get_edge(pathAStar[i], pathAStar[i+1]).weight
+                for i in range(len(pathGreedy)-1):
+                    custoGreedy += g.get_edge(pathGreedy[i], pathGreedy[i+1]).weight
+                for i in range(len(pathUniform)-1):
+                    custoUniform += g.get_edge(pathUniform[i], pathUniform[i+1]).weight
 
-            if (minimum <= distanciaMaxBicicleta):
-                return "bicicleta"
-            elif (minimum <= distanciaMaxMota):
-                return "mota"
-            elif (minimum <= distanciaMaxCarro):
-                return "carro"
-            else:
-                return None
+
+                tempE = min(custoDFS, custoBFS, custoAStar, custoGreedy, custoUniform)
+                if tempE < minimumCamPEstafeta or tempE == 0:
+                    minimumCamPEstafeta = tempE
+
+            if minimumCamPEstafeta < minTotal or minTotal == 0:
+                minTotal = minimumCamPEstafeta
+
+
+        if minTotal <= distanciaMaxBicicleta:
+            return "bicicleta"
+        elif minTotal <= distanciaMaxMota:
+            return "mota"
+        elif minTotal <= distanciaMaxCarro:
+            return "carro"
+        else:
+            return None
