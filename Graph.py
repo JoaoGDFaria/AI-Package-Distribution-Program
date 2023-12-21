@@ -322,7 +322,7 @@ class Graph:
             custo_atual, nodo_atual, caminho_atual = heapq.heappop(fila_prioridades)
             # Verifica se a rua atual é a rua objetivo
             if nodo_atual == end:
-                return caminho_atual + [nodo_atual], custo_atual, visitados
+                return caminho_atual + [nodo_atual], custo_atual
 
             # marca o nodo atual como visitado
             visitados.append(nodo_atual)

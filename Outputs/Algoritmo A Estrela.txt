@@ -1,0 +1,30 @@
+
+Path ideal bicicleta: ['Calendário', 'Famalicão', 'Louro', 'Nine', 'Louro', 'Famalicão', 'Calendário', 'Lousado', 'Fradelos']
+Custo ideal bicicleta: 41.5
+Velocidade média mínima: 8.3 km/h
+Peso: 4 kg
+
+Path ideal mota: ['Abade de Vermoim', 'Calendário', 'Famalicão', 'Louro', 'Nine', 'Louro', 'Famalicão', 'Calendário', 'Lousado', 'Fradelos']
+Custo ideal mota: 47.5
+Velocidade média mínima: 9.5 km/h
+Peso: 4 kg
+
+Path ideal carro: ['Outiz', 'Calendário', 'Famalicão', 'Louro', 'Nine', 'Louro', 'Famalicão', 'Calendário', 'Lousado', 'Fradelos']
+Custo ideal carro: 45.7
+Velocidade média mínima: 9.14 km/h
+Peso: 4 kg
+
+Velocidade média da bicicleta: 7.6 km/h
+Velocidade média da mota: 33.0 km/h
+Velocidade média do carro: 49.6 km/h
+
+
+---------------
+Nome: Pedro Martins Ferreira
+Localização Inicial: Abade de Vermoim
+Veículo: mota
+---------------
+
+Time taken: 45.78 ms
+
+

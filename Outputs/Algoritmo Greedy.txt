@@ -1,0 +1,30 @@
+
+Path ideal bicicleta: ['Calendário', 'Famalicão', 'Louro', 'Nine', 'Louro', 'Famalicão', 'Calendário', 'Outiz', 'Gondifelos', 'Fradelos']
+Custo ideal bicicleta: 46.1
+Velocidade média mínima: 9.22 km/h
+Peso: 4 kg
+
+Path ideal mota: ['Gondifelos', 'Outiz', 'Calendário', 'Famalicão', 'Louro', 'Nine', 'Louro', 'Famalicão', 'Calendário', 'Outiz', 'Gondifelos', 'Fradelos']
+Custo ideal mota: 55.4
+Velocidade média mínima: 11.08 km/h
+Peso: 4 kg
+
+Path ideal carro: ['Outiz', 'Calendário', 'Famalicão', 'Louro', 'Nine', 'Louro', 'Famalicão', 'Calendário', 'Outiz', 'Gondifelos', 'Fradelos']
+Custo ideal carro: 50.3
+Velocidade média mínima: 10.06 km/h
+Peso: 4 kg
+
+Velocidade média da bicicleta: 7.6 km/h
+Velocidade média da mota: 33.0 km/h
+Velocidade média do carro: 49.6 km/h
+
+
+---------------
+Nome: Sofia Rodrigues
+Localização Inicial: Gondifelos
+Veículo: mota
+---------------
+
+Time taken: 38.48 ms
+
+

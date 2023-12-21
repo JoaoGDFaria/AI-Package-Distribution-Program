@@ -41,7 +41,7 @@ class Estafeta:
             self.velocidadeMedia = round(self.velocidadeMedia * rand, 2)
 
 
-    def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, pontosRecolha):
+    def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, pontosRecolha, df, row):
         self.setDisponivel(False)
 
         for encomenda in listaEncomendas:
@@ -102,4 +102,6 @@ class Estafeta:
         # Redefine tudo para o estado inicial
         self.velocidadeMedia = info.infoVelocidadeMedia[self.veiculo]
         self.setDisponivel(True)
+        df.at[row, 'Tempo de entrega'] = tempoFinal - tempoInicio
+
         #self.gl.printAllGlobal()

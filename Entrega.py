@@ -6,18 +6,25 @@ from datetime import datetime, timedelta
 
 
 class Entrega:
-    def __init__(self, listaEncomendas, graph, metereologia, tempoInicio, tempoFim, pontosRecolha, gl):
+    def __init__(self, listaEncomendas, graph, tempoInicio, tempoFim, pontosRecolha, gl, algorithm, fileName, df, row):
         self.listaEncomendas = listaEncomendas
         self.graph = graph
-        self.metereologia = metereologia
         self.tempoInicio = tempoInicio
         self.tempoFim = tempoFim
         self.locaisEntrega = [encomenda.localEntrega for encomenda in self.listaEncomendas]
         self.pesoTotalEncomendas = sum(encomenda.peso for encomenda in self.listaEncomendas)
         self.pontosRecolha = pontosRecolha
         self.gl = gl
+        self.df = df
+        self.row = row
 
-        self.melhorCaminho(self.graph.procura_BFS)
+
+        with open(f'./Outputs/{fileName}.txt', 'a', encoding='utf-8') as file:
+            file.truncate(0)
+            self.file = file
+            self.melhorCaminho(algorithm)
+
+
 
 
     def melhorCaminho(self, algorithmFunction):
@@ -27,7 +34,7 @@ class Entrega:
         melhorEntregaVeiculo = {}
 
 
-        print("\n\nListagem de todos os caminhos possíveis:")
+        #print("\n\nListagem de todos os caminhos possíveis:", file= self.file)
 
         # Para todos os pontos de recolha da encomenda
         for pontoRecolha in self.pontosRecolha:
@@ -46,8 +53,8 @@ class Entrega:
 
                     (path, custo) = self.calculaMelhorCaminho(posicaoInicial, all_paths, algorithmFunction)
 
-                    aux = "Inicio:"+posicaoInicial + "||" + str(all_paths)
-                    print(aux)
+                    #aux = "Inicio:"+posicaoInicial + "||" + str(all_paths)
+                    #print(aux)
 
 
                     if veiculo in melhorEntregaVeiculo:
@@ -60,41 +67,41 @@ class Entrega:
 
         ab = melhorEntregaVeiculo.get("bicicleta")
         if ab is None:
-            print("\nNão existe possibilidade de entrega da bicicleta")
+            print("\nNão existe possibilidade de entrega da bicicleta", file= self.file)
             list_information.append(None)
         else:
-            print(f"\nPath ideal bicicleta: {ab[0]}")
-            print(f"Custo ideal bicicleta: {ab[1]}")
-            velocidade_media = self.calculaVelocidadeDeEntrega(ab[1], ab[0])
-            print(f"Velocidade média mínima: {velocidade_media} km/h")
-            print(f"Peso: {self.pesoTotalEncomendas} kg")
-            list_information.append((ab[0], velocidade_media))
+            print(f"\nPath ideal bicicleta: {ab[0]}", file= self.file)
+            print(f"Custo ideal bicicleta: {ab[1]}", file= self.file)
+            velocidade_media = self.calculaVelocidadeDeEntrega(ab[0])
+            print(f"Velocidade média mínima: {velocidade_media} km/h", file= self.file)
+            print(f"Peso: {self.pesoTotalEncomendas} kg", file= self.file)
+            list_information.append((ab[0], velocidade_media, ab[1]))
 
 
         am = melhorEntregaVeiculo.get("mota")
         if am is None:
-            print("\nNão existe possibilidade de entrega da mota")
+            print("\nNão existe possibilidade de entrega da mota", file= self.file)
             list_information.append(None)
         else:
-            print(f"\nPath ideal mota: {am[0]}")
-            print(f"Custo ideal mota: {am[1]}")
-            velocidade_media = self.calculaVelocidadeDeEntrega(am[1], am[0])
-            print(f"Velocidade média mínima: {velocidade_media} km/h")
-            print(f"Peso: {self.pesoTotalEncomendas} kg")
-            list_information.append((am[0], velocidade_media))
+            print(f"\nPath ideal mota: {am[0]}", file= self.file)
+            print(f"Custo ideal mota: {am[1]}", file= self.file)
+            velocidade_media = self.calculaVelocidadeDeEntrega(am[0])
+            print(f"Velocidade média mínima: {velocidade_media} km/h", file= self.file)
+            print(f"Peso: {self.pesoTotalEncomendas} kg", file= self.file)
+            list_information.append((am[0], velocidade_media, am[1]))
 
 
         ac = melhorEntregaVeiculo.get("carro")
         if ac is None:
-            print("\nNão existe possibilidade de entrega da mota")
+            print("\nNão existe possibilidade de entrega da mota", file= self.file)
             list_information.append(None)
         else:
-            print(f"\nPath ideal carro: {ac[0]}")
-            print(f"Custo ideal carro: {ac[1]}")
-            velocidade_media = self.calculaVelocidadeDeEntrega(ac[1], ac[0])
-            print(f"Velocidade média mínima: {velocidade_media} km/h")
-            print(f"Peso: {self.pesoTotalEncomendas} kg")
-            list_information.append((ac[0], velocidade_media))
+            print(f"\nPath ideal carro: {ac[0]}", file= self.file)
+            print(f"Custo ideal carro: {ac[1]}", file= self.file)
+            velocidade_media = self.calculaVelocidadeDeEntrega(ac[0])
+            print(f"Velocidade média mínima: {velocidade_media} km/h", file= self.file)
+            print(f"Peso: {self.pesoTotalEncomendas} kg", file= self.file)
+            list_information.append((ac[0], velocidade_media, ac[1]))
 
         self.determina_estafeta(list_information, start_time)
 
@@ -113,10 +120,11 @@ class Entrega:
             posicaoAnterior = posicao
         return round(distancia, 1)
 
-    def calculaVelocidadeDeEntrega(self, distancia, path):
+    def calculaVelocidadeDeEntrega(self, path):
         (tempoMinimo, encomenda) = self.get_tempo_encomenda()
         intervaloDeTempo = tempoMinimo - self.tempoInicio
         intervaloDeTempoEmHoras = intervaloDeTempo.total_seconds() / 3600
+
         velocidadeMedia = self.distanceToEncomenda(path, encomenda.localEntrega)/intervaloDeTempoEmHoras
         return round(velocidadeMedia, 2)
 
@@ -153,42 +161,61 @@ class Entrega:
         equacao_velocidade_mota = info.infoVelocidadeMedia["mota"] - (info.infoPerdaPorKg["mota"] * self.pesoTotalEncomendas)
         equacao_velocidade_carro = info.infoVelocidadeMedia["carro"] - (info.infoPerdaPorKg["carro"] * self.pesoTotalEncomendas)
 
-        print(f"\nVelocidade média da bicicleta: {equacao_velocidade_bicicleta} km/h")
-        print(f"Velocidade média da mota: {equacao_velocidade_mota} km/h")
-        print(f"Velocidade média do carro: {equacao_velocidade_carro} km/h")
+        print(f"\nVelocidade média da bicicleta: {equacao_velocidade_bicicleta} km/h", file= self.file)
+        print(f"Velocidade média da mota: {equacao_velocidade_mota} km/h", file= self.file)
+        print(f"Velocidade média do carro: {equacao_velocidade_carro} km/h", file= self.file)
 
 
         if (list_information[0] is not None and list_information[0][1]<=equacao_velocidade_bicicleta):
             estafeta = self.gl.get_estafeta_available_by_location(list_information[0][0][0], "bicicleta")
             finalPath = list_information[0][0]
+            custo = list_information[0][2]
+            vm = equacao_velocidade_bicicleta
+            veiculo = "bicicleta"
+            vmin = list_information[0][1]
 
         elif (list_information[1] is not None and list_information[1][1]<=equacao_velocidade_mota):
             estafeta = self.gl.get_estafeta_available_by_location(list_information[1][0][0], "mota")
             finalPath = list_information[1][0]
+            custo = list_information[1][2]
+            vm = equacao_velocidade_mota
+            veiculo = "mota"
+            vmin = list_information[1][1]
 
         elif (list_information[2] is not None and list_information[2][1]<=equacao_velocidade_carro):
             estafeta = self.gl.get_estafeta_available_by_location(list_information[2][0][0], "carro")
             finalPath = list_information[2][0]
+            custo = list_information[2][2]
+            vm = equacao_velocidade_carro
+            veiculo = "carro"
+            vmin = list_information[2][1]
 
         else:
-            print(f"Não existe nenhum estafeta ")
+            print(f"Não existe nenhum estafeta", file= self.file)
             return
 
 
-        print("\n\n---------------")
-        print(f"Nome: {estafeta.nome}")
-        print(f"Localização Inicial: {estafeta.localizacao}")
-        print(f"Veículo: {estafeta.veiculo}")
+        self.df.at[self.row, 'Custo'] = custo
+        self.df.at[self.row, 'Velocidade média'] = f"{vm} km/h"
+        self.df.at[self.row, 'Veículo'] = veiculo
+        self.df.at[self.row, 'Velocidade mínima'] = f"{vmin} km/h"
+
+        print("\n\n---------------", file= self.file)
+        print(f"Nome: {estafeta.nome}", file= self.file)
+        print(f"Localização Inicial: {estafeta.localizacao}", file= self.file)
+        print(f"Veículo: {estafeta.veiculo}", file= self.file)
 
 
         estafeta.calculaVelocidadeMedia(self.pesoTotalEncomendas)
-        print("---------------\n")
+        print("---------------\n", file= self.file)
 
-        print(f"Time taken: {(perf_counter() - start_time) * 1000 :.2f} ms\n\n")
+        timeTaken = f"{(perf_counter() - start_time) * 1000 :.2f}"
+        print(f"Time taken: {timeTaken} ms\n\n", file= self.file)
+        self.df.at[self.row, 'Tempo execução'] = f"{timeTaken} ms"
 
 
         print("ENTREGAS:::::::::::::::\n")
-        estafeta.efetuarEncomenda(finalPath, self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas, self.pontosRecolha)
+        estafeta.efetuarEncomenda(finalPath, self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas, self.pontosRecolha, self.df, self.row)
 
         return estafeta
 
