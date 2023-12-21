@@ -1,3 +1,4 @@
+import heapq
 import math
 from queue import Queue
 
@@ -311,6 +312,31 @@ class Graph:
 
         print('Path does not exist!')
         return None
+    
+    def procura_UCS(self, start, end):
+        # fila prioridades composta por o custo acc, o nodo atual e o caminho percorrido desde o inicio até ao nodo
+        fila_prioridades = [(0, start, [])]
+        visitados = []
+
+        while fila_prioridades:
+            custo_atual, nodo_atual, caminho_atual = heapq.heappop(fila_prioridades)
+            # Verifica se a rua atual é a rua objetivo
+            if nodo_atual == end:
+                return caminho_atual + [nodo_atual], custo_atual, visitados
+
+            # marca o nodo atual como visitado
+            visitados.append(nodo_atual)
+
+            # verifica os vizinhos do nodo atual
+            for vizinho, custo in self.getNeighbours(nodo_atual):
+                if vizinho not in visitados:
+                    # Calcula o custo desde o nodo atual até ao seu vizinho
+                    custo_total = custo_atual + custo
+                    # o append substitui a lista original logo não o podemos usar
+                    heapq.heappush(fila_prioridades, (custo_total, vizinho, caminho_atual + [nodo_atual]))
+                    
+                    
+                    
 
     def del_route(self, nodea, nodeb):
         print("Entrei")

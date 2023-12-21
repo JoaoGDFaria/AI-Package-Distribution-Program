@@ -27,14 +27,22 @@ def main():
     for linha in df_postosLevantamento.itertuples(index=False):
         pontoslevantamento.append(linha.nodo)
 
-
-
+    #while True:
+        #print("1-Inserir estafeta")
+        #print("2-Consultar estafetas")
+        #print("3-Inserir encomenda")
+        #print("4-Consultar lista encomendas")
+        #print("5-Remover ligação entre freguesias")
+        #print("0-Sair")
+        
+        
     while True:
         print("1-Desenhar Grafo")
         print("2-DFS")
         print("3-BFS")
         print("4-A*")
         print("5-Gulosa")
+        print("6-Custo Uniforme")
         #print("9-Remover ligação do grafo")
         print("0-Sair")
 
@@ -61,6 +69,9 @@ def main():
 
             elif saida == 5:
                 auxFunction(g.greedy, pontoslevantamento, g)
+                
+            elif saida == 6:
+                auxFunction(g.procura_UCS, pontoslevantamento, g)
 
             else:
                 print("Please insert a valid number")
