@@ -25,6 +25,6 @@ Localização Inicial: Lousado
 Veículo: mota
 ---------------
 
-Time taken: 62.53 ms
+Time taken: 60.51 ms
 
 

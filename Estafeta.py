@@ -89,7 +89,7 @@ class Estafeta:
 
                     cliente = self.gl.get_cliente(encomenda.idCliente)
                     ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome, encomenda.preco)
-                    df.at[row, 'Distância percorrida'] = f"{round(distancia_acumulativa, 2)} km"
+                    #df.at[row, 'Distância percorrida'] = f"{round(distancia_acumulativa, 2)} km"
                     if ratingCliente < 0: ratingCliente = 0
                     elif ratingCliente > 5: ratingCliente = 5
                     ratingEntrega = round((rating + ratingCliente)/2, 1)
@@ -107,6 +107,6 @@ class Estafeta:
         # Redefine tudo para o estado inicial
         self.velocidadeMedia = info.infoVelocidadeMedia[self.veiculo]
         self.setDisponivel(True)
-        df.at[row, 'Tempo de entrega'] = tempoFinal - tempoInicio
+        #df.at[row, 'Tempo de entrega'] = tempoFinal - tempoInicio
 
         #self.gl.printAllGlobal()

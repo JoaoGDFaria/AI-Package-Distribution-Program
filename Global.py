@@ -40,6 +40,8 @@ class Global:
             all_estaf.append(estafeta)
         return all_estaf
 
+
+    ## MUDAR
     def get_all_estafetas_available(self, peso):
         todas_possibilidades = {}
         for estafeta in self.todos_estafetas.values():
@@ -60,10 +62,27 @@ class Global:
         return todas_possibilidades
 
 
-    def get_estafeta_available_by_location(self, localizacao, veiculo):
+
+    def get_all_estafetas_available_veiculo(self, veiculo):
+        todas_possibilidades = []
+
         for estafeta in self.todos_estafetas.values():
-            if estafeta.disponivel and estafeta.veiculo == veiculo and estafeta.localizacao == localizacao:
-                return estafeta
+            if estafeta.disponivel and estafeta.veiculo == veiculo:
+
+                if estafeta.localizacao not in todas_possibilidades:
+                    todas_possibilidades.append(estafeta.localizacao)
+        return todas_possibilidades
+
+
+    ## MUDAR PARA PESSOA COM MAIS RATING
+    def get_estafeta_available_by_location(self, localizacao, veiculo):
+        rating = -1
+        est = None
+        for estafeta in self.todos_estafetas.values():
+            if estafeta.disponivel and estafeta.veiculo == veiculo and estafeta.localizacao == localizacao and estafeta.rating > rating:
+                rating = estafeta.rating
+                est = estafeta
+        return est
 
     def get_all_available_estafeta_location(self):
         different_locations = set()
@@ -77,7 +96,25 @@ class Global:
         for encomenda in self.todos_encomendas.values():
             if encomenda.idEstafeta is None:
                 all_enc.append(encomenda)
-        return all_enc
+
+
+        all_enc_sorted = sorted(all_enc, key=lambda encomenda: encomenda.peso)
+
+        lista_bicicleta = []
+        lista_mota = []
+        lista_carro = all_enc_sorted
+
+        for enc in all_enc_sorted[::-1]:
+            if enc.peso < info.infoPesoMaximo["bicicleta"]:
+                lista_bicicleta.append(enc)
+                lista_mota.append(enc)
+
+            elif enc.peso < info.infoPesoMaximo["mota"]:
+                lista_mota.append(enc)
+
+        print(len(lista_bicicleta))
+
+        return lista_bicicleta, lista_mota, lista_carro
 
 
     def printAllGlobal(self):
@@ -90,13 +127,13 @@ class Global:
         for id, info in self.todos_encomendas.items():
             print(f"ID: {id}, IdCliente: {info.idCliente}, Peso: {info.peso}, Preço Base: {info.precoBase}, Local Entrega: {info.localEntrega}, Tempo Inicio: {info.tempoInicio}, Prazo Limite: {info.prazoLimite}, Tempo Entrega: {info.tempoEntrega}, Rating: {info.rating}")
 
-    def get_all_subsets(lst):
+    def get_all_subsets(self, lst):
         subsets = []
         for subset_size in range(1, len(lst) + 1):
-            subsets.extend(combinations(lst, subset_size))
+            subsets.extend(list(combination) for combination in combinations(lst, subset_size))
         return subsets
 
-    def get_all_permutations(lst):
+    def get_all_permutations(self, lst):
         all_subsets = lst.get_all_subsets()
         all_permutations = []
         for subset in all_subsets:
@@ -125,6 +162,31 @@ class Global:
             distanciaMaxCarro = formulaCarro
 
         return distanciaMaxBicicleta, distanciaMaxMota, distanciaMaxCarro
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def qualFaz(self, g):
         encomendas = self.get_encomendas_sem_entregador()

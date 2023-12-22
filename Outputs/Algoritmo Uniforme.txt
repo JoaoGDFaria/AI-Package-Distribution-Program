@@ -25,6 +25,6 @@ Localização Inicial: Fradelos
 Veículo: mota
 ---------------
 
-Time taken: 23.36 ms
+Time taken: 22.72 ms
 
 

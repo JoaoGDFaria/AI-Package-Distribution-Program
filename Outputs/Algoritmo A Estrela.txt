@@ -25,6 +25,6 @@ Localização Inicial: Abade de Vermoim
 Veículo: mota
 ---------------
 
-Time taken: 44.40 ms
+Time taken: 48.08 ms
 
 

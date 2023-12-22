@@ -1,3 +1,4 @@
+import math
 from time import perf_counter
 
 import info
@@ -17,11 +18,12 @@ class Entrega:
         self.df = df
         self.row = row
 
+        # self.melhorCaminho2(algorithm, "bicicleta")
 
-        with open(f'./Outputs/{fileName}.txt', 'a', encoding='utf-8') as file:
-            file.truncate(0)
-            self.file = file
-            self.melhorCaminho(algorithm)
+        #with open(f'./Outputs/{fileName}.txt', 'a', encoding='utf-8') as file:
+        #    file.truncate(0)
+        #    self.file = file
+        #    self.melhorCaminho(algorithm)
 
 
 
@@ -217,4 +219,100 @@ class Entrega:
 
         return estafeta
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def melhorCaminho2(self, algorithmFunction, veiculo):
+        print(f"ASSDSDADSDASDSADSADSADSADSADSAD {self.locaisEntrega}")
+        all_permutations_path = list(permutations(self.locaisEntrega))
+        melhorEntregaVeiculo = ([], math.inf)
+
+        # Para todos os pontos de recolha da encomenda
+        for pontoRecolha in self.pontosRecolha:
+            for path in all_permutations_path:
+
+                all_paths = [pontoRecolha] + list(path)
+
+                # Verificar todos os estafetas disponíveis com base no peso total da encomenda
+                for localizacao_veiculo in self.gl.get_all_estafetas_available_veiculo(veiculo):
+
+                    posicaoInicial = localizacao_veiculo
+
+                    (path, custo) = self.calculaMelhorCaminho(posicaoInicial, all_paths, algorithmFunction)
+
+                    aux = "Inicio:"+posicaoInicial + "||" + str(all_paths)
+                    print(aux)
+
+                    if melhorEntregaVeiculo[1] > custo:
+                        melhorEntregaVeiculo = (path, custo)
+
+        print(f"dasdasdsadsad {melhorEntregaVeiculo}")
+        velocidade_media = self.calculaVelocidadeDeEntrega(melhorEntregaVeiculo[0])
+
+        equacao_velocidade = info.infoVelocidadeMedia["bicicleta"] - (info.infoPerdaPorKg["bicicleta"] * self.pesoTotalEncomendas)
+
+        if (velocidade_media <= equacao_velocidade):
+
+            estafeta = self.gl.get_estafeta_available_by_location(melhorEntregaVeiculo[0][0],"bicicleta")
+            estafeta.efetuarEncomenda(melhorEntregaVeiculo[0], self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas, self.pontosRecolha, self.df, self.row)
+
+            return True
+            ## TRATAR DA ENCOMENDA
+
+        else:
+            return False
 

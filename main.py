@@ -48,23 +48,24 @@ def main():
     cliente1 = Cliente("João", "Nine", gl)
     cliente2 = Cliente("Ana", "Fradelos", gl)
     cliente3 = Cliente("António", "Bairro", gl)
+    cliente4 = Cliente("AA", "Famalicão", gl)
 
     datetimeStart = datetime(year=2023, month=11, day=22, hour=18, minute=30)
     datetimeFinish = datetime(year=2023, month=11, day=22, hour=22, minute=30)
 
 
-    enc1 = cliente2.criarEncomenda(peso=2, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=23, minute=30))
-    enc2 = cliente1.criarEncomenda(peso=2, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=23, minute=30))
-    enc3 = cliente3.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=22, minute=35))
-    enc4 = cliente2.criarEncomenda(peso=2, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=21, minute=15))
-    enc5 = cliente1.criarEncomenda(peso=2, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=28, hour=20, minute=45))
-    enc6 = cliente3.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=22, hour=23, minute=0))
-    enc7 = cliente2.criarEncomenda(peso=2, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=23, hour=18, minute=30))
-    enc8 = cliente1.criarEncomenda(peso=2, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2023, month=11, day=26, hour=22, minute=15))
+    enc1 = cliente1.criarEncomenda(peso=2, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=22, hour=23, minute=30))
+    enc2 = cliente2.criarEncomenda(peso=2, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=22, hour=23, minute=30))
+    enc3 = cliente3.criarEncomenda(peso=3, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=22, hour=22, minute=35))
+    enc4 = cliente4.criarEncomenda(peso=23, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=22, hour=21, minute=15))
+    #enc5 = cliente1.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=28, hour=20, minute=45))
+    #enc6 = cliente3.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=22, hour=23, minute=0))
+    #enc7 = cliente2.criarEncomenda(peso=2, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=23, hour=18, minute=30))
+    #enc8 = cliente1.criarEncomenda(peso=3, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=26, hour=22, minute=15))
 
 
-    fa.estudoDeUmaEntrega([enc1, enc2], g, datetimeStart, pontoslevantamento, gl, g)
-
+    #fa.estudoDeUmaEntrega([enc1, enc2], g, datetimeStart, pontoslevantamento, gl, g)
+    fa.escolherEncomendas(gl, g, pontoslevantamento)
 
 if __name__ == "__main__":
     main()
