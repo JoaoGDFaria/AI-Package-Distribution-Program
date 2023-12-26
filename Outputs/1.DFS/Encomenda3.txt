@@ -1,0 +1,20 @@
+
+Path ideal bicicleta: ['Bairro', 'Novais', 'Castelões', 'Novais', 'Bairro']
+Custo ideal bicicleta: 13.8
+Velocidade média mínima: 2.76 km/h
+
+Path ideal mota: ['Mogege', 'Castelões', 'Novais', 'Bairro']
+Custo ideal mota: 10.0
+Velocidade média mínima: 2.0 km/h
+
+Path ideal carro: ['Outiz', 'Gondifelos', 'Fradelos', 'Lousado', 'Calendário', 'Famalicão', 'Requião', 'Castelões', 'Novais', 'Bairro']
+Custo ideal carro: 54.3
+Velocidade média mínima: 10.86 km/h
+
+Peso: 1 kg
+
+Velocidade média da bicicleta: 9.4 km/h
+Velocidade média da mota: 34.5 km/h
+Velocidade média do carro: 49.9 km/h
+
+----> Veículo escolhido: bicicleta

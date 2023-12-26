@@ -1,13 +1,13 @@
 import math
+import os
 from datetime import timedelta
-from time import perf_counter
 
 import info
 
 
 class Encomenda:
 
-    def __init__(self, peso, preco, volume, localEntrega, idCliente, tempoInicio, prazoLimite, pontosRecolha, gl, g, ag, algorithmFunction):
+    def __init__(self, peso, preco, volume, localEntrega, idCliente, tempoInicio, prazoLimite, pontosRecolha, gl, g, ag, algorithmFunction, fileName):
         self.idCliente = idCliente
         self.peso = peso
         self.preco = preco
@@ -23,8 +23,13 @@ class Encomenda:
         self.g = g
         self.ag = ag
         self.id = self.gl.add_encomenda(self)
+        self.fileName = fileName
 
-        with open(f'./Outputs/Encomenda{self.id}.txt', 'a', encoding='utf-8') as file:
+        directory_path = f"./Outputs/{fileName}"
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+
+        with open(f'./Outputs/{self.fileName}/Encomenda{self.id}.txt', 'a', encoding='utf-8') as file:
             file.truncate(0)
             self.file = file
             self.melhorCaminhoEncomenda(algorithmFunction)
@@ -192,3 +197,9 @@ class Encomenda:
 
         return rating_final, timedelta(minutes=tempoMinutos)
 
+
+    def redoEncomendaPath(self, algorithmFunction):
+        with open(f'./Outputs/{self.fileName}/Encomenda{self.id}.txt', 'a', encoding='utf-8') as file:
+            file.truncate(0)
+            self.file = file
+            self.melhorCaminhoEncomenda(algorithmFunction)

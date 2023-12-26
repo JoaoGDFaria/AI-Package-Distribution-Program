@@ -10,7 +10,7 @@ class Cliente:
         self.gl = gl
         self.id = self.gl.add_cliente(self)
 
-    def criarEncomenda(self, peso, preco, volume, tempoInicio, tempoFim, pontosRecolha, g, ag, algoritmo):
+    def criarEncomenda(self, peso, preco, volume, tempoInicio, tempoFim, pontosRecolha, g, ag, algoritmo, fileName):
         pesoMax = info.infoPesoMaximo["carro"]
         volumeMax = info.infoVolumeMaximo["carro"]
 
@@ -21,7 +21,7 @@ class Cliente:
             print(f"Não é possível transportar encomendas com mais de {volumeMax} L!")
             return
 
-        enc = Encomenda(peso, preco, volume, self.localizacao, self.id, tempoInicio, tempoFim, pontosRecolha, self.gl, g, ag, algoritmo)
+        enc = Encomenda(peso, preco, volume, self.localizacao, self.id, tempoInicio, tempoFim, pontosRecolha, self.gl, g, ag, algoritmo, fileName)
         self.addEncomenda(enc)
 
         return enc

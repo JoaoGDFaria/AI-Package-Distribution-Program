@@ -20,17 +20,22 @@ class AgruparEncomenda:
     def agruparPorEstafeta(self, algoritmo):
         encomenda = None
         path = None
+        flag = False
         for veiculo, dictPontoRecolha in self.listaEncomendas.items():
             for pontoRecolha, all_encomendas in dictPontoRecolha.items():
                 if len(all_encomendas) == 1:
                     encomenda = all_encomendas[0][0]
                     path = all_encomendas[0][1]
 
-                    #print(f"ENTREGA {pontoRecolha} - {veiculo}")
+                    print(f"ENTREGA {pontoRecolha} - {veiculo}")
 
                     self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
                     estafeta = self.gl.get_estafeta_available_by_location(path[0], veiculo)
-                    estafeta.efetuarEncomenda(path, encomenda.tempoInicio, [encomenda.localEntrega], encomenda.g, [encomenda], encomenda.peso, self.pontosRecolha)
+                    if estafeta is None:
+                        flag = True
+                        encomenda.redoEncomendaPath(algoritmo)
+                    else:
+                        estafeta.efetuarEncomenda(path, encomenda.tempoInicio, [encomenda.localEntrega], encomenda.g, [encomenda], encomenda.peso, self.pontosRecolha)
 
 
                 elif len(all_encomendas) > 0:
@@ -58,6 +63,8 @@ class AgruparEncomenda:
 
                     Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual)
 
+        if flag is True:
+            self.agruparPorEstafeta(algoritmo)
 
 
 

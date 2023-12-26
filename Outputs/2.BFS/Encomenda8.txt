@@ -1,0 +1,20 @@
+
+Path ideal bicicleta: ['Tebosa', 'Arnoso', 'Cruz', 'Famalicão', 'Requião', 'Castelões', 'Novais', 'Bairro']
+Custo ideal bicicleta: 38.6
+Velocidade média mínima: 7.72 km/h
+
+Path ideal mota: ['Mogege', 'Castelões', 'Novais', 'Bairro']
+Custo ideal mota: 10.0
+Velocidade média mínima: 2.0 km/h
+
+Path ideal carro: ['Famalicão', 'Requião', 'Castelões', 'Novais', 'Bairro']
+Custo ideal carro: 20.1
+Velocidade média mínima: 4.02 km/h
+
+Peso: 1 kg
+
+Velocidade média da bicicleta: 9.4 km/h
+Velocidade média da mota: 34.5 km/h
+Velocidade média do carro: 49.9 km/h
+
+----> Veículo escolhido: bicicleta

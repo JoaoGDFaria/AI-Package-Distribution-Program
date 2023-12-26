@@ -1,0 +1,16 @@
+
+Não existe possibilidade de entrega da bicicleta
+
+Não existe possibilidade de entrega da mota
+
+Path ideal carro: ['Crespos', 'Palmeira', 'Dume', 'Maximinos', 'Cabreiros', 'Tadim', 'Tebosa', 'Arnoso', 'Cruz', 'Famalicão', 'Louro', 'Nine']
+Custo ideal carro: 65.7
+Velocidade média mínima: 3942.0 km/h
+
+Peso: 99 kg
+
+Velocidade média da bicicleta: 10 km/h
+Velocidade média da mota: 35 km/h
+Velocidade média do carro: 40.1 km/h
+
+----> Veículo escolhido: carro

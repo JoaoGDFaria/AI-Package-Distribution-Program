@@ -38,6 +38,7 @@ class Estafeta:
         flag = False
 
         for caminho in path:
+            self.localizacao = caminho
             #print(caminho_anterior, caminho)
             distancia_percorrida += graph.get_arc_cost(caminho_anterior, caminho)
             distancia_acumulativa += distancia_percorrida
@@ -54,7 +55,6 @@ class Estafeta:
 
                     locaisEntrega.remove(caminho)
 
-                    self.localizacao = caminho
 
                     tempoGastoPorEncomenda = (tempoFinal + timedelta(hours=(distancia_percorrida / self.velocidadeMedia)) + timedelta(minutes=1)).replace(second=0, microsecond=0)
                     tempoFinal = tempoGastoPorEncomenda

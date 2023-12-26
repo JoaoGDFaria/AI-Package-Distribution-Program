@@ -31,33 +31,27 @@ def estudoDeUmaEntrega(pontoslevantamento, gl, g, ag):
 
 
     all_algorithms = [g.procura_DFS, g.procura_BFS, g.procura_UCS, g.greedy, g.procura_aStar]
+    fileNames = ["1.DFS","2.BFS","3.Uniforme","4.Greedy","5.aStar"]
     for i in range(5):
         start_time = perf_counter()
 
 
-        cliente1.criarEncomenda(peso=99, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish1, pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[i])
-        cliente2.criarEncomenda(peso=1, preco=10, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish2, pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[i])
-        cliente3.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish3, pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[i])
-        cliente4.criarEncomenda(peso=10, preco=5.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish1, pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[i])
-        cliente1.criarEncomenda(peso=1, preco=55, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish4, pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[i])
+        cliente1.criarEncomenda(peso=99, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish1, pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[i], fileName=fileNames[i])
+        cliente2.criarEncomenda(peso=1, preco=10, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish2, pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[i], fileName=fileNames[i])
+        cliente3.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish3, pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[i], fileName=fileNames[i])
+        cliente4.criarEncomenda(peso=10, preco=5.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish1, pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[i], fileName=fileNames[i])
+        cliente1.criarEncomenda(peso=1, preco=55, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish4, pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[i], fileName=fileNames[i])
 
-        ag.imprimirEncomendas()
+        #ag.imprimirEncomendas()
 
         ag.agruparPorEstafeta(all_algorithms[i])
+        #gl.printAllGlobal()
 
-        print("ENTREIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n\n\n")
+        #print("ENTREIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n\n\n")
 
 
         timeTaken = f"{(perf_counter() - start_time) * 1000 :.2f}"
         df.at[i, 'Tempo execução'] = f"{timeTaken} ms"
-
-
-
-
-
-
-
-
 
 
     pd.set_option('display.max_rows', None)

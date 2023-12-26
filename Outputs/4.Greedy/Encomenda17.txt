@@ -1,0 +1,20 @@
+
+Path ideal bicicleta: ['Fradelos', 'Gondifelos', 'Outiz', 'Calendário', 'Outiz', 'Gondifelos', 'Fradelos']
+Custo ideal bicicleta: 39.0
+Velocidade média mínima: 9.75 km/h
+
+Path ideal mota: ['Lousado', 'Calendário', 'Outiz', 'Gondifelos', 'Fradelos']
+Custo ideal mota: 25.2
+Velocidade média mínima: 6.3 km/h
+
+Path ideal carro: ['Famalicão', 'Calendário', 'Outiz', 'Gondifelos', 'Fradelos']
+Custo ideal carro: 23.5
+Velocidade média mínima: 5.88 km/h
+
+Peso: 1 kg
+
+Velocidade média da bicicleta: 9.4 km/h
+Velocidade média da mota: 34.5 km/h
+Velocidade média do carro: 49.9 km/h
+
+----> Veículo escolhido: mota

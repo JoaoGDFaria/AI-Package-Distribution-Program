@@ -2,7 +2,6 @@ from Cliente import Cliente
 from Estafeta import Estafeta
 from Global import Global
 from AgruparEncomenda import AgruparEncomenda
-from datetime import datetime
 import Graph as gr
 import pandas as pd
 import funcoes_auxiliares as fa
@@ -61,6 +60,7 @@ def main():
     #ag.imprimirEncomendas()
 
     fa.estudoDeUmaEntrega(pontoslevantamento, gl, g, ag)
+
     #fa.escolherEncomendas(gl, g, pontoslevantamento)
 
 if __name__ == "__main__":
