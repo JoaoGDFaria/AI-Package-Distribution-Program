@@ -20,17 +20,12 @@ class Estafeta:
         self.id = self.gl.add_estafeta(self)
 
 
-    def setDisponivel (self, disponivel):
-        self.disponivel = disponivel
-
-
-
     def calculaVelocidadeMedia(self, pesoTotalEncomendas):
         self.velocidadeMedia = round(info.infoVelocidadeMedia[self.veiculo] - (info.infoPerdaPorKg[self.veiculo] * pesoTotalEncomendas), 2)
 
 
     def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, pontosRecolha):
-        self.setDisponivel(False)
+        self.disponivel = False
 
         for encomenda in listaEncomendas:
             encomenda.idEstafeta = self.id
@@ -76,9 +71,9 @@ class Estafeta:
                     cliente = self.gl.get_cliente(encomenda.idCliente)
                     ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome, encomenda.preco, encomenda.id)
                     #df.at[row, 'Distância percorrida'] = f"{round(distancia_acumulativa, 2)} km"
-                    if ratingCliente < 0: ratingCliente = 0
-                    elif ratingCliente > 5: ratingCliente = 5
-                    ratingEntrega = round((rating + ratingCliente)/2, 1)
+                    #if ratingCliente < 0: ratingCliente = 0
+                    #elif ratingCliente > 5: ratingCliente = 5
+                    ratingEntrega = round(rating, 1)
                     print(f"Rating global: {ratingEntrega}\n")
 
                     self.rating = round(((self.rating * self.numentregas) + ratingEntrega) / (self.numentregas + 1), 1)
@@ -100,7 +95,7 @@ class Estafeta:
             caminho_anterior = caminho
         # Redefine tudo para o estado inicial
         self.velocidadeMedia = info.infoVelocidadeMedia[self.veiculo]
-        self.setDisponivel(True)
+        self.disponivel = True
         #df.at[row, 'Tempo de entrega'] = tempoFinal - tempoInicio
 
         #self.gl.printAllGlobal()

@@ -1,11 +1,13 @@
 import math
 from datetime import timedelta
+from time import perf_counter
+
 import info
 
 
 class Encomenda:
 
-    def __init__(self, peso, preco, volume, localEntrega, idCliente, tempoInicio, prazoLimite, pontosRecolha, gl, g, ag):
+    def __init__(self, peso, preco, volume, localEntrega, idCliente, tempoInicio, prazoLimite, pontosRecolha, gl, g, ag, algorithmFunction):
         self.idCliente = idCliente
         self.peso = peso
         self.preco = preco
@@ -25,11 +27,10 @@ class Encomenda:
         with open(f'./Outputs/Encomenda{self.id}.txt', 'a', encoding='utf-8') as file:
             file.truncate(0)
             self.file = file
-            self.melhorCaminhoEncomenda(self.g.procura_BFS)
+            self.melhorCaminhoEncomenda(algorithmFunction)
 
 
     def melhorCaminhoEncomenda(self, algorithmFunction):
-        #start_time = perf_counter()
         list_information = []
         melhorEntregaVeiculo = {}
 

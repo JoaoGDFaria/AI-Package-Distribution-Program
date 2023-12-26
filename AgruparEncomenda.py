@@ -17,7 +17,7 @@ class AgruparEncomenda:
         else:
             self.listaEncomendas[veiculo] = {pontoRecolha: [(encomenda, path)]}
 
-    def agruparPorEstafeta(self):
+    def agruparPorEstafeta(self, algoritmo):
         encomenda = None
         path = None
         for veiculo, dictPontoRecolha in self.listaEncomendas.items():
@@ -50,12 +50,13 @@ class AgruparEncomenda:
                             print(f"------>{peso_atual}")
                             print(f"------>{lista_entrega}")
 
-                            Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, self.g.procura_BFS, veiculo, peso_atual)
+                            Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual)
 
                             peso_atual = encomenda.peso
                             lista_entrega = [encomenda]
+                            self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
 
-                    Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, self.g.procura_BFS, veiculo, peso_atual)
+                    Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual)
 
 
 

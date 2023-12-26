@@ -10,7 +10,7 @@ class Cliente:
         self.gl = gl
         self.id = self.gl.add_cliente(self)
 
-    def criarEncomenda(self, peso, preco, volume, tempoInicio, tempoFim, pontosRecolha, g, ag):
+    def criarEncomenda(self, peso, preco, volume, tempoInicio, tempoFim, pontosRecolha, g, ag, algoritmo):
         pesoMax = info.infoPesoMaximo["carro"]
         volumeMax = info.infoVolumeMaximo["carro"]
 
@@ -21,7 +21,7 @@ class Cliente:
             print(f"Não é possível transportar encomendas com mais de {volumeMax} L!")
             return
 
-        enc = Encomenda(peso, preco, volume, self.localizacao, self.id, tempoInicio, tempoFim, pontosRecolha, self.gl, g, ag)
+        enc = Encomenda(peso, preco, volume, self.localizacao, self.id, tempoInicio, tempoFim, pontosRecolha, self.gl, g, ag, algoritmo)
         self.addEncomenda(enc)
 
         return enc
@@ -33,7 +33,8 @@ class Cliente:
         self.encomendas.append(enc)
 
     def avaliarEstafeta(self, hours1, minutes1, hours2, minutes2, nomeEstafeta, preco, id):
-        ratingCliente = float(input(f"A encomenda {id} chegou {hours1} horas e {minutes1} minutos depois a {self.localizacao} com {hours2} horas e {minutes2} minutos de atraso!"
-                                    f"\nPreço final: {preco} €"
-                                    f"\nQue rating pretende dar à/ao estafeta {nomeEstafeta}? "))
-        return ratingCliente
+        print(
+            f"A encomenda {id} chegou {hours1} horas e {minutes1} minutos depois a {self.localizacao} com {hours2} horas e {minutes2} minutos de atraso!"
+            f"\nPreço final: {preco} €"
+            f"\nQue rating pretende dar à/ao estafeta {nomeEstafeta}? ")
+        return 0
