@@ -69,24 +69,37 @@ class Graph:
 
 
     # Desenha o grafo
-    def desenha(self, pos):
 
-        #Lista de vértices
+    def desenha(self, pos):
+        # Lista de vértices
         lista_v = self.m_nodes
 
         g = nx.Graph()
         plt.figure(figsize=(12.8, 9.6))
+
+        # Adiciona nós e arestas ao grafo
         for nodo in lista_v:
             n = nodo.getName()
-            g.add_node(n)
+            g.add_node(n, pos=pos[n])
+
+        for nodo in lista_v:
+            n = nodo.getName()
             for (adjacente, peso) in self.m_graph[n]:
                 lista = (n, adjacente)
                 g.add_edge(n, adjacente, weight=peso)
 
+        # Desenha o grafo com os rótulos e distâncias
+        nx.draw(g, pos=pos, with_labels=False, font_weight='bold', node_size=700, node_color='skyblue', font_size=8)
 
-        nx.draw_networkx(g, pos, with_labels=True, font_weight='bold')
+        # Adiciona rótulos de distância acima das conexões
         labels = nx.get_edge_attributes(g, 'weight')
-        nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
+        nx.draw_networkx_edge_labels(g, pos, edge_labels=labels, font_size=8)
+
+        # Adiciona nome dos nós acima dos nodos (sem rótulos duplicados)
+        node_labels = nx.get_node_attributes(g, 'pos')
+        for node, (x, y) in node_labels.items():
+            plt.text(x, y + 0.1, node, fontsize=8, ha='center', va='bottom')
+
         plt.title("Freguesias de Famalicão e Braga")
 
         plt.draw()
