@@ -27,25 +27,28 @@ class AgruparEncomenda:
 
                     print(f"ENTREGA {pontoRecolha} - {veiculo}")
 
+                    self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
                     estafeta = self.gl.get_estafeta_available_by_location(path[0], veiculo)
                     estafeta.efetuarEncomenda(path, encomenda.tempoInicio, [encomenda.localEntrega], encomenda.g, [encomenda], encomenda.peso, self.pontosRecolha)
 
 
-                else:
+                elif len(all_encomendas) > 0:
                     peso_atual = 0
                     lista_entrega = []
 
-                    all_encomendas_ordered = sorted(all_encomendas, key=lambda x: x[0].peso)
+                    all_encomendas_ordered = sorted(all_encomendas, key=lambda x: (x[0].prazoLimite-x[0].tempoInicio))
 
                     for encomenda, path in all_encomendas_ordered:
                         if peso_atual + encomenda.peso <= info.infoPesoMaximo[veiculo]:
                             lista_entrega.append(encomenda.id)
                             peso_atual += encomenda.peso
+                            self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
                         else:
                             print(peso_atual)
                             print(lista_entrega)
                             peso_atual = encomenda.peso
                             lista_entrega = [encomenda.id]
+
 
 
 

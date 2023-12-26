@@ -55,13 +55,11 @@ class Global:
 
 
     def get_all_estafetas_available_veiculo(self, veiculo):
-        todas_possibilidades = []
-
+        todas_possibilidades = set()
         for estafeta in self.todos_estafetas.values():
             if estafeta.disponivel and estafeta.veiculo == veiculo:
+                todas_possibilidades.add(estafeta.localizacao)
 
-                if estafeta.localizacao not in todas_possibilidades:
-                    todas_possibilidades.append(estafeta.localizacao)
         return todas_possibilidades
 
 

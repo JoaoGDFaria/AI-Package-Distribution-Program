@@ -50,14 +50,19 @@ def main():
     cliente4 = Cliente("AA", "Famalicão", gl)
 
     datetimeStart = datetime(year=2023, month=11, day=22, hour=18, minute=30)
-    datetimeFinish = datetime(year=2023, month=11, day=22, hour=22, minute=30)
+
+    datetimeFinish1 = datetime(year=2023, month=11, day=22, hour=20, minute=30)
+    datetimeFinish2 = datetime(year=2023, month=11, day=22, hour=22, minute=30)
+    datetimeFinish3 = datetime(year=2023, month=11, day=22, hour=23, minute=30)
+    datetimeFinish4 = datetime(year=2023, month=12, day=22, hour=22, minute=30)
 
 
-    enc1 = cliente1.criarEncomenda(peso=4, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish, pontosRecolha=pontoslevantamento, g=g, ag=ag)
-    enc2 = cliente2.criarEncomenda(peso=2, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish, pontosRecolha=pontoslevantamento, g=g, ag=ag)
-    enc3 = cliente3.criarEncomenda(peso=3, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish, pontosRecolha=pontoslevantamento, g=g, ag=ag)
-    enc4 = cliente4.criarEncomenda(peso=23, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish, pontosRecolha=pontoslevantamento, g=g, ag=ag)
-    enc5 = cliente1.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish, pontosRecolha=pontoslevantamento, g=g, ag=ag)
+
+    enc1 = cliente1.criarEncomenda(peso=3, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish1, pontosRecolha=pontoslevantamento, g=g, ag=ag)
+    enc2 = cliente2.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish2, pontosRecolha=pontoslevantamento, g=g, ag=ag)
+    enc3 = cliente3.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish3, pontosRecolha=pontoslevantamento, g=g, ag=ag)
+    enc4 = cliente4.criarEncomenda(peso=23, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish1, pontosRecolha=pontoslevantamento, g=g, ag=ag)
+    enc5 = cliente1.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish4, pontosRecolha=pontoslevantamento, g=g, ag=ag)
     #enc6 = cliente3.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=22, hour=23, minute=0))
     #enc7 = cliente2.criarEncomenda(peso=2, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=23, hour=18, minute=30))
     #enc8 = cliente1.criarEncomenda(peso=3, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=26, hour=22, minute=15))
@@ -66,6 +71,7 @@ def main():
 
     ag.imprimirEncomendas()
     ag.agruparPorEstafeta()
+    ag.imprimirEncomendas()
 
     #fa.estudoDeUmaEntrega([enc1, enc2], g, datetimeStart, pontoslevantamento, gl, g)
     #fa.escolherEncomendas(gl, g, pontoslevantamento)
