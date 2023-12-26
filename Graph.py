@@ -370,3 +370,21 @@ class Graph:
         #else:
             #print("Grafo desconexo, alterações não efetuadas.")
 
+    def procura_iterativa_aux(self, src, target, maxDepth):
+        if src == target:
+            return [src], 0  # Retorna o caminho e a profundidade se a solução for encontrada
+        if maxDepth <= 0:
+            return [], -1  # Retorna um caminho vazio e profundidade -1 se atingir a profundidade máxima
+        for neighbor, distance in self.m_graph.get(src, []):
+            path, depth = self.procura_iterativa_aux(neighbor, target, maxDepth - 1)
+            if path:
+                return [src] + path, depth + 1  # Adiciona o nó atual ao caminho
+        return [], -1  # Retorna um caminho vazio e profundidade -1 se não encontrar a solução
+
+    def procura_iterativa(self, src, target):
+        maxDepth = 69
+        step = 3
+        for i in range(0, maxDepth, step):
+            path, depth = self.procura_iterativa_aux(src, target, i)
+            if path:
+                return path, depth

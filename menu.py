@@ -43,6 +43,7 @@ def main():
         print("4-A*")
         print("5-Gulosa")
         print("6-Custo Uniforme")
+        print("7-Iterativa")
         #print("9-Remover ligação do grafo")
         print("0-Sair")
 
@@ -72,6 +73,10 @@ def main():
                 
             elif saida == 6:
                 auxFunction(g.procura_UCS, pontoslevantamento, g)
+
+            elif saida == 7:
+                auxFunction(g.procura_iterativa, pontoslevantamento, g)
+
 
             else:
                 print("Please insert a valid number")
