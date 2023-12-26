@@ -41,7 +41,7 @@ def main():
     for linha in df_postosLevantamento.itertuples(index=False):
         pontoslevantamento.append(linha.nodo)
 
-    ag = AgruparEncomenda(pontoslevantamento, gl)
+    ag = AgruparEncomenda(pontoslevantamento, gl, g)
 
 
     cliente1 = Cliente("João", "Nine", gl)
@@ -51,7 +51,7 @@ def main():
 
     datetimeStart = datetime(year=2023, month=11, day=22, hour=18, minute=30)
 
-    datetimeFinish1 = datetime(year=2023, month=11, day=22, hour=20, minute=30)
+    datetimeFinish1 = datetime(year=2023, month=11, day=22, hour=19, minute=30)
     datetimeFinish2 = datetime(year=2023, month=11, day=22, hour=22, minute=30)
     datetimeFinish3 = datetime(year=2023, month=11, day=22, hour=23, minute=30)
     datetimeFinish4 = datetime(year=2023, month=12, day=22, hour=22, minute=30)
@@ -71,7 +71,7 @@ def main():
 
     ag.imprimirEncomendas()
     ag.agruparPorEstafeta()
-    ag.imprimirEncomendas()
+    #ag.imprimirEncomendas()
 
     #fa.estudoDeUmaEntrega([enc1, enc2], g, datetimeStart, pontoslevantamento, gl, g)
     #fa.escolherEncomendas(gl, g, pontoslevantamento)

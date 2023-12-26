@@ -32,8 +32,8 @@ class Cliente:
     def addEncomenda(self, enc):
         self.encomendas.append(enc)
 
-    def avaliarEstafeta(self, hours1, minutes1, hours2, minutes2, nomeEstafeta, preco):
-        ratingCliente = float(input(f"Encomenda chegou {hours1} horas e {minutes1} minutos depois a {self.localizacao} com {hours2} horas e {minutes2} minutos de atraso!"
+    def avaliarEstafeta(self, hours1, minutes1, hours2, minutes2, nomeEstafeta, preco, id):
+        ratingCliente = float(input(f"A encomenda {id} chegou {hours1} horas e {minutes1} minutos depois a {self.localizacao} com {hours2} horas e {minutes2} minutos de atraso!"
                                     f"\nPreço final: {preco} €"
                                     f"\nQue rating pretende dar à/ao estafeta {nomeEstafeta}? "))
         return ratingCliente

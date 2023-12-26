@@ -27,18 +27,6 @@ class Estafeta:
 
     def calculaVelocidadeMedia(self, pesoTotalEncomendas):
         self.velocidadeMedia = round(info.infoVelocidadeMedia[self.veiculo] - (info.infoPerdaPorKg[self.veiculo] * pesoTotalEncomendas), 2)
-        num = random.randint(1, 100)
-        rand = random.randint(60, 100)
-        rand /= 100
-
-        if self.veiculo == "carro" and num < 10:
-            self.velocidadeMedia = round(self.velocidadeMedia * rand, 2)
-
-        elif self.veiculo == "mota" and num < 7:
-            self.velocidadeMedia = round(self.velocidadeMedia * rand, 2)
-
-        elif self.veiculo == "bicicleta" and num < 5:
-            self.velocidadeMedia = round(self.velocidadeMedia * rand, 2)
 
 
     def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, pontosRecolha):
@@ -55,7 +43,7 @@ class Estafeta:
         flag = False
 
         for caminho in path:
-            print(caminho_anterior, caminho)
+            #print(caminho_anterior, caminho)
             distancia_percorrida += graph.get_arc_cost(caminho_anterior, caminho)
             distancia_acumulativa += distancia_percorrida
 
@@ -86,7 +74,7 @@ class Estafeta:
                     minutes2 = remainder2 // 60
 
                     cliente = self.gl.get_cliente(encomenda.idCliente)
-                    ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome, encomenda.preco)
+                    ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome, encomenda.preco, encomenda.id)
                     #df.at[row, 'Distância percorrida'] = f"{round(distancia_acumulativa, 2)} km"
                     if ratingCliente < 0: ratingCliente = 0
                     elif ratingCliente > 5: ratingCliente = 5

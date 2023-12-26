@@ -4,10 +4,10 @@ from itertools import permutations
 
 
 class Entrega:
-    def __init__(self, listaEncomendas, graph, tempoInicio, pontosRecolha, gl, algorithm, veiculo, pesoTotal):
+    def __init__(self, listaEncomendas, graph, pontosRecolha, gl, algorithm, veiculo, pesoTotal):
         self.listaEncomendas = listaEncomendas
         self.graph = graph
-        self.tempoInicio = tempoInicio
+        self.tempoInicio = listaEncomendas[0].tempoInicio
         self.locaisEntrega = [encomenda.localEntrega for encomenda in self.listaEncomendas]
         self.pesoTotalEncomendas = pesoTotal
         self.pontosRecolha = pontosRecolha

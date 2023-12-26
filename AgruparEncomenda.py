@@ -1,10 +1,12 @@
 import info
+from Entrega import Entrega
 
 class AgruparEncomenda:
-    def __init__(self, pontosRecolha, gl):
+    def __init__(self, pontosRecolha, gl, g):
         self.listaEncomendas = {}
         self.pontosRecolha = pontosRecolha
         self.gl = gl
+        self.g = g
 
     def adicionarEncomenda(self, encomenda, veiculo, path, pontoRecolha):
         if veiculo in self.listaEncomendas:
@@ -14,7 +16,6 @@ class AgruparEncomenda:
                 self.listaEncomendas[veiculo][pontoRecolha] = [(encomenda, path)]
         else:
             self.listaEncomendas[veiculo] = {pontoRecolha: [(encomenda, path)]}
-            print(path)
 
     def agruparPorEstafeta(self):
         encomenda = None
@@ -25,7 +26,7 @@ class AgruparEncomenda:
                     encomenda = all_encomendas[0][0]
                     path = all_encomendas[0][1]
 
-                    print(f"ENTREGA {pontoRecolha} - {veiculo}")
+                    #print(f"ENTREGA {pontoRecolha} - {veiculo}")
 
                     self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
                     estafeta = self.gl.get_estafeta_available_by_location(path[0], veiculo)
@@ -40,29 +41,34 @@ class AgruparEncomenda:
 
                     for encomenda, path in all_encomendas_ordered:
                         if peso_atual + encomenda.peso <= info.infoPesoMaximo[veiculo]:
-                            lista_entrega.append(encomenda.id)
+                            lista_entrega.append(encomenda)
                             peso_atual += encomenda.peso
                             self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
                         else:
-                            print(peso_atual)
-                            print(lista_entrega)
+                            #print(f"------>{peso_atual}")
+                            #print(f"------>{lista_entrega}")
+
+                            Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, self.g.procura_BFS, veiculo, peso_atual)
+
                             peso_atual = encomenda.peso
-                            lista_entrega = [encomenda.id]
+                            lista_entrega = [encomenda]
+
+                    Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, self.g.procura_BFS, veiculo, peso_atual)
 
 
-
-
-                    print(f"->{peso_atual}")
-                    print(f"->{lista_entrega}")
+                    #print(f"->{peso_atual}")
+                    #print(f"->{lista_entrega}")
 
 
 
     def imprimirEncomendas(self):
+        print("\n")
         for veiculo, pontoRecolha_dict in self.listaEncomendas.items():
             print(f"Veiculo: {veiculo}")
             for pontoRecolha, encomendas_paths_list in pontoRecolha_dict.items():
                 print(f"  Ponto de Recolha: {pontoRecolha}")
                 for encomenda, path in encomendas_paths_list:
                     print(f"    Encomenda: {encomenda.id}, Path: {path}")
+        print("\n\n")
 
 

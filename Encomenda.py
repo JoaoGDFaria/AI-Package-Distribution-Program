@@ -21,7 +21,11 @@ class Encomenda:
         self.g = g
         self.ag = ag
         self.id = self.gl.add_encomenda(self)
-        self.melhorCaminhoEncomenda(self.g.procura_BFS)
+
+        with open(f'./Outputs/Encomenda{self.id}.txt', 'a', encoding='utf-8') as file:
+            file.truncate(0)
+            self.file = file
+            self.melhorCaminhoEncomenda(self.g.procura_BFS)
 
 
     def melhorCaminhoEncomenda(self, algorithmFunction):
@@ -45,8 +49,8 @@ class Encomenda:
                 posicaoInicial = localizacao_veiculo[0]
                 veiculo = localizacao_veiculo[1]
 
-                aux = "Inicio:"+posicaoInicial + "||" + str(all_paths)
-                print(aux)
+                #aux = "Inicio:"+posicaoInicial + "||" + str(all_paths)
+                #print(aux)
 
 
                 (path, custo) = self.calculaMelhorCaminho(posicaoInicial, all_paths, algorithmFunction)
@@ -63,56 +67,47 @@ class Encomenda:
 
         ab = melhorEntregaVeiculo.get("bicicleta")
         if ab is None:
-            print("\nNão existe possibilidade de entrega da bicicleta")
+            print("\nNão existe possibilidade de entrega da bicicleta", file=self.file)
             list_information.append(None)
         else:
-            print(f"\nPath ideal bicicleta: {ab[0]}")
-            print(f"Custo ideal bicicleta: {ab[1]}")
+            print(f"\nPath ideal bicicleta: {ab[0]}", file=self.file)
+            print(f"Custo ideal bicicleta: {ab[1]}", file=self.file)
             velocidade_media = self.calculaVelocidadeDeEncomenda(ab[0])
-            print(f"Velocidade média mínima: {velocidade_media} km/h")
-            print(f"Peso: {self.peso} kg" )
+            print(f"Velocidade média mínima: {velocidade_media} km/h", file=self.file)
             list_information.append((ab[0], velocidade_media, ab[1], ab[2]))
 
 
         am = melhorEntregaVeiculo.get("mota")
         if am is None:
-            print("\nNão existe possibilidade de entrega da mota")
+            print("\nNão existe possibilidade de entrega da mota", file=self.file)
             list_information.append(None)
         else:
-            print(f"\nPath ideal mota: {am[0]}" )
-            print(f"Custo ideal mota: {am[1]}" )
+            print(f"\nPath ideal mota: {am[0]}", file=self.file)
+            print(f"Custo ideal mota: {am[1]}", file=self.file)
             velocidade_media = self.calculaVelocidadeDeEncomenda(am[0])
-            print(f"Velocidade média mínima: {velocidade_media} km/h")
-            print(f"Peso: {self.peso} kg" )
+            print(f"Velocidade média mínima: {velocidade_media} km/h", file=self.file)
             list_information.append((am[0], velocidade_media, am[1], am[2]))
 
 
         ac = melhorEntregaVeiculo.get("carro")
         if ac is None:
-            print("\nNão existe possibilidade de entrega da mota")
+            print("\nNão existe possibilidade de entrega da mota", file=self.file)
             list_information.append(None)
         else:
-            print(f"\nPath ideal carro: {ac[0]}" )
-            print(f"Custo ideal carro: {ac[1]}" )
+            print(f"\nPath ideal carro: {ac[0]}", file=self.file)
+            print(f"Custo ideal carro: {ac[1]}", file=self.file)
             velocidade_media = self.calculaVelocidadeDeEncomenda(ac[0])
-            print(f"Velocidade média mínima: {velocidade_media} km/h")
-            print(f"Peso: {self.peso} kg" )
+            print(f"Velocidade média mínima: {velocidade_media} km/h", file=self.file)
             list_information.append((ac[0], velocidade_media, ac[1], ac[2]))
-
+            print(f"\nPeso: {self.peso} kg", file=self.file)
         self.determina_veiculo(list_information)
 
 
-    def distanceToEncomenda(self, path, posicaoEncomenda):
-        flag = False
+    def distanceToEncomenda(self, path):
         distancia = 0
         posicaoAnterior = path[0]
         for posicao in path:
             distancia += self.g.get_arc_cost(posicaoAnterior, posicao)
-            if posicao in self.pontosRecolha: flag = True
-
-            if posicaoEncomenda == posicao and flag is True:
-                break
-
             posicaoAnterior = posicao
         return round(distancia, 1)
 
@@ -121,7 +116,8 @@ class Encomenda:
         intervaloDeTempo = self.prazoLimite - self.tempoInicio
         intervaloDeTempoEmHoras = intervaloDeTempo.total_seconds() / 3600
 
-        velocidadeMedia = self.distanceToEncomenda(path, self.localEntrega)/intervaloDeTempoEmHoras
+        velocidadeMedia = self.distanceToEncomenda(path)/intervaloDeTempoEmHoras
+
         return round(velocidadeMedia, 2)
 
 
@@ -142,13 +138,21 @@ class Encomenda:
 
 
     def determina_veiculo(self, list_information):
-        equacao_velocidade_bicicleta = info.infoVelocidadeMedia["bicicleta"] - (info.infoPerdaPorKg["bicicleta"] * self.peso)
-        equacao_velocidade_mota = info.infoVelocidadeMedia["mota"] - (info.infoPerdaPorKg["mota"] * self.peso)
-        equacao_velocidade_carro = info.infoVelocidadeMedia["carro"] - (info.infoPerdaPorKg["carro"] * self.peso)
+        if self.peso > info.infoPesoMaximo["bicicleta"]:
+            equacao_velocidade_bicicleta = info.infoVelocidadeMedia["bicicleta"]
+        else:
+            equacao_velocidade_bicicleta = round(info.infoVelocidadeMedia["bicicleta"] - (info.infoPerdaPorKg["bicicleta"] * self.peso), 2)
 
-        print(f"\nVelocidade média da bicicleta: {equacao_velocidade_bicicleta} km/h")
-        print(f"Velocidade média da mota: {equacao_velocidade_mota} km/h")
-        print(f"Velocidade média do carro: {equacao_velocidade_carro} km/h")
+        if self.peso > info.infoPesoMaximo["mota"]:
+            equacao_velocidade_mota = info.infoVelocidadeMedia["mota"]
+        else:
+            equacao_velocidade_mota = round(info.infoVelocidadeMedia["mota"] - (info.infoPerdaPorKg["mota"] * self.peso), 2)
+
+        equacao_velocidade_carro = round(info.infoVelocidadeMedia["carro"] - (info.infoPerdaPorKg["carro"] * self.peso), 2)
+
+        print(f"\nVelocidade média da bicicleta: {equacao_velocidade_bicicleta} km/h", file=self.file)
+        print(f"Velocidade média da mota: {equacao_velocidade_mota} km/h", file=self.file)
+        print(f"Velocidade média do carro: {equacao_velocidade_carro} km/h", file=self.file)
 
         if (list_information[0] is not None and list_information[0][1]<=equacao_velocidade_bicicleta):
             veiculo = "bicicleta"
@@ -169,6 +173,7 @@ class Encomenda:
             print(f"Não existe nenhum estafeta" )
             return
 
+        print(f"\n----> Veículo escolhido: {veiculo}", file=self.file)
         self.ag.adicionarEncomenda(self, veiculo, path, pontoRecolha)
 
 
