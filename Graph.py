@@ -388,3 +388,22 @@ class Graph:
             path, depth = self.procura_iterativa_aux(src, target, i)
             if path:
                 return path, depth
+            
+            
+    def del_route(self,nodea,nodeb):
+        print("Entrei")
+        value = self.get_arc_cost(nodea, nodeb)
+        print(value)
+
+
+        if is_connected(nodea) or is_connected(nodeb):
+            copia = self.m_graph.copy()
+            print("Fiz copia")
+            copia[nodea].remove(nodeb)
+            print("Removi da copia")
+            copia[nodeb].remove(nodea)
+            print("Removi da copia")
+            self.m_graph = copia
+
+        else:
+            print("Grafo desconexo, alterações não efetuadas.")

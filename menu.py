@@ -44,7 +44,7 @@ def main():
         print("5-Gulosa")
         print("6-Custo Uniforme")
         print("7-Iterativa")
-        #print("9-Remover ligação do grafo")
+        print("9-Remover ligação do grafo")
         print("0-Sair")
 
 
@@ -76,6 +76,9 @@ def main():
 
             elif saida == 7:
                 auxFunction(g.procura_iterativa, pontoslevantamento, g)
+                
+            elif saida == 9:
+                g.del_route("Nine","Louro")
 
 
             else:
