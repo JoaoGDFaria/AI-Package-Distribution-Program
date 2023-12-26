@@ -27,6 +27,24 @@ class Entrega:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     def melhorCaminho(self, algorithmFunction):
         all_permutations_path = list(permutations(self.locaisEntrega))
         start_time = perf_counter()

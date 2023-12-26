@@ -41,7 +41,7 @@ class Estafeta:
             self.velocidadeMedia = round(self.velocidadeMedia * rand, 2)
 
 
-    def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, pontosRecolha, df, row):
+    def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, pontosRecolha):
         self.setDisponivel(False)
 
         for encomenda in listaEncomendas:
@@ -55,6 +55,7 @@ class Estafeta:
         flag = False
 
         for caminho in path:
+            print(caminho_anterior, caminho)
             distancia_percorrida += graph.get_arc_cost(caminho_anterior, caminho)
             distancia_acumulativa += distancia_percorrida
 
@@ -100,7 +101,8 @@ class Estafeta:
                     distancia_em_10km = distancia_acumulativa // 10
                     if distancia_em_10km == 0: distancia_em_10km = 1
                     taxa = 1
-                    if atraso >0: taxa = info.taxaAtraso["taxa"]
+
+                    if atraso.seconds >0: taxa = info.taxaAtraso["taxa"]
                     encomenda.preco = round((encomenda.preco + (distancia_em_10km * info.taxaEntrega[self.veiculo])*taxa), 2)
 
 

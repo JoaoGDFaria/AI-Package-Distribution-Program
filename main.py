@@ -1,7 +1,7 @@
 from Cliente import Cliente
 from Estafeta import Estafeta
 from Global import Global
-import funcoes_auxiliares as fa
+from AgruparEncomenda import AgruparEncomenda
 from datetime import datetime
 import Graph as gr
 import pandas as pd
@@ -41,8 +41,7 @@ def main():
     for linha in df_postosLevantamento.itertuples(index=False):
         pontoslevantamento.append(linha.nodo)
 
-
-
+    ag = AgruparEncomenda(pontoslevantamento, gl)
 
 
     cliente1 = Cliente("João", "Nine", gl)
@@ -54,18 +53,22 @@ def main():
     datetimeFinish = datetime(year=2023, month=11, day=22, hour=22, minute=30)
 
 
-    enc1 = cliente1.criarEncomenda(peso=2, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=22, hour=23, minute=30))
-    enc2 = cliente2.criarEncomenda(peso=2, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=22, hour=23, minute=30))
-    enc3 = cliente3.criarEncomenda(peso=3, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=22, hour=22, minute=35))
-    enc4 = cliente4.criarEncomenda(peso=23, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=22, hour=21, minute=15))
-    #enc5 = cliente1.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=28, hour=20, minute=45))
+    enc1 = cliente1.criarEncomenda(peso=4, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish, pontosRecolha=pontoslevantamento, g=g, ag=ag)
+    enc2 = cliente2.criarEncomenda(peso=2, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish, pontosRecolha=pontoslevantamento, g=g, ag=ag)
+    enc3 = cliente3.criarEncomenda(peso=3, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish, pontosRecolha=pontoslevantamento, g=g, ag=ag)
+    enc4 = cliente4.criarEncomenda(peso=23, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish, pontosRecolha=pontoslevantamento, g=g, ag=ag)
+    enc5 = cliente1.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish, pontosRecolha=pontoslevantamento, g=g, ag=ag)
     #enc6 = cliente3.criarEncomenda(peso=1, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=22, hour=23, minute=0))
     #enc7 = cliente2.criarEncomenda(peso=2, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=23, hour=18, minute=30))
     #enc8 = cliente1.criarEncomenda(peso=3, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=26, hour=22, minute=15))
 
 
+
+    ag.imprimirEncomendas()
+    ag.agruparPorEstafeta()
+
     #fa.estudoDeUmaEntrega([enc1, enc2], g, datetimeStart, pontoslevantamento, gl, g)
-    fa.escolherEncomendas(gl, g, pontoslevantamento)
+    #fa.escolherEncomendas(gl, g, pontoslevantamento)
 
 if __name__ == "__main__":
     main()

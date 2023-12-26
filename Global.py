@@ -41,25 +41,16 @@ class Global:
         return all_estaf
 
 
-    ## MUDAR
     def get_all_estafetas_available(self, peso):
         todas_possibilidades = {}
         for estafeta in self.todos_estafetas.values():
             if estafeta.disponivel and estafeta.pesoMaximo >= peso:
-                value = (estafeta.rating, estafeta.veiculo, estafeta.localizacao)
-                key = (value[2], value[1])
-                rat = value[0]
+                key = (estafeta.localizacao, estafeta.veiculo)
+                rat = None
 
-                if key in todas_possibilidades:
-                    rating_estafeta = todas_possibilidades.get(key)
+                todas_possibilidades[key] = rat
 
-                    if rating_estafeta < rat:
-                        todas_possibilidades[key] = rat
-
-                else:
-                    todas_possibilidades[key] = rat
-
-        return todas_possibilidades
+        return todas_possibilidades.keys()
 
 
 
@@ -74,7 +65,6 @@ class Global:
         return todas_possibilidades
 
 
-    ## MUDAR PARA PESSOA COM MAIS RATING
     def get_estafeta_available_by_location(self, localizacao, veiculo):
         rating = -1
         est = None
