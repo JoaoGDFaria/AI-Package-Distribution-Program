@@ -164,7 +164,7 @@ class Encomenda:
             path = list_information[1][0]
             pontoRecolha = list_information[1][3]
 
-        elif (list_information[2] is not None and list_information[2][1]<=equacao_velocidade_carro):
+        elif (list_information[2] is not None):
             veiculo = "carro"
             path = list_information[2][0]
             pontoRecolha = list_information[2][3]

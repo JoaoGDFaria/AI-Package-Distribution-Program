@@ -1,0 +1,16 @@
+
+Não existe possibilidade de entrega da bicicleta
+
+Não existe possibilidade de entrega da mota
+
+Path ideal carro: ['Alvito', 'Quintiães', 'Panque', 'Oliveira', 'Pousa']
+Custo ideal carro: 33.0
+Velocidade média mínima: 1980.0 km/h
+
+Peso: 99 kg
+
+Velocidade média da bicicleta: 10 km/h
+Velocidade média da mota: 35 km/h
+Velocidade média do carro: 40.1 km/h
+
+----> Veículo escolhido: carro

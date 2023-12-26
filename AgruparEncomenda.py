@@ -44,9 +44,11 @@ class AgruparEncomenda:
                             lista_entrega.append(encomenda)
                             peso_atual += encomenda.peso
                             self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
+                            print(f"------>{peso_atual}")
+                            print(f"------>{lista_entrega}")
                         else:
-                            #print(f"------>{peso_atual}")
-                            #print(f"------>{lista_entrega}")
+                            print(f"------>{peso_atual}")
+                            print(f"------>{lista_entrega}")
 
                             Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, self.g.procura_BFS, veiculo, peso_atual)
 
@@ -55,9 +57,6 @@ class AgruparEncomenda:
 
                     Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, self.g.procura_BFS, veiculo, peso_atual)
 
-
-                    #print(f"->{peso_atual}")
-                    #print(f"->{lista_entrega}")
 
 
 

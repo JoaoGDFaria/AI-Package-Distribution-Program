@@ -54,20 +54,6 @@ class Entrega:
         estafeta.calculaVelocidadeMedia(self.pesoTotalEncomendas)
         estafeta.efetuarEncomenda(melhorPath, self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas, self.pontosRecolha)
 
-    def distanceToEncomenda(self, path, posicaoEncomenda):
-        flag = False
-        distancia = 0
-        posicaoAnterior = path[0]
-        for posicao in path:
-            distancia += self.graph.get_arc_cost(posicaoAnterior, posicao)
-            if posicao in self.pontosRecolha: flag = True
-
-            if posicaoEncomenda == posicao and flag is True:
-                break
-
-            posicaoAnterior = posicao
-        return round(distancia, 1)
-
 
     def calculaMelhorCaminho(self, localinicial, locaisentrega, algorithmFunction):
         custo_final = 0
