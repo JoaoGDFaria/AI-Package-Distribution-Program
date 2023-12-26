@@ -1,4 +1,5 @@
 from Encomenda import Encomenda
+import info
 
 class Cliente:
 
@@ -10,11 +11,19 @@ class Cliente:
         self.id = self.gl.add_cliente(self)
 
     def criarEncomenda(self, peso, preco, volume, tempoInicio, tempoFim):
-        if peso > 100:
-            print("Não é possível transportar encomendas com mais de 100kg!")
+        pesoMax = info.infoPesoMaximo["carro"]
+        volumeMax = info.infoVolumeMaximo["carro"]
+
+        if peso > pesoMax:
+            print(f"Não é possível transportar encomendas com mais de {pesoMax} kg!")
             return
+        if volume > volumeMax:
+            print(f"Não é possível transportar encomendas com mais de {volumeMax} L!")
+            return
+
         enc = Encomenda(peso, preco, volume, self.localizacao, self.id, tempoInicio, tempoFim, self.gl)
         self.addEncomenda(enc)
+
         return enc
 
     def printAll(self):

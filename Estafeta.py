@@ -84,9 +84,6 @@ class Estafeta:
                     hours2, remainder2 = divmod(atraso.seconds, 3600)
                     minutes2 = remainder2 // 60
 
-                    encomenda.preco = round(encomenda.preco+(distancia_acumulativa//10), 2)
-
-
                     cliente = self.gl.get_cliente(encomenda.idCliente)
                     ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome, encomenda.preco)
                     #df.at[row, 'Distância percorrida'] = f"{round(distancia_acumulativa, 2)} km"
@@ -99,6 +96,13 @@ class Estafeta:
                     self.numentregas += 1
                     encomenda.tempoEntrega = tempoFinal
                     encomenda.rating = ratingEntrega
+
+                    distancia_em_10km = distancia_acumulativa // 10
+                    if distancia_em_10km == 0: distancia_em_10km = 1
+                    taxa = 1
+                    if atraso >0: taxa = info.taxaAtraso["taxa"]
+                    encomenda.preco = round((encomenda.preco + (distancia_em_10km * info.taxaEntrega[self.veiculo])*taxa), 2)
+
 
                     pesoTotalEncomendas -= encomenda.peso
                     self.calculaVelocidadeMedia(pesoTotalEncomendas)
