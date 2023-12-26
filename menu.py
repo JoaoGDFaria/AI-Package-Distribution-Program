@@ -27,15 +27,7 @@ def main():
     for linha in df_postosLevantamento.itertuples(index=False):
         pontoslevantamento.append(linha.nodo)
 
-    #while True:
-        #print("1-Inserir estafeta")
-        #print("2-Consultar estafetas")
-        #print("3-Inserir encomenda")
-        #print("4-Consultar lista encomendas")
-        #print("5-Remover ligação entre freguesias")
-        #print("0-Sair")
-        
-        
+    
     while True:
         print("1-Desenhar Grafo")
         print("2-DFS")
