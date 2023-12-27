@@ -111,7 +111,7 @@ class Estafeta:
                         print(f"    --> Entrega encomenda {encomenda.id}\n"
                               f"            Hora de entrega {tempoFinal}\n"
                               f"            Atraso: {atraso}\n"
-                              f"            Rating: {ratingEntrega}", file=file)
+                              f"            Rating: {ratingEntrega}\n", file=file)
 
                         pesoTotalEncomendas -= encomenda.peso
                         self.calculaVelocidadeMedia(pesoTotalEncomendas)

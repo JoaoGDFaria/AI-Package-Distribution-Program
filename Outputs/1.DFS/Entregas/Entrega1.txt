@@ -1,24 +1,16 @@
-Estafeta: Ivan Perera
+Estafeta: Pedro Martins Ferreira
 Inicio da viagem: 2023-11-22 18:30:00
 
-Crespos
-Palmeira
-Dume
-Maximinos
+Abade de Vermoim
+Calendário
     --> Ponto de Recolha
 
-Cabreiros
-Tadim
-Tebosa
-Arnoso
-Cruz
-Famalicão
-Louro
-Nine
+Lousado
     --> Entrega encomenda 1
-            Hora de entrega 2023-11-22 20:10:00
-            Atraso: 1:39:00
-            Rating: 2.0
+            Hora de entrega 2023-11-22 19:00:00
+            Atraso: 0:00:00
+            Rating: 5
 
-Fim da viagem: 2023-11-22 20:10:00
+
+Fim da viagem: 2023-11-22 19:00:00
 

@@ -1,15 +1,15 @@
 
 Path ideal bicicleta: ['Calendário', 'Lousado', 'Fradelos']
 Custo ideal bicicleta: 14.9
-Velocidade média mínima: 3.73 km/h
+Velocidade média mínima: 0.02 km/h
 
 Path ideal mota: ['Abade de Vermoim', 'Calendário', 'Lousado', 'Fradelos']
 Custo ideal mota: 20.9
-Velocidade média mínima: 5.22 km/h
+Velocidade média mínima: 0.03 km/h
 
 Path ideal carro: ['Cabeçudos', 'Abade de Vermoim', 'Calendário', 'Lousado', 'Fradelos']
 Custo ideal carro: 26.1
-Velocidade média mínima: 6.53 km/h
+Velocidade média mínima: 0.04 km/h
 
 Peso: 1 kg
 

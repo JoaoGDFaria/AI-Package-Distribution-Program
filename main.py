@@ -56,9 +56,9 @@ def main():
         print("1-Consultar clientes")
         print("2-Consultar estafetas")
         print("3-Inserir encomenda")
-        print("5-Consultar lista encomendas")
-        print("6-Consultar postos de levantamento")
-        print("8-Remover ligação entre freguesias")
+        print("4-Consultar lista encomendas")
+        print("5-Consultar postos de levantamento")
+        print("6-Remover ligação entre freguesias")
         print("0-Sair")
 
         datetimeStart = datetime(year=2023, month=11, day=22, hour=18, minute=30)
@@ -78,18 +78,18 @@ def main():
                 print(gl.printAllEstafetas())
 
             elif saida == 3:
-                print("Inserir a encomenda no ficheiro 'encomendas.csv'")
+                print("A ler ficheiro .csv .......")
                 df_encomendas = pd.read_csv("Files/Encomendas/encomendas.csv", encoding='utf-8')
                 for linha in df_encomendas.itertuples(index=False):
-                    lista_encomenda.append(linha)
-                fa.estudoDeUmaEntrega(pontoslevantamento, lista_encomenda,datetimeStart, gl, g, ag)
+                    lista_encomenda.append((linha.idcliente, linha.peso, linha.preco, linha.volume, linha.tempoFim))
+                fa.estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g, ag)
                 
                 print("-----------------------------")
 
-            elif saida == 5:
+            elif saida == 4:
                 print(gl.printAllEncomendas())
 
-            elif saida == 6:
+            elif saida == 5:
                 print(df_postosLevantamento)
                 print("-----------------------------")
 

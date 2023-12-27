@@ -1,0 +1,20 @@
+
+Path ideal bicicleta: ['Outiz', 'Calendário', 'Outiz']
+Custo ideal bicicleta: 8.4
+Velocidade média mínima: 0.01 km/h
+
+Path ideal mota: ['Lousado', 'Calendário', 'Outiz']
+Custo ideal mota: 9.9
+Velocidade média mínima: 0.01 km/h
+
+Path ideal carro: ['Outiz', 'Calendário', 'Outiz']
+Custo ideal carro: 8.4
+Velocidade média mínima: 0.01 km/h
+
+Peso: 5 kg
+
+Velocidade média da bicicleta: 7.0 km/h
+Velocidade média da mota: 32.5 km/h
+Velocidade média do carro: 49.5 km/h
+
+----> Veículo escolhido: bicicleta

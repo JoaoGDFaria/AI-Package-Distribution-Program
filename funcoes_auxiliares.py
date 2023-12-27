@@ -17,6 +17,7 @@ def estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g
 
      all_algorithms = [g.procura_DFS, g.procura_BFS, g.procura_UCS, g.greedy, g.procura_aStar]
      fileNames = ["1.DFS", "2.BFS", "3.Uniforme", "4.Greedy", "5.aStar"]
+
      for i in range(5):
          start_time = perf_counter()
 
@@ -28,7 +29,7 @@ def estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g
 
          # ag.imprimirEncomendas()
 
-         ag.agruparPorEstafeta(all_algorithms[i],fileNames)
+         ag.agruparPorEstafeta(all_algorithms[i], fileNames[i])
          # gl.printAllGlobal()
 
          # print("ENTREIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n\n\n")

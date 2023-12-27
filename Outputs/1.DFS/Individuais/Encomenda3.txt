@@ -1,20 +1,20 @@
 
-Path ideal bicicleta: ['Bairro', 'Novais', 'Castelões', 'Novais', 'Bairro']
-Custo ideal bicicleta: 13.8
-Velocidade média mínima: 2.76 km/h
+Path ideal bicicleta: ['Calendário', 'Abade de Vermoim', 'Cabeçudos']
+Custo ideal bicicleta: 11.2
+Velocidade média mínima: 0.02 km/h
 
-Path ideal mota: ['Mogege', 'Castelões', 'Novais', 'Bairro']
-Custo ideal mota: 10.0
-Velocidade média mínima: 2.0 km/h
+Path ideal mota: ['Abade de Vermoim', 'Calendário', 'Abade de Vermoim', 'Cabeçudos']
+Custo ideal mota: 17.2
+Velocidade média mínima: 0.02 km/h
 
-Path ideal carro: ['Outiz', 'Gondifelos', 'Fradelos', 'Lousado', 'Calendário', 'Famalicão', 'Requião', 'Castelões', 'Novais', 'Bairro']
-Custo ideal carro: 54.3
-Velocidade média mínima: 10.86 km/h
+Path ideal carro: ['Cabeçudos', 'Abade de Vermoim', 'Calendário', 'Abade de Vermoim', 'Cabeçudos']
+Custo ideal carro: 22.4
+Velocidade média mínima: 0.03 km/h
 
-Peso: 1 kg
+Peso: 2 kg
 
-Velocidade média da bicicleta: 9.4 km/h
-Velocidade média da mota: 34.5 km/h
-Velocidade média do carro: 49.9 km/h
+Velocidade média da bicicleta: 8.8 km/h
+Velocidade média da mota: 34.0 km/h
+Velocidade média do carro: 49.8 km/h
 
 ----> Veículo escolhido: bicicleta

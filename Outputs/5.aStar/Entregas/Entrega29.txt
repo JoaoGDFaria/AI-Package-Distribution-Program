@@ -1,0 +1,17 @@
+Estafeta: Ana Silva Pereira
+Inicio da viagem: 2023-11-22 18:30:00
+
+Gondifelos
+Outiz
+Calendário
+    --> Ponto de Recolha
+
+Lousado
+    --> Entrega encomenda 29
+            Hora de entrega 2023-11-22 19:08:00
+            Atraso: 0:00:00
+            Rating: 5
+
+
+Fim da viagem: 2023-11-22 19:08:00
+

@@ -1,18 +1,20 @@
 
-Não existe possibilidade de entrega da bicicleta
+Path ideal bicicleta: ['Calendário', 'Abade de Vermoim']
+Custo ideal bicicleta: 6.0
+Velocidade média mínima: 0.01 km/h
 
-Path ideal mota: ['Mogege', 'Castelões', 'Requião', 'Famalicão']
-Custo ideal mota: 16.3
-Velocidade média mínima: 978.0 km/h
+Path ideal mota: ['Abade de Vermoim', 'Calendário', 'Abade de Vermoim']
+Custo ideal mota: 12.0
+Velocidade média mínima: 0.02 km/h
 
-Path ideal carro: ['Crespos', 'Palmeira', 'Dume', 'Maximinos', 'Cabreiros', 'Tadim', 'Tebosa', 'Arnoso', 'Cruz', 'Famalicão']
-Custo ideal carro: 56.4
-Velocidade média mínima: 3384.0 km/h
+Path ideal carro: ['Cabeçudos', 'Abade de Vermoim', 'Calendário', 'Abade de Vermoim']
+Custo ideal carro: 17.2
+Velocidade média mínima: 0.02 km/h
 
-Peso: 10 kg
+Peso: 3 kg
 
-Velocidade média da bicicleta: 10 km/h
-Velocidade média da mota: 30.0 km/h
-Velocidade média do carro: 49.0 km/h
+Velocidade média da bicicleta: 8.2 km/h
+Velocidade média da mota: 33.5 km/h
+Velocidade média do carro: 49.7 km/h
 
-----> Veículo escolhido: carro
+----> Veículo escolhido: bicicleta
