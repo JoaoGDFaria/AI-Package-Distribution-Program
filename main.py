@@ -1,4 +1,6 @@
-import csv
+import os
+from pathlib import Path
+import shutil
 from datetime import datetime
 from Cliente import Cliente
 from Estafeta import Estafeta
@@ -7,7 +9,7 @@ from AgruparEncomenda import AgruparEncomenda
 import Graph as gr
 import pandas as pd
 import funcoes_auxiliares as fa
-
+import menu
 
 
 def main():
@@ -50,15 +52,19 @@ def main():
 
     ag = AgruparEncomenda(pontoslevantamento, gl, g)
 
+    directory_path = f"./Outputs/"
+    if os.path.exists(directory_path):
+        shutil.rmtree(directory_path)
+
+
     lista_encomenda = []
 
     while True:
         print("1-Consultar clientes")
         print("2-Consultar estafetas")
-        print("3-Inserir encomenda")
-        print("4-Consultar lista encomendas")
-        print("5-Consultar postos de levantamento")
-        print("6-Remover ligação entre freguesias")
+        print("3-Inserir encomendas .csv com todos os algoritmos")
+        print("4-Inserir encomendas .csv com algoritmo específico")
+        print("5-Remover ligação entre freguesias")
         print("0-Sair")
 
         datetimeStart = datetime(year=2023, month=11, day=22, hour=18, minute=30)
@@ -72,10 +78,10 @@ def main():
                 break
 
             elif saida == 1:
-                print(gl.printAllUtilizadores())
+                gl.printAllUtilizadores()
 
             elif saida == 2:
-                print(gl.printAllEstafetas())
+                gl.printAllEstafetas()
 
             elif saida == 3:
                 print("A ler ficheiro .csv .......")
@@ -83,15 +89,18 @@ def main():
                 for linha in df_encomendas.itertuples(index=False):
                     lista_encomenda.append((linha.idcliente, linha.peso, linha.preco, linha.volume, linha.tempoFim))
                 fa.estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g, ag)
-                
+                lista_encomenda.clear()
                 print("-----------------------------")
 
             elif saida == 4:
-                print(gl.printAllEncomendas())
+                pass
 
             elif saida == 5:
-                print(df_postosLevantamento)
-                print("-----------------------------")
+                inicio = menu.checkIfExists("Nodo inicial", g)
+                fim = menu.checkIfExists("Nodo final", g)
+
+                g.del_route(inicio, fim)
+                input("Prima Enter para continuar")
 
             else:
                 print("Please insert a valid number")
@@ -100,11 +109,6 @@ def main():
         except ValueError:
             print("Please insert a valid input")
             input("Prima Enter para continuar")
-
-    ag.imprimirEncomendas()
-    ag.imprimirEncomendas()
-
-    fa.estudoDeUmaEntrega(pontoslevantamento, gl, g, ag)
 
     # fa.escolherEncomendas(gl, g, pontoslevantamento)
 

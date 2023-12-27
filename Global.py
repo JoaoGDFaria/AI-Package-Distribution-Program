@@ -41,6 +41,12 @@ class Global:
         return all_estaf
 
 
+    def deleteAllEstafetas(self):
+        self.todos_estafetas.clear()
+
+    def deleteAllEncomendas(self):
+        self.todos_encomendas.clear()
+
     def get_all_estafetas_available(self, peso):
         todas_possibilidades = {}
         for estafeta in self.todos_estafetas.values():
