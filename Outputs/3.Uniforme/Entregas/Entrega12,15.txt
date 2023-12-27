@@ -1,0 +1,27 @@
+Estafeta: Rita Lima Alves
+Inicio da viagem: 2023-11-22 18:30:00
+
+Fradelos
+Lousado
+Calendário
+    --> Ponto de Recolha
+
+Famalicão
+Louro
+Nine
+    --> Entrega encomenda 15
+            Hora de entrega 2023-11-22 21:45:00
+            Atraso: 0:00:00
+            Rating: 5
+Louro
+Famalicão
+Calendário
+Lousado
+Fradelos
+    --> Entrega encomenda 12
+            Hora de entrega 2023-11-23 00:46:00
+            Atraso: 2:16:00
+            Rating: 0.5
+
+Fim da viagem: 2023-11-23 00:46:00
+

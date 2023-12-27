@@ -1,0 +1,19 @@
+Estafeta: Ivan Perera
+Inicio da viagem: 2023-11-22 18:30:00
+
+Nine
+Louro
+Famalicão
+Requião
+Castelões
+    --> Ponto de Recolha
+
+Requião
+Famalicão
+    --> Entrega encomenda 4
+            Hora de entrega 2023-11-22 19:15:00
+            Atraso: 0:44:00
+            Rating: 4.0
+
+Fim da viagem: 2023-11-22 19:15:00
+

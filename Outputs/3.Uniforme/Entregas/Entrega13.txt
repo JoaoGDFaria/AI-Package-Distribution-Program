@@ -1,0 +1,17 @@
+Estafeta: Angel Maria
+Inicio da viagem: 2023-11-22 18:30:00
+
+Bairro
+Novais
+Castelões
+    --> Ponto de Recolha
+
+Novais
+Bairro
+    --> Entrega encomenda 13
+            Hora de entrega 2023-11-22 19:54:00
+            Atraso: 0:00:00
+            Rating: 5
+
+Fim da viagem: 2023-11-22 19:54:00
+

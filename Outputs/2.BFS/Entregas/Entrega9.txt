@@ -1,0 +1,15 @@
+Estafeta: Carlos Pereira
+Inicio da viagem: 2023-11-22 18:30:00
+
+Outiz
+Calendário
+    --> Ponto de Recolha
+
+Famalicão
+    --> Entrega encomenda 9
+            Hora de entrega 2023-11-22 18:42:00
+            Atraso: 0:11:00
+            Rating: 5.0
+
+Fim da viagem: 2023-11-22 18:42:00
+

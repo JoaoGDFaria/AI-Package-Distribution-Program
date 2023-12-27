@@ -1,0 +1,24 @@
+Estafeta: Ivan Perera
+Inicio da viagem: 2023-11-22 18:30:00
+
+Crespos
+Palmeira
+Dume
+Maximinos
+    --> Ponto de Recolha
+
+Cabreiros
+Tadim
+Tebosa
+Arnoso
+Cruz
+Famalicão
+Louro
+Nine
+    --> Entrega encomenda 1
+            Hora de entrega 2023-11-22 20:10:00
+            Atraso: 1:39:00
+            Rating: 2.0
+
+Fim da viagem: 2023-11-22 20:10:00
+

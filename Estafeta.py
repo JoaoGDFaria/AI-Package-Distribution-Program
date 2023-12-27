@@ -41,76 +41,87 @@ class Estafeta:
         with open(f'./Outputs/{fileName}/Entregas/Entrega{name}.txt', 'a', encoding='utf-8') as file:
             file.truncate(0)
 
+            print(f"Estafeta: {self.nome}", file=file)
+            print(f"Inicio da viagem: {encomenda.tempoInicio}\n", file=file)
 
-            print(f"Todas as encomendas: {name}", file=file)
+            tempoFinal = tempoInicio + timedelta(minutes=len(locaisEntrega))
+            distancia_percorrida = 0
+            distancia_acumulativa = 0
+            caminho_anterior = path[0]
+            encomenda = None
+            flag = False
 
+            for caminho in path:
+                self.localizacao = caminho
 
-        tempoFinal = tempoInicio + timedelta(minutes=len(locaisEntrega))
-        distancia_percorrida = 0
-        distancia_acumulativa = 0
-        caminho_anterior = path[0]
-        encomenda = None
-        flag = False
+                print(caminho, file=file)
 
-        for caminho in path:
-            self.localizacao = caminho
-            #print(caminho_anterior, caminho)
-            distancia_percorrida += graph.get_arc_cost(caminho_anterior, caminho)
-            distancia_acumulativa += distancia_percorrida
+                distancia_percorrida += graph.get_arc_cost(caminho_anterior, caminho)
+                distancia_acumulativa += distancia_percorrida
 
-            if caminho in pontosRecolha: flag = True
-
-            if flag:
-                while caminho in locaisEntrega:  # Entrega
-
-                    for encomenda in listaEncomendas:
-                        if encomenda.localEntrega == caminho:
-                            listaEncomendas.remove(encomenda)
-                            break
-
-                    locaisEntrega.remove(caminho)
+                if caminho in pontosRecolha:
+                    if flag is False:
+                        print("    --> Ponto de Recolha\n", file=file)
+                    flag = True
 
 
-                    tempoGastoPorEncomenda = (tempoFinal + timedelta(hours=(distancia_percorrida / self.velocidadeMedia)) + timedelta(minutes=1)).replace(second=0, microsecond=0)
-                    tempoFinal = tempoGastoPorEncomenda
-                    distancia_percorrida = 0
+                if flag:
+                    while caminho in locaisEntrega:  # Entrega
 
-                    (rating, atraso) = encomenda.penalizacaoEncomenda(tempoGastoPorEncomenda)
+                        for encomenda in listaEncomendas:
+                            if encomenda.localEntrega == caminho:
+                                listaEncomendas.remove(encomenda)
+                                break
 
-                    hours1, remainder1 = divmod((tempoFinal-tempoInicio).seconds, 3600)
-                    minutes1 = remainder1 // 60
-
-                    hours2, remainder2 = divmod(atraso.seconds, 3600)
-                    minutes2 = remainder2 // 60
-
-                    cliente = self.gl.get_cliente(encomenda.idCliente)
-                    ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome, encomenda.preco, encomenda.id)
-                    #df.at[row, 'Distância percorrida'] = f"{round(distancia_acumulativa, 2)} km"
-                    #if ratingCliente < 0: ratingCliente = 0
-                    #elif ratingCliente > 5: ratingCliente = 5
-                    ratingEntrega = round(rating, 1)
-                    print(f"Rating global: {ratingEntrega}\n")
-
-                    self.rating = round(((self.rating * self.numentregas) + ratingEntrega) / (self.numentregas + 1), 1)
-                    self.numentregas += 1
-                    encomenda.tempoEntrega = tempoFinal
-                    encomenda.rating = ratingEntrega
-
-                    distancia_em_10km = distancia_acumulativa // 10
-                    if distancia_em_10km == 0: distancia_em_10km = 1
-                    taxa = 1
-
-                    if atraso.seconds >0: taxa = info.taxaAtraso["taxa"]
-                    encomenda.preco = round((encomenda.preco + (distancia_em_10km * info.taxaEntrega[self.veiculo])*taxa), 2)
+                        locaisEntrega.remove(caminho)
 
 
-                    pesoTotalEncomendas -= encomenda.peso
-                    self.calculaVelocidadeMedia(pesoTotalEncomendas)
+                        tempoGastoPorEncomenda = (tempoFinal + timedelta(hours=(distancia_percorrida / self.velocidadeMedia)) + timedelta(minutes=1)).replace(second=0, microsecond=0)
+                        tempoFinal = tempoGastoPorEncomenda
+                        distancia_percorrida = 0
 
-            caminho_anterior = caminho
-        # Redefine tudo para o estado inicial
-        self.velocidadeMedia = info.infoVelocidadeMedia[self.veiculo]
-        self.disponivel = True
-        #df.at[row, 'Tempo de entrega'] = tempoFinal - tempoInicio
+                        (rating, atraso) = encomenda.penalizacaoEncomenda(tempoGastoPorEncomenda)
 
-        #self.gl.printAllGlobal()
+                        hours1, remainder1 = divmod((tempoFinal-tempoInicio).seconds, 3600)
+                        minutes1 = remainder1 // 60
+
+                        hours2, remainder2 = divmod(atraso.seconds, 3600)
+                        minutes2 = remainder2 // 60
+
+                        cliente = self.gl.get_cliente(encomenda.idCliente)
+                        ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome, encomenda.preco, encomenda.id)
+                        #df.at[row, 'Distância percorrida'] = f"{round(distancia_acumulativa, 2)} km"
+                        #if ratingCliente < 0: ratingCliente = 0
+                        #elif ratingCliente > 5: ratingCliente = 5
+                        ratingEntrega = round(rating, 1)
+                        print(f"Rating global: {ratingEntrega}\n")
+
+                        self.rating = round(((self.rating * self.numentregas) + ratingEntrega) / (self.numentregas + 1), 1)
+                        self.numentregas += 1
+                        encomenda.tempoEntrega = tempoFinal
+                        encomenda.rating = ratingEntrega
+
+                        distancia_em_10km = distancia_acumulativa // 10
+                        if distancia_em_10km == 0: distancia_em_10km = 1
+                        taxa = 1
+
+                        if atraso.seconds >0: taxa = info.taxaAtraso["taxa"]
+                        encomenda.preco = round((encomenda.preco + (distancia_em_10km * info.taxaEntrega[self.veiculo])*taxa), 2)
+
+                        print(f"    --> Entrega encomenda {encomenda.id}\n"
+                              f"            Hora de entrega {tempoFinal}\n"
+                              f"            Atraso: {atraso}\n"
+                              f"            Rating: {ratingEntrega}", file=file)
+
+                        pesoTotalEncomendas -= encomenda.peso
+                        self.calculaVelocidadeMedia(pesoTotalEncomendas)
+
+                caminho_anterior = caminho
+            # Redefine tudo para o estado inicial
+            self.velocidadeMedia = info.infoVelocidadeMedia[self.veiculo]
+            self.disponivel = True
+
+            print(f"\nFim da viagem: {tempoFinal}\n", file=file)
+            #df.at[row, 'Tempo de entrega'] = tempoFinal - tempoInicio
+
+            #self.gl.printAllGlobal()

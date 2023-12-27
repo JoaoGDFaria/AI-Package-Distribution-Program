@@ -49,7 +49,7 @@ def main():
 
     ag = AgruparEncomenda(pontoslevantamento, gl, g)
 
-    df_encomendas = pd.read_csv("Files/Encomendas/encomendas.csv", encoding='utf-8')
+    #df_encomendas = pd.read_csv("Files/Encomendas/encomendas.csv", encoding='utf-8')
 
     # enc1 = cliente1.criarEncomenda(peso=99, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish1, pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=g.procura_BFS)
     # enc2 = cliente2.criarEncomenda(peso=1, preco=10, volume=123, tempoInicio=datetimeStart, tempoFim=datetimeFinish2, pontosRecolha=pontoslevantamento, g=g, ag=ag)
@@ -60,72 +60,72 @@ def main():
     # enc7 = cliente2.criarEncomenda(peso=2, preco=54.23, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=23, hour=18, minute=30))
     # enc8 = cliente1.criarEncomenda(peso=3, preco=543, volume=123, tempoInicio=datetimeStart, tempoFim=datetime(year=2024, month=11, day=26, hour=22, minute=15))
 
-    lista_encomenda = []
-
-    while True:
-        print("1-Consultar clientes")
-        print("2-Consultar estafetas")
-        print("3-Inserir encomenda manualmente")
-        print("4-Inserir encomenda")
-        print("5-Consultar lista encomendas")
-        print("6-Consultar postos de levantamento")
-        print("7-Carregar encomendas")
-        print("8-Remover ligação entre freguesias")
-        print("0-Sair")
-
-        datetimeStart = datetime(year=2023, month=11, day=22, hour=18, minute=30)
-
-        try:
-
-            saida = int(input("Introduza a sua opção-> "))
-
-            if saida == 0:
-                print("Saindo .......")
-                break
-
-            elif saida == 1:
-                print(gl.printAllUtilizadores())
-
-            elif saida == 2:
-                print(gl.printAllEstafetas())
-
-            elif saida == 3:
-                print("Inserir a encomenda no ficheiro 'encomendas.csv'")
-                print("-----------------------------")
-
-            elif saida == 4:
-                localizacao = (input("Indique a localização do cliente-> "))
-                cliente = gl.get_cliente_by_localizacao(localizacao)
-                peso = int(input("Indique o peso-> "))
-                preco = float(input("Indique o preco-> "))
-                volume = int(input("Indique o volume-> "))
-                limite = (input("Indique o prazo limite entrega-> "))
-                encomendas_cliente = (cliente, peso, preco, volume, limite, datetimeStart)
-                lista_encomenda.append(encomendas_cliente)
-
-            elif saida == 5:
-                print(gl.printAllEncomendas())
-
-            elif saida == 6:
-                print(df_postosLevantamento)
-                print("-----------------------------")
-
-            elif saida == 7:
-                fa.estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, gl, g, ag)
-                print("As encomendas foram carregadas")
-                print("-----------------------------")
-
-            elif saida == 8:
-                g.del_route("Nine", "Louro")
-
-
-            else:
-                print("Please insert a valid number")
-                input("Prima Enter para continuar")
-
-        except ValueError:
-            print("Please insert a valid input")
-            input("Prima Enter para continuar")
+    # lista_encomenda = []
+    #
+    # while True:
+    #     print("1-Consultar clientes")
+    #     print("2-Consultar estafetas")
+    #     print("3-Inserir encomenda manualmente")
+    #     print("4-Inserir encomenda")
+    #     print("5-Consultar lista encomendas")
+    #     print("6-Consultar postos de levantamento")
+    #     print("7-Carregar encomendas")
+    #     print("8-Remover ligação entre freguesias")
+    #     print("0-Sair")
+    #
+    #     datetimeStart = datetime(year=2023, month=11, day=22, hour=18, minute=30)
+    #
+    #     try:
+    #
+    #         saida = int(input("Introduza a sua opção-> "))
+    #
+    #         if saida == 0:
+    #             print("Saindo .......")
+    #             break
+    #
+    #         elif saida == 1:
+    #             print(gl.printAllUtilizadores())
+    #
+    #         elif saida == 2:
+    #             print(gl.printAllEstafetas())
+    #
+    #         elif saida == 3:
+    #             print("Inserir a encomenda no ficheiro 'encomendas.csv'")
+    #             print("-----------------------------")
+    #
+    #         elif saida == 4:
+    #             localizacao = (input("Indique a localização do cliente-> "))
+    #             cliente = gl.get_cliente_by_localizacao(localizacao)
+    #             peso = int(input("Indique o peso-> "))
+    #             preco = float(input("Indique o preco-> "))
+    #             volume = int(input("Indique o volume-> "))
+    #             limite = (input("Indique o prazo limite entrega-> "))
+    #             encomendas_cliente = (cliente, peso, preco, volume, limite, datetimeStart)
+    #             lista_encomenda.append(encomendas_cliente)
+    #
+    #         elif saida == 5:
+    #             print(gl.printAllEncomendas())
+    #
+    #         elif saida == 6:
+    #             print(df_postosLevantamento)
+    #             print("-----------------------------")
+    #
+    #         elif saida == 7:
+    #             fa.estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, gl, g, ag)
+    #             print("As encomendas foram carregadas")
+    #             print("-----------------------------")
+    #
+    #         elif saida == 8:
+    #             g.del_route("Nine", "Louro")
+    #
+    #
+    #         else:
+    #             print("Please insert a valid number")
+    #             input("Prima Enter para continuar")
+    #
+    #     except ValueError:
+    #         print("Please insert a valid input")
+    #         input("Prima Enter para continuar")
 
     # ag.imprimirEncomendas()
     # ag.imprimirEncomendas()
