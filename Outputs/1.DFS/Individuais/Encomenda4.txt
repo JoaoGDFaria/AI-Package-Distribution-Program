@@ -1,14 +1,14 @@
 
-Path ideal bicicleta: ['Calendário', 'Abade de Vermoim']
-Custo ideal bicicleta: 6.0
+Path ideal bicicleta: ['Calendário', 'Lousado']
+Custo ideal bicicleta: 5.7
 Velocidade média mínima: 0.01 km/h
 
-Path ideal mota: ['Abade de Vermoim', 'Calendário', 'Abade de Vermoim']
-Custo ideal mota: 12.0
+Path ideal mota: ['Abade de Vermoim', 'Calendário', 'Lousado']
+Custo ideal mota: 11.7
 Velocidade média mínima: 0.02 km/h
 
-Path ideal carro: ['Cabeçudos', 'Abade de Vermoim', 'Calendário', 'Abade de Vermoim']
-Custo ideal carro: 17.2
+Path ideal carro: ['Cabeçudos', 'Abade de Vermoim', 'Calendário', 'Lousado']
+Custo ideal carro: 16.9
 Velocidade média mínima: 0.02 km/h
 
 Peso: 3 kg

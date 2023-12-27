@@ -1,13 +1,13 @@
 
 Não existe possibilidade de entrega da bicicleta
 
-Path ideal mota: ['Abade de Vermoim', 'Calendário', 'Lousado', 'Fradelos', 'Gondifelos']
-Custo ideal mota: 31.1
+Path ideal mota: ['Mogege', 'Castelões', 'Requião', 'Famalicão', 'Louro', 'Nine']
+Custo ideal mota: 25.6
 Velocidade média mínima: 0.04 km/h
 
-Path ideal carro: ['Cabeçudos', 'Abade de Vermoim', 'Calendário', 'Lousado', 'Fradelos', 'Gondifelos']
-Custo ideal carro: 36.3
-Velocidade média mínima: 0.05 km/h
+Path ideal carro: ['Crespos', 'Palmeira', 'Dume', 'Maximinos', 'Cabreiros', 'Tadim', 'Tebosa', 'Arnoso', 'Cruz', 'Famalicão', 'Louro', 'Nine']
+Custo ideal carro: 65.7
+Velocidade média mínima: 0.09 km/h
 
 Peso: 6 kg
 

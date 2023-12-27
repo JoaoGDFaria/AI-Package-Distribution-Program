@@ -1,18 +1,15 @@
-Estafeta: Rita Lima Alves
+Estafeta: João Oliveira Sousa
 Inicio da viagem: 2023-11-22 18:30:00
 
+Abade de Vermoim
 Calendário
     --> Ponto de Recolha
 
-Lousado
-Fradelos
-Gondifelos
-Outiz
     --> Entrega encomenda 6
-            Hora de entrega 2023-11-22 22:50:00
+            Hora de entrega 2023-11-22 19:23:00
             Atraso: 0:00:00
             Rating: 5
 
 
-Fim da viagem: 2023-11-22 22:50:00
+Fim da viagem: 2023-11-22 19:23:00
 

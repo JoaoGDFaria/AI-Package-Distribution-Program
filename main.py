@@ -108,11 +108,10 @@ def main():
                             df_encomendas = pd.read_csv("Files/Encomendas/encomendas.csv", encoding='utf-8')
                             for linha in df_encomendas.itertuples(index=False):
                                 lista_encomenda.append((linha.idcliente, linha.peso, linha.preco, linha.volume, linha.tempoFim))
-                            fa.estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g, ag)
-                            lista_encomenda.clear()
                             print("-----------------------------")
                             fa.estudoDeUmaEntrega2(pontoslevantamento,lista_encomenda,datetimeStart,gl,g,ag,saida-1)
-                        
+                            lista_encomenda.clear()
+
                         else:
                             print("Please insert a valid number")
                             input("Prima Enter para continuar")

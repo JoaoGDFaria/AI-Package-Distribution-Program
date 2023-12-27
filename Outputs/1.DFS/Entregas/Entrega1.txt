@@ -7,10 +7,10 @@ Calendário
 
 Lousado
     --> Entrega encomenda 1
-            Hora de entrega 2023-11-22 19:00:00
+            Hora de entrega 2023-11-22 18:52:00
             Atraso: 0:00:00
             Rating: 5
 
 
-Fim da viagem: 2023-11-22 19:00:00
+Fim da viagem: 2023-11-22 18:52:00
 

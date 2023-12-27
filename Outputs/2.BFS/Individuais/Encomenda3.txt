@@ -1,15 +1,15 @@
 
-Path ideal bicicleta: ['Calendário', 'Abade de Vermoim', 'Cabeçudos']
-Custo ideal bicicleta: 11.2
+Path ideal bicicleta: ['Bairro', 'Novais', 'Castelões', 'Novais']
+Custo ideal bicicleta: 10.8
 Velocidade média mínima: 0.02 km/h
 
-Path ideal mota: ['Lousado', 'Calendário', 'Abade de Vermoim', 'Cabeçudos']
-Custo ideal mota: 16.9
-Velocidade média mínima: 0.02 km/h
+Path ideal mota: ['Mogege', 'Castelões', 'Novais']
+Custo ideal mota: 7.0
+Velocidade média mínima: 0.01 km/h
 
-Path ideal carro: ['Outiz', 'Calendário', 'Abade de Vermoim', 'Cabeçudos']
-Custo ideal carro: 15.4
-Velocidade média mínima: 0.02 km/h
+Path ideal carro: ['Outiz', 'Calendário', 'Famalicão', 'Requião', 'Castelões', 'Novais']
+Custo ideal carro: 25.3
+Velocidade média mínima: 0.04 km/h
 
 Peso: 2 kg
 

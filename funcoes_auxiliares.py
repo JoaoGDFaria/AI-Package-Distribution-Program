@@ -59,7 +59,7 @@ def estudoDeUmaEntrega2(pontoslevantamento, lista_encomenda, datetimeStart, gl, 
     df.at[4, 'Algoritmo'] = "A*"
     #df.at[5, 'Algoritmo'] = "Iterativa"
 
-    all_algorithms = [g.procura_DFS, g.procura_BFS, g.procura_UCS, g.greedy, g.procura_aStar,g.procura_iterativa]
+    all_algorithms = [g.procura_DFS, g.procura_BFS, g.procura_UCS, g.greedy, g.procura_aStar, g.procura_iterativa]
     fileNames = ["1.DFS", "2.BFS", "3.Uniforme", "4.Greedy", "5.aStar", "6.Iterativa"]
     start_time = perf_counter()
 
@@ -69,11 +69,11 @@ def estudoDeUmaEntrega2(pontoslevantamento, lista_encomenda, datetimeStart, gl, 
                                 pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[row],
                                 fileName=fileNames[row])
 
-        ag.agruparPorEstafeta(algoritmo, filename)
+    ag.agruparPorEstafeta(all_algorithms[row], fileNames[row])
 
 
-        timeTaken = f"{(perf_counter() - start_time) * 1000 :.2f}"
-        df.at[row, 'Tempo execução'] = f"{timeTaken} ms"
+    timeTaken = f"{(perf_counter() - start_time) * 1000 :.2f}"
+    df.at[row, 'Tempo execução'] = f"{timeTaken} ms"
 
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
