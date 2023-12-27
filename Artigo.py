@@ -26,3 +26,15 @@ class Artigo:
             if produto.volume <= 2500 and produto.peso <= 100:
                 artigos.append(produto)
         return artigos
+
+    def printArtigosPossiveisDoEstafeta(self, produtos, estafeta):
+        veiculo = estafeta.veiculo
+        if veiculo == "bicicleta":
+            artigos = self.artigosPossiveisNaBicicleta(produtos)
+        elif veiculo == "mota":
+            artigos = self.artigosPossiveisNaMota(produtos)
+        elif veiculo == "carro":
+            artigos = self.artigosPossiveisNoCarro(produtos)
+        for artigo in artigos:
+            print("Nome:"+artigo.nome + "|| Peso:" + str(artigo.peso) + "|| Volume:" + str(artigo.volume) + "|| Preço:" + str(artigo.preco) + "\n")
+        return artigos
