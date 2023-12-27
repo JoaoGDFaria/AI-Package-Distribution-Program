@@ -104,6 +104,12 @@ class Global:
 
         return lista_bicicleta, lista_mota, lista_carro
 
+    def get_cliente_by_localizacao(self, localizacao):
+        for cliente in self.todos_clientes.values():
+            if cliente.localizacao == localizacao:
+                return cliente
+
+        return None
 
     def printAllGlobal(self):
         for id, info in self.todos_clientes.items():
@@ -114,6 +120,23 @@ class Global:
         print("-----------------------------")
         for id, info in self.todos_encomendas.items():
             print(f"ID: {id}, IdCliente: {info.idCliente}, Peso: {info.peso}, Preço Base: {info.preco}, Local Entrega: {info.localEntrega}, Tempo Inicio: {info.tempoInicio}, Prazo Limite: {info.prazoLimite}, Tempo Entrega: {info.tempoEntrega}, Rating: {info.rating}")
+
+    def printAllUtilizadores(self):
+        for id, info in self.todos_clientes.items():
+            print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Encomendas: {info.encomendas}")
+        print("-----------------------------")
+
+
+    def printAllEstafetas(self):
+        for id, info in self.todos_estafetas.items():
+            print(f"ID: {id}, Nome: {info.nome}, Localizacao: {info.localizacao}, Veiculo: {info.veiculo}, Rating: {info.rating}, Número de Viagens: {info.numentregas} , Disponível: {info.disponivel}")
+        print("-----------------------------")
+
+
+    def printAllEncomendas(self):
+        for id, info in self.todos_encomendas.items():
+            print(f"ID: {id}, IdCliente: {info.idCliente}, Peso: {info.peso}, Preço Base: {info.preco}, Local Entrega: {info.localEntrega}, Tempo Inicio: {info.tempoInicio}, Prazo Limite: {info.prazoLimite}, Tempo Entrega: {info.tempoEntrega}, Rating: {info.rating}")
+        print("-----------------------------")
 
     def get_all_subsets(self, lst):
         subsets = []
