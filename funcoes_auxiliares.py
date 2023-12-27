@@ -13,9 +13,10 @@ def estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g
      df.at[2, 'Algoritmo'] = "Uniforme"
      df.at[3, 'Algoritmo'] = "Greedy"
      df.at[4, 'Algoritmo'] = "A*"
+     #df.at[5, 'Algoritmo'] = "Iterativa"
 
-     all_algorithms = [g.procura_DFS, g.procura_BFS, g.procura_UCS, g.greedy, g.procura_aStar]
-     fileNames = ["1.DFS", "2.BFS", "3.Uniforme", "4.Greedy", "5.aStar"]
+     all_algorithms = [g.procura_DFS, g.procura_BFS, g.procura_UCS, g.greedy, g.procura_aStar,g.procura_iterativa]
+     fileNames = ["1.DFS", "2.BFS", "3.Uniforme", "4.Greedy", "5.aStar", "6.Iterativa"]
 
 
      for i in range(5):
@@ -47,7 +48,7 @@ def estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g
      print(table_str)
 
 
-def estudoDeUmaEntrega2(pontoslevantamento, lista_encomenda, datetimeStart, gl, g, ag, algoritmo, filename, row):
+def estudoDeUmaEntrega2(pontoslevantamento, lista_encomenda, datetimeStart, gl, g, ag, row):
     d = {'Algoritmo': [], 'Tempo execução': []}
     df = pd.DataFrame(data=d)
 
@@ -56,14 +57,17 @@ def estudoDeUmaEntrega2(pontoslevantamento, lista_encomenda, datetimeStart, gl, 
     df.at[2, 'Algoritmo'] = "Uniforme"
     df.at[3, 'Algoritmo'] = "Greedy"
     df.at[4, 'Algoritmo'] = "A*"
+    #df.at[5, 'Algoritmo'] = "Iterativa"
 
+    all_algorithms = [g.procura_DFS, g.procura_BFS, g.procura_UCS, g.greedy, g.procura_aStar,g.procura_iterativa]
+    fileNames = ["1.DFS", "2.BFS", "3.Uniforme", "4.Greedy", "5.aStar", "6.Iterativa"]
     start_time = perf_counter()
 
     for enc in lista_encomenda:
         cliente = gl.get_cliente(enc[0])
         cliente.criarEncomenda(peso=enc[1], preco=enc[2], volume=enc[3], tempoInicio=datetimeStart, tempoFim=enc[4],
-                                pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=algoritmo,
-                                fileName=filename)
+                                pontosRecolha=pontoslevantamento, g=g, ag=ag, algoritmo=all_algorithms[row],
+                                fileName=fileNames[row])
 
         ag.agruparPorEstafeta(algoritmo, filename)
 

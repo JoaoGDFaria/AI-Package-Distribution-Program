@@ -45,11 +45,6 @@ def main():
     for linha in df_postosLevantamento.itertuples(index=False):
         pontoslevantamento.append(linha.nodo)
 
-    artigos = []
-    df_artigos = pd.read_csv("Files/Artigos/artigos.csv", encoding='utf-8')
-    for linha in df_artigos.itertuples(index=False):
-        artigos.append(linha.nome)
-
     ag = AgruparEncomenda(pontoslevantamento, gl, g)
 
     directory_path = f"./Outputs/"
@@ -93,7 +88,44 @@ def main():
                 print("-----------------------------")
 
             elif saida == 4:
-                pass
+                while True:
+                    print("1-Usar o algoritmo DFS")
+                    print("2-Usar o algoritmo BFS")
+                    print("3-Usar o algoritmo Procura Custo Uniforme")
+                    print("4-Usar o algoritmo Greedy")
+                    print("5-Usar o algoritmo A*")
+                    #print("6-Usar o algoritmo Procura Iterativa")
+                    
+                    try:
+                        saida = int(input("Introduza a sua opção-> "))
+                        
+                        if saida == 0:
+                            print("Saindo .......")
+                            break
+                    
+                        elif saida>= 1 and saida<=5:
+                            print("A ler ficheiro .csv .......")
+                            df_encomendas = pd.read_csv("Files/Encomendas/encomendas.csv", encoding='utf-8')
+                            for linha in df_encomendas.itertuples(index=False):
+                                lista_encomenda.append((linha.idcliente, linha.peso, linha.preco, linha.volume, linha.tempoFim))
+                            fa.estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g, ag)
+                            lista_encomenda.clear()
+                            print("-----------------------------")
+                            fa.estudoDeUmaEntrega2(pontoslevantamento,lista_encomenda,datetimeStart,gl,g,ag,saida-1)
+                        
+                        else:
+                            print("Please insert a valid number")
+                            input("Prima Enter para continuar")
+                         
+                    except ValueError:
+                        print("Please insert a valid input")
+                        input("Prima Enter para continuar")
+
+                    
+                    
+                    
+                    
+                    
 
             elif saida == 5:
                 inicio = menu.checkIfExists("Nodo inicial", g)

@@ -1,0 +1,18 @@
+
+Não existe possibilidade de entrega da bicicleta
+
+Path ideal mota: ['Lousado', 'Calendário', 'Outiz', 'Gondifelos']
+Custo ideal mota: 15.0
+Velocidade média mínima: 0.02 km/h
+
+Path ideal carro: ['Outiz', 'Calendário', 'Outiz', 'Gondifelos']
+Custo ideal carro: 13.5
+Velocidade média mínima: 0.02 km/h
+
+Peso: 6 kg
+
+Velocidade média da bicicleta: 10 km/h
+Velocidade média da mota: 32.0 km/h
+Velocidade média do carro: 49.4 km/h
+
+----> Veículo escolhido: mota

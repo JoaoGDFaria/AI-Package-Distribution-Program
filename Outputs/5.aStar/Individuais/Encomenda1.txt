@@ -1,0 +1,18 @@
+
+Não existe possibilidade de entrega da bicicleta
+
+Path ideal mota: ['Lousado', 'Calendário', 'Lousado']
+Custo ideal mota: 11.4
+Velocidade média mínima: 0.02 km/h
+
+Path ideal carro: ['Outiz', 'Calendário', 'Lousado']
+Custo ideal carro: 9.9
+Velocidade média mínima: 0.01 km/h
+
+Peso: 20 kg
+
+Velocidade média da bicicleta: 10 km/h
+Velocidade média da mota: 25.0 km/h
+Velocidade média do carro: 48.0 km/h
+
+----> Veículo escolhido: mota
