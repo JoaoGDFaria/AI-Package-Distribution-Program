@@ -9,6 +9,7 @@ import pandas as pd
 import funcoes_auxiliares as fa
 
 
+
 def main():
     gl = Global()
 
@@ -49,18 +50,14 @@ def main():
 
     ag = AgruparEncomenda(pontoslevantamento, gl, g)
 
-    df_encomendas = pd.read_csv("Files/Encomendas/encomendas.csv", encoding='utf-8')
-
     lista_encomenda = []
 
     while True:
         print("1-Consultar clientes")
         print("2-Consultar estafetas")
-        print("3-Inserir encomenda manualmente")
-        print("4-Inserir encomenda")
+        print("3-Inserir encomenda")
         print("5-Consultar lista encomendas")
         print("6-Consultar postos de levantamento")
-        print("7-Carregar encomendas")
         print("8-Remover ligação entre freguesias")
         print("0-Sair")
 
@@ -82,17 +79,12 @@ def main():
 
             elif saida == 3:
                 print("Inserir a encomenda no ficheiro 'encomendas.csv'")
+                df_encomendas = pd.read_csv("Files/Encomendas/encomendas.csv", encoding='utf-8')
+                for linha in df_encomendas.itertuples(index=False):
+                    lista_encomenda.append(linha)
+                fa.estudoDeUmaEntrega(pontoslevantamento, lista_encomenda,datetimeStart, gl, g, ag)
+                
                 print("-----------------------------")
-
-            elif saida == 4:
-                localizacao = (input("Indique a localização do cliente-> "))
-                cliente = gl.get_cliente_by_localizacao(localizacao)
-                peso = int(input("Indique o peso-> "))
-                preco = float(input("Indique o preco-> "))
-                volume = int(input("Indique o volume-> "))
-                limite = (input("Indique o prazo limite entrega-> "))
-                encomendas_cliente = (cliente, peso, preco, volume, limite, datetimeStart)
-                lista_encomenda.append(encomendas_cliente)
 
             elif saida == 5:
                 print(gl.printAllEncomendas())
@@ -100,15 +92,6 @@ def main():
             elif saida == 6:
                 print(df_postosLevantamento)
                 print("-----------------------------")
-
-            elif saida == 7:
-                fa.estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, gl, g, ag)
-                print("As encomendas foram carregadas")
-                print("-----------------------------")
-
-            elif saida == 8:
-                g.del_route("Nine", "Louro")
-
 
             else:
                 print("Please insert a valid number")

@@ -1,6 +1,7 @@
 import math
 import os
-from datetime import timedelta
+from datetime import timedelta,datetime
+
 
 import info
 
@@ -14,7 +15,7 @@ class Encomenda:
         self.volume = volume
         self.localEntrega = localEntrega
         self.tempoInicio = tempoInicio
-        self.prazoLimite = prazoLimite
+        self.prazoLimite= datetime.strptime(prazoLimite,"%Y-%m-%d %H:%M:%S")
         self.tempoEntrega = None
         self.rating = None
         self.idEstafeta = None
@@ -33,7 +34,6 @@ class Encomenda:
             file.truncate(0)
             self.file = file
             self.melhorCaminhoEncomenda(algorithmFunction)
-
 
     def melhorCaminhoEncomenda(self, algorithmFunction):
         list_information = []
