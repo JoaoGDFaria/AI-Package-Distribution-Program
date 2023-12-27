@@ -53,6 +53,7 @@ def main():
 
 
     lista_encomenda = []
+    datetimeStart = datetime(year=2023, month=11, day=22, hour=18, minute=30)
 
     while True:
         print("1-Consultar clientes")
@@ -60,9 +61,9 @@ def main():
         print("3-Inserir encomendas .csv com todos os algoritmos")
         print("4-Inserir encomendas .csv com algoritmo específico")
         print("5-Remover ligação entre freguesias")
+        print("6-Atualizar data inicial")
         print("0-Sair")
 
-        datetimeStart = datetime(year=2023, month=11, day=22, hour=18, minute=30)
 
         try:
 
@@ -109,7 +110,7 @@ def main():
                             for linha in df_encomendas.itertuples(index=False):
                                 lista_encomenda.append((linha.idcliente, linha.peso, linha.preco, linha.volume, linha.tempoFim))
                             print("-----------------------------")
-                            fa.estudoDeUmaEntrega2(pontoslevantamento,lista_encomenda,datetimeStart,gl,g,ag,saida-1)
+                            fa.estudoDeUmaEntrega2(pontoslevantamento,lista_encomenda, datetimeStart, gl, g, ag, saida-1)
                             lista_encomenda.clear()
 
                         else:
@@ -120,11 +121,6 @@ def main():
                         print("Please insert a valid input")
                         input("Prima Enter para continuar")
 
-                    
-                    
-                    
-                    
-                    
 
             elif saida == 5:
                 inicio = menu.checkIfExists("Nodo inicial", g)
@@ -132,6 +128,11 @@ def main():
 
                 g.del_route(inicio, fim)
                 input("Prima Enter para continuar")
+
+            elif saida == 6:
+                data = input("Introduza data-> ")
+                datetimeStart = datetime.strptime(data, "%Y-%m-%d %H:%M:%S")
+                gl.atualizarEstafetas(datetimeStart)
 
             else:
                 print("Please insert a valid number")

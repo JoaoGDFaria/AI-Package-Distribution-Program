@@ -45,7 +45,7 @@ class AgruparEncomenda:
                     all_encomendas_ordered = sorted(all_encomendas, key=lambda x: (x[0].prazoLimite-x[0].tempoInicio))
 
                     for encomenda, path in all_encomendas_ordered:
-                        if peso_atual + encomenda.peso <= info.infoPesoMaximo[veiculo]:
+                        if peso_atual + encomenda.peso <= info.infoPesoMaximo[veiculo] and volume_atual + encomenda.volume <= info.infoVolumeMaximo[veiculo]:
                             lista_entrega.append(encomenda)
                             peso_atual += encomenda.peso
                             volume_atual += encomenda.volume
@@ -61,8 +61,8 @@ class AgruparEncomenda:
 
                     Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual, volume_atual, fileName)
 
-        if flag is True:
-            self.agruparPorEstafeta(algoritmo, fileName)
+        #if flag is True:
+            #self.agruparPorEstafeta(algoritmo, fileName)
 
 
 

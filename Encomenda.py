@@ -50,7 +50,7 @@ class Encomenda:
 
 
             # Verificar todos os estafetas disponíveis com base no peso total da encomenda
-            for localizacao_veiculo in self.gl.get_all_estafetas_available(self.peso):
+            for localizacao_veiculo in self.gl.get_all_estafetas_available(self.peso, self.volume):
 
                 posicaoInicial = localizacao_veiculo[0]
                 veiculo = localizacao_veiculo[1]

@@ -1,0 +1,37 @@
+Estafeta: Ivan Perera
+Peso Total: 30
+Volume Total: 244
+Inicio da viagem: 2023-11-22 18:30:00
+
+Crespos
+Palmeira
+Dume
+Maximinos
+    --> Ponto de Recolha
+
+Cabreiros
+Tadim
+Tebosa
+Arnoso
+Cruz
+Famalicão
+Louro
+Nine
+    --> Entrega encomenda 7
+            Hora de entrega 2023-11-22 19:56:00
+            Atraso: 0:00:00
+            Rating: 5
+
+Louro
+Famalicão
+Requião
+Castelões
+Novais
+    --> Entrega encomenda 3
+            Hora de entrega 2023-11-22 20:30:00
+            Atraso: 0:00:00
+            Rating: 5
+
+
+Fim da viagem: 2023-11-22 20:30:00
+

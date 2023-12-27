@@ -1,0 +1,33 @@
+Estafeta: Carlos Pereira
+Peso Total: 87
+Volume Total: 366
+Inicio da viagem: 2023-11-22 18:30:00
+
+Outiz
+Gondifelos
+Fradelos
+Lousado
+Calendário
+    --> Ponto de Recolha
+
+    --> Entrega encomenda 6
+            Hora de entrega 2023-11-22 19:17:00
+            Atraso: 0:00:00
+            Rating: 5
+
+Abade de Vermoim
+    --> Entrega encomenda 5
+            Hora de entrega 2023-11-22 19:26:00
+            Atraso: 0:00:00
+            Rating: 5
+
+Calendário
+Lousado
+    --> Entrega encomenda 4
+            Hora de entrega 2023-11-22 19:43:00
+            Atraso: 0:00:00
+            Rating: 5
+
+
+Fim da viagem: 2023-11-22 19:43:00
+

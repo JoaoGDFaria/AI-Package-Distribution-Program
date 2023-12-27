@@ -14,9 +14,11 @@ class Estafeta:
         self.numentregas = num
         self.localizacao = localizacao
         self.pesoMaximo = info.infoPesoMaximo[veiculo]
+        self.volumeMaximo = info.infoVolumeMaximo[veiculo]
         self.velocidadeMedia = info.infoVelocidadeMedia[veiculo]
         self.perdaPorKg = info.infoPerdaPorKg[veiculo]
         self.disponivel = True
+        self.dataDisponivel = None
         self.gl = gl
         self.id = self.gl.add_estafeta(self)
 
@@ -121,7 +123,7 @@ class Estafeta:
                 caminho_anterior = caminho
             # Redefine tudo para o estado inicial
             self.velocidadeMedia = info.infoVelocidadeMedia[self.veiculo]
-            self.disponivel = True
+            self.dataDisponivel = tempoFinal
 
             print(f"\nFim da viagem: {tempoFinal}\n", file=file)
             #df.at[row, 'Tempo de entrega'] = tempoFinal - tempoInicio

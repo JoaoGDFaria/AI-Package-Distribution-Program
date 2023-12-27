@@ -47,10 +47,10 @@ class Global:
     def deleteAllEncomendas(self):
         self.todos_encomendas.clear()
 
-    def get_all_estafetas_available(self, peso):
+    def get_all_estafetas_available(self, peso, volume):
         todas_possibilidades = {}
         for estafeta in self.todos_estafetas.values():
-            if estafeta.disponivel and estafeta.pesoMaximo >= peso:
+            if estafeta.disponivel and estafeta.pesoMaximo >= peso and estafeta.volumeMaximo >= volume:
                 key = (estafeta.localizacao, estafeta.veiculo)
                 rat = None
 
@@ -78,44 +78,7 @@ class Global:
                 est = estafeta
         return est
 
-    def get_all_available_estafeta_location(self):
-        different_locations = set()
-        for estafeta in self.todos_estafetas.values():
-            if estafeta.disponivel and estafeta.localizacao not in different_locations:
-                different_locations.add(estafeta.localizacao)
-        return different_locations
 
-    def get_encomendas_sem_entregador(self):
-        all_enc = []
-        for encomenda in self.todos_encomendas.values():
-            if encomenda.idEstafeta is None:
-                all_enc.append(encomenda)
-
-
-        all_enc_sorted = sorted(all_enc, key=lambda encomenda: encomenda.peso)
-
-        lista_bicicleta = []
-        lista_mota = []
-        lista_carro = all_enc_sorted
-
-        for enc in all_enc_sorted[::-1]:
-            if enc.peso < info.infoPesoMaximo["bicicleta"]:
-                lista_bicicleta.append(enc)
-                lista_mota.append(enc)
-
-            elif enc.peso < info.infoPesoMaximo["mota"]:
-                lista_mota.append(enc)
-
-        print(len(lista_bicicleta))
-
-        return lista_bicicleta, lista_mota, lista_carro
-
-    def get_cliente_by_localizacao(self, localizacao):
-        for cliente in self.todos_clientes.values():
-            if cliente.localizacao == localizacao:
-                return cliente
-
-        return None
 
     def printAllGlobal(self):
         for id, info in self.todos_clientes.items():
@@ -144,15 +107,9 @@ class Global:
             print(f"ID: {id}, IdCliente: {info.idCliente}, Peso: {info.peso}, Preço Base: {info.preco}, Local Entrega: {info.localEntrega}, Tempo Inicio: {info.tempoInicio}, Prazo Limite: {info.prazoLimite}, Tempo Entrega: {info.tempoEntrega}, Rating: {info.rating}")
         print("-----------------------------")
 
-    def get_all_subsets(self, lst):
-        subsets = []
-        for subset_size in range(1, len(lst) + 1):
-            subsets.extend(list(combination) for combination in combinations(lst, subset_size))
-        return subsets
 
-    def get_all_permutations(self, lst):
-        all_subsets = lst.get_all_subsets()
-        all_permutations = []
-        for subset in all_subsets:
-            all_permutations.extend(permutations(subset))
-        return set(all_permutations)
+    def atualizarEstafetas(self, dataAtual):
+        for estafeta in self.todos_estafetas.values():
+            if not estafeta.disponivel and estafeta.dataDisponivel < dataAtual:
+                estafeta.disponivel = True
+

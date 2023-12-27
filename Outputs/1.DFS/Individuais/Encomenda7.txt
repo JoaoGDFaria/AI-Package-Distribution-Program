@@ -1,9 +1,7 @@
 
 Não existe possibilidade de entrega da bicicleta
 
-Path ideal mota: ['Mogege', 'Castelões', 'Requião', 'Famalicão', 'Louro', 'Nine']
-Custo ideal mota: 25.6
-Velocidade média mínima: 0.04 km/h
+Não existe possibilidade de entrega da mota
 
 Path ideal carro: ['Crespos', 'Palmeira', 'Dume', 'Maximinos', 'Cabreiros', 'Tadim', 'Tebosa', 'Arnoso', 'Cruz', 'Famalicão', 'Louro', 'Nine']
 Custo ideal carro: 65.7
@@ -15,4 +13,4 @@ Velocidade média da bicicleta: 10 km/h
 Velocidade média da mota: 32.0 km/h
 Velocidade média do carro: 49.4 km/h
 
-----> Veículo escolhido: mota
+----> Veículo escolhido: carro

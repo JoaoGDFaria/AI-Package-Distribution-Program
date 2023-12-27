@@ -1,0 +1,40 @@
+Estafeta: Marta Santos Costa
+Peso Total: 93
+Volume Total: 488
+Inicio da viagem: 2023-11-22 18:30:00
+
+Cabeçudos
+Abade de Vermoim
+Calendário
+    --> Ponto de Recolha
+
+    --> Entrega encomenda 6
+            Hora de entrega 2023-11-22 18:51:00
+            Atraso: 0:00:00
+            Rating: 5
+
+Lousado
+    --> Entrega encomenda 4
+            Hora de entrega 2023-11-22 19:00:00
+            Atraso: 0:00:00
+            Rating: 5
+
+Calendário
+Abade de Vermoim
+    --> Entrega encomenda 5
+            Hora de entrega 2023-11-22 19:15:00
+            Atraso: 0:00:00
+            Rating: 5
+
+Calendário
+Famalicão
+Louro
+Nine
+    --> Entrega encomenda 7
+            Hora de entrega 2023-11-22 19:39:00
+            Atraso: 0:00:00
+            Rating: 5
+
+
+Fim da viagem: 2023-11-22 19:39:00
+
