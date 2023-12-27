@@ -28,6 +28,7 @@ class Artigo:
         return artigos
 
     def printArtigosPossiveisDoEstafeta(self, produtos, estafeta):
+        artigos = []
         veiculo = estafeta.veiculo
         if veiculo == "bicicleta":
             artigos = self.artigosPossiveisNaBicicleta(produtos)
@@ -36,5 +37,5 @@ class Artigo:
         elif veiculo == "carro":
             artigos = self.artigosPossiveisNoCarro(produtos)
         for artigo in artigos:
-            print("Nome:"+artigo.nome + "|| Peso:" + str(artigo.peso) + "|| Volume:" + str(artigo.volume) + "|| Preço:" + str(artigo.preco) + "\n")
+            print("Nome:"+artigo.nome + "|" + str(artigo.peso) + "kg|" + str(artigo.volume) + "l|" + str(artigo.preco) + "€\n")
         return artigos
