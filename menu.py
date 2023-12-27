@@ -101,7 +101,15 @@ def auxFunction(algorithmFunction, nodeStops, nodes):
 
     for stop in nodeStops:
         path_inicio_stop = algorithmFunction(inicio, stop)
+        if path_inicio_stop[0] is None:
+            print("O algoritmo não encontrou caminho entre estes nodos!")
+            return
+
         path_stop_fim = algorithmFunction(stop, fim)
+        if path_stop_fim[0] is None:
+            print("O algoritmo não encontrou caminho entre estes nodos!")
+            return
+
 
         routeCost = path_inicio_stop[1] + path_stop_fim[1]
 
