@@ -25,11 +25,11 @@ class Encomenda:
         self.id = self.gl.add_encomenda(self)
         self.fileName = fileName
 
-        directory_path = f"./Outputs/{fileName}"
+        directory_path = f"./Outputs/{fileName}/Individuais/"
         if not os.path.exists(directory_path):
             os.makedirs(directory_path)
 
-        with open(f'./Outputs/{self.fileName}/Encomenda{self.id}.txt', 'a', encoding='utf-8') as file:
+        with open(f'./Outputs/{self.fileName}/Individuais/Encomenda{self.id}.txt', 'a', encoding='utf-8') as file:
             file.truncate(0)
             self.file = file
             self.melhorCaminhoEncomenda(algorithmFunction)
@@ -199,7 +199,7 @@ class Encomenda:
 
 
     def redoEncomendaPath(self, algorithmFunction):
-        with open(f'./Outputs/{self.fileName}/Encomenda{self.id}.txt', 'a', encoding='utf-8') as file:
+        with open(f'./Outputs/{self.fileName}/Individuais/Encomenda{self.id}.txt', 'a', encoding='utf-8') as file:
             file.truncate(0)
             self.file = file
             self.melhorCaminhoEncomenda(algorithmFunction)

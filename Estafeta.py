@@ -1,4 +1,5 @@
 import math
+import os
 from datetime import timedelta
 
 import info
@@ -24,11 +25,25 @@ class Estafeta:
         self.velocidadeMedia = round(info.infoVelocidadeMedia[self.veiculo] - (info.infoPerdaPorKg[self.veiculo] * pesoTotalEncomendas), 2)
 
 
-    def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, pontosRecolha):
+    def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, pontosRecolha, fileName):
         self.disponivel = False
+        name = ""
 
         for encomenda in listaEncomendas:
             encomenda.idEstafeta = self.id
+            name += str(encomenda.id) + ","
+        name = name[:-1]
+
+        directory_path = f"./Outputs/{fileName}/Entregas/"
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+
+        with open(f'./Outputs/{fileName}/Entregas/Entrega{name}.txt', 'a', encoding='utf-8') as file:
+            file.truncate(0)
+
+
+            print(f"Todas as encomendas: {name}", file=file)
+
 
         tempoFinal = tempoInicio + timedelta(minutes=len(locaisEntrega))
         distancia_percorrida = 0
