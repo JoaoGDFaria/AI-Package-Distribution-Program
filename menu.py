@@ -70,7 +70,13 @@ def main():
                 auxFunction(g.procura_iterativa, pontoslevantamento, g)
                 
             elif saida == 9:
-                g.del_route("Nine","Louro")
+
+                inicio = checkIfExists("Nodo inicial", g)
+                fim = checkIfExists("Nodo final", g)
+
+
+                g.del_route(inicio, fim)
+                input("Prima Enter para continuar")
 
 
             else:
@@ -84,15 +90,8 @@ def main():
 
 
 def auxFunction(algorithmFunction, nodeStops, nodes):
-
-    inicio = input("Nodo inicial-> ")
-    if not nodes.node_exists(inicio):
-        return
-
-    fim = input("Nodo final-> ")
-    if not nodes.node_exists(fim):
-        return
-
+    inicio = checkIfExists("Nodo inicial", nodes)
+    fim = checkIfExists("Nodo final", nodes)
 
     start_time = perf_counter()
 
@@ -114,6 +113,16 @@ def auxFunction(algorithmFunction, nodeStops, nodes):
     print(f"Ideal Path: {solucao} | Time taken: {(perf_counter() - start_time) * 1000 :.2f} ms")
 
     input("Prima Enter para continuar")
+
+
+def checkIfExists(nome, nodo):
+    while True:
+        val = input(f"{nome}-> ")
+        if not nodo.node_exists(val):
+            print("Nodo não existe.\n")
+        else:
+            break
+    return val
 
 
 if __name__ == "__main__":

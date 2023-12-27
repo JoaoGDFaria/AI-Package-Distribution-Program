@@ -1,5 +1,6 @@
 import heapq
 import math
+from copy import deepcopy
 from queue import Queue
 
 from networkx import is_connected
@@ -118,6 +119,14 @@ class Graph:
         lista = []
         for(adjacente, peso) in self.m_graph[nodo]:
             lista.append((adjacente, peso))
+        return lista
+
+
+
+    def getNeighboursNames(self,nodo):
+        lista = []
+        for (adjacente, peso) in self.m_graph[nodo]:
+            lista.append(adjacente)
         return lista
 
     def getH(self, node):
@@ -349,26 +358,6 @@ class Graph:
                     heapq.heappush(fila_prioridades, (custo_total, vizinho, caminho_atual + [nodo_atual]))
                     
                     
-                    
-
-    def del_route(self, nodea, nodeb):
-        print("Entrei")
-        value = self.get_arc_cost(nodea, nodeb)
-        print(value)
-        copia = self.m_graph.copy()
-        print("Fiz copia")
-        #copia[nodea].remove(nodeb)
-        #print("Removi da copia")
-        #copia[nodeb].remove(nodea)
-        #print("Removi da copia")
-
-
-        #if is_connected(copia):
-            #print("Grafo continua conexo, alterações efetuadas.")
-            #self.m_graph = copia
-
-        #else:
-            #print("Grafo desconexo, alterações não efetuadas.")
 
     def procura_iterativa_aux(self, src, target, maxDepth):
         if src == target:
@@ -389,21 +378,36 @@ class Graph:
             if path:
                 return path, depth
             
-            
-    def del_route(self,nodea,nodeb):
-        print("Entrei")
-        value = self.get_arc_cost(nodea, nodeb)
-        print(value)
+    # Elimina uma aresta, se possível
+    def del_route(self, node1, node2):
 
+        vizinhos1 = self.getNeighbours(node1)
+        vizinhos2 = self.getNeighbours(node2)
+        flag = False
 
-        if is_connected(nodea) or is_connected(nodeb):
-            copia = self.m_graph.copy()
-            print("Fiz copia")
-            copia[nodea].remove(nodeb)
-            print("Removi da copia")
-            copia[nodeb].remove(nodea)
-            print("Removi da copia")
-            self.m_graph = copia
+        copia = deepcopy(self.m_graph)
+
+        for (node, peso) in vizinhos1:
+            if node == node2:
+                self.m_graph[node1].remove((node2, peso))
+                flag = True
+                break
+
+        for (node, peso) in vizinhos2:
+            if node == node1:
+                self.m_graph[node2].remove((node1, peso))
+                flag = True
+                break
+
+        if flag:
+
+            if self.procura_DFS(node1, node2) is not None:
+                print("Aresta removida com sucesso.")
+
+            else:
+                self.m_graph = copia.copy()
+                print("Não é possível remover essa aresta. Grafo ficaria desconexo.")
+
 
         else:
-            print("Grafo desconexo, alterações não efetuadas.")
+            print("Não é possível remover essa aresta. Nodos não são vizinhos.")
