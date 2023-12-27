@@ -90,16 +90,16 @@ class Graph:
                 g.add_edge(n, adjacente, weight=peso)
 
         # Desenha o grafo com os rótulos e distâncias
-        nx.draw(g, pos=pos, with_labels=False, font_weight='bold', node_size=700, node_color='skyblue', font_size=8)
+        nx.draw(g, pos=pos, with_labels=True, font_weight='bold', font_size=13, node_size=400, node_color='skyblue', edge_color='gray')
 
         # Adiciona rótulos de distância acima das conexões
         labels = nx.get_edge_attributes(g, 'weight')
         nx.draw_networkx_edge_labels(g, pos, edge_labels=labels, font_size=8)
 
         # Adiciona nome dos nós acima dos nodos (sem rótulos duplicados)
-        node_labels = nx.get_node_attributes(g, 'pos')
-        for node, (x, y) in node_labels.items():
-            plt.text(x, y + 0.1, node, fontsize=8, ha='center', va='bottom')
+        #node_labels = nx.get_node_attributes(g, 'pos')
+        #for node, (x, y) in node_labels.items():
+        #    plt.text(x, y + 0.1, node, fontsize=8, ha='center', va='bottom')
 
         plt.title("Freguesias de Famalicão e Braga")
 
