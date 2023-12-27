@@ -1,4 +1,6 @@
 Estafeta: Ana Silva Pereira
+Peso Total: 6
+Volume Total: 123
 Inicio da viagem: 2023-11-22 18:30:00
 
 Lousado

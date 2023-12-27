@@ -25,7 +25,7 @@ class Estafeta:
         self.velocidadeMedia = round(info.infoVelocidadeMedia[self.veiculo] - (info.infoPerdaPorKg[self.veiculo] * pesoTotalEncomendas), 2)
 
 
-    def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, pontosRecolha, fileName):
+    def efetuarEncomenda(self, path, tempoInicio, locaisEntrega, graph, listaEncomendas, pesoTotalEncomendas, volumeTotalEncomendas, pontosRecolha, fileName):
         self.disponivel = False
         name = ""
 
@@ -42,6 +42,8 @@ class Estafeta:
             file.truncate(0)
 
             print(f"Estafeta: {self.nome}", file=file)
+            print(f"Peso Total: {pesoTotalEncomendas}", file=file)
+            print(f"Volume Total: {volumeTotalEncomendas}", file=file)
             print(f"Inicio da viagem: {encomenda.tempoInicio}\n", file=file)
 
             tempoFinal = tempoInicio + timedelta(minutes=len(locaisEntrega))

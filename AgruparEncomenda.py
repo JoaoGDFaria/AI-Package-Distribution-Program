@@ -34,11 +34,12 @@ class AgruparEncomenda:
                         flag = True
                         encomenda.redoEncomendaPath(algoritmo)
                     else:
-                        estafeta.efetuarEncomenda(path, encomenda.tempoInicio, [encomenda.localEntrega], encomenda.g, [encomenda], encomenda.peso, self.pontosRecolha, fileName)
+                        estafeta.efetuarEncomenda(path, encomenda.tempoInicio, [encomenda.localEntrega], encomenda.g, [encomenda], encomenda.peso, encomenda.volume, self.pontosRecolha, fileName)
 
 
                 elif len(all_encomendas) > 0:
                     peso_atual = 0
+                    volume_atual = 0
                     lista_entrega = []
 
                     all_encomendas_ordered = sorted(all_encomendas, key=lambda x: (x[0].prazoLimite-x[0].tempoInicio))
@@ -47,20 +48,18 @@ class AgruparEncomenda:
                         if peso_atual + encomenda.peso <= info.infoPesoMaximo[veiculo]:
                             lista_entrega.append(encomenda)
                             peso_atual += encomenda.peso
+                            volume_atual += encomenda.volume
                             self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
-                            print(f"------>{peso_atual}")
-                            print(f"------>{lista_entrega}")
                         else:
-                            print(f"------>{peso_atual}")
-                            print(f"------>{lista_entrega}")
 
-                            Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual, fileName)
+                            Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual, volume_atual, fileName)
 
                             peso_atual = encomenda.peso
+                            volume_atual = encomenda.volume
                             lista_entrega = [encomenda]
                             self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
 
-                    Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual, fileName)
+                    Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual, volume_atual, fileName)
 
         if flag is True:
             self.agruparPorEstafeta(algoritmo, fileName)

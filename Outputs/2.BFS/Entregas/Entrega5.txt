@@ -1,4 +1,6 @@
 Estafeta: Rita Lima Alves
+Peso Total: 4
+Volume Total: 123
 Inicio da viagem: 2023-11-22 18:30:00
 
 Lousado
