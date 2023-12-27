@@ -17,9 +17,7 @@ class AgruparEncomenda:
         else:
             self.listaEncomendas[veiculo] = {pontoRecolha: [(encomenda, path)]}
 
-    def agruparPorEstafeta(self, algoritmo):
-        encomenda = None
-        path = None
+    def agruparPorEstafeta(self, algoritmo, fileName):
         flag = False
         for veiculo, dictPontoRecolha in self.listaEncomendas.items():
             for pontoRecolha, all_encomendas in dictPontoRecolha.items():
@@ -27,15 +25,16 @@ class AgruparEncomenda:
                     encomenda = all_encomendas[0][0]
                     path = all_encomendas[0][1]
 
-                    print(f"ENTREGA {pontoRecolha} - {veiculo}")
+                    # print(f"ENTREGA {pontoRecolha} - {veiculo}")
 
                     self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
                     estafeta = self.gl.get_estafeta_available_by_location(path[0], veiculo)
                     if estafeta is None:
+                        print(encomenda.id)
                         flag = True
                         encomenda.redoEncomendaPath(algoritmo)
                     else:
-                        estafeta.efetuarEncomenda(path, encomenda.tempoInicio, [encomenda.localEntrega], encomenda.g, [encomenda], encomenda.peso, self.pontosRecolha)
+                        estafeta.efetuarEncomenda(path, encomenda.tempoInicio, [encomenda.localEntrega], encomenda.g, [encomenda], encomenda.peso, self.pontosRecolha, fileName)
 
 
                 elif len(all_encomendas) > 0:
@@ -55,16 +54,16 @@ class AgruparEncomenda:
                             print(f"------>{peso_atual}")
                             print(f"------>{lista_entrega}")
 
-                            Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual)
+                            Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual, fileName)
 
                             peso_atual = encomenda.peso
                             lista_entrega = [encomenda]
                             self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
 
-                    Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual)
+                    Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual, fileName)
 
         if flag is True:
-            self.agruparPorEstafeta(algoritmo)
+            self.agruparPorEstafeta(algoritmo, fileName)
 
 
 

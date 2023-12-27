@@ -4,7 +4,7 @@ from itertools import permutations
 
 
 class Entrega:
-    def __init__(self, listaEncomendas, graph, pontosRecolha, gl, algorithm, veiculo, pesoTotal):
+    def __init__(self, listaEncomendas, graph, pontosRecolha, gl, algorithm, veiculo, pesoTotal, fileName):
         self.listaEncomendas = listaEncomendas
         self.graph = graph
         self.tempoInicio = listaEncomendas[0].tempoInicio
@@ -13,6 +13,7 @@ class Entrega:
         self.pontosRecolha = pontosRecolha
         self.gl = gl
         self.veiculo = veiculo
+        self.fileName = fileName
 
         self.melhorCaminho(algorithm)
 
@@ -52,7 +53,7 @@ class Entrega:
 
         estafeta = self.gl.get_estafeta_available_by_location(melhorPath[0], self.veiculo)
         estafeta.calculaVelocidadeMedia(self.pesoTotalEncomendas)
-        estafeta.efetuarEncomenda(melhorPath, self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas, self.pontosRecolha)
+        estafeta.efetuarEncomenda(melhorPath, self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas, self.pontosRecolha, self.fileName)
 
 
     def calculaMelhorCaminho(self, localinicial, locaisentrega, algorithmFunction):
