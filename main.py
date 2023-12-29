@@ -142,8 +142,6 @@ def main():
             print("Please insert a valid input")
             input("Prima Enter para continuar")
 
-    # fa.escolherEncomendas(gl, g, pontoslevantamento)
-
 
 if __name__ == "__main__":
     main()

@@ -45,7 +45,9 @@ def estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g
      pd.set_option('display.max_columns', None)
      df_sorted = df.sort_values(by='Tempo execução')
      table_str = tabulate(df_sorted, headers='keys', tablefmt='pretty', showindex=False)
+     print("\n\n")
      print(table_str)
+     print("\n\n")
 
 
 def estudoDeUmaEntrega2(pontoslevantamento, lista_encomenda, datetimeStart, gl, g, ag, row):

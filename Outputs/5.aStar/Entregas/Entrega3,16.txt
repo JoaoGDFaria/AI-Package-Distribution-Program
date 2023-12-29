@@ -1,0 +1,23 @@
+Estafeta: Nuno Graciano
+Peso Total: 2
+Volume Total: 7
+Inicio da viagem: 2023-12-20 18:30:00
+
+Mogege
+Castelões
+    --> Ponto de Recolha
+
+Novais
+    --> Entrega encomenda 3
+            Hora de entrega 2023-12-20 18:45:00
+            Atraso: 0:00:00
+            Rating: 5
+
+    --> Entrega encomenda 16
+            Hora de entrega 2023-12-20 18:46:00
+            Atraso: 0:00:00
+            Rating: 5
+
+
+Fim da viagem: 2023-12-20 18:46:00
+

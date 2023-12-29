@@ -1,0 +1,20 @@
+Estafeta: Pedro Henriques
+Peso Total: 5
+Volume Total: 2
+Inicio da viagem: 2023-12-20 18:30:00
+
+Joane
+Telhado
+Cruz
+Famalicão
+Calendário
+    --> Ponto de Recolha
+
+    --> Entrega encomenda 9
+            Hora de entrega 2023-12-20 22:54:00
+            Atraso: 0:00:00
+            Rating: 5
+
+
+Fim da viagem: 2023-12-20 22:54:00
+

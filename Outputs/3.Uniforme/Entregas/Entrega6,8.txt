@@ -1,0 +1,26 @@
+Estafeta: Angel Maria
+Peso Total: 4
+Volume Total: 5
+Inicio da viagem: 2023-12-20 18:30:00
+
+Tebosa
+Arnoso
+Cruz
+Famalicão
+Calendário
+    --> Ponto de Recolha
+
+    --> Entrega encomenda 6
+            Hora de entrega 2023-12-20 21:30:00
+            Atraso: 0:00:00
+            Rating: 5
+
+Lousado
+    --> Entrega encomenda 8
+            Hora de entrega 2023-12-20 22:07:00
+            Atraso: 0:00:00
+            Rating: 5
+
+
+Fim da viagem: 2023-12-20 22:07:00
+

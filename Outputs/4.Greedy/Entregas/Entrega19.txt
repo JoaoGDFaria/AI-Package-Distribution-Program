@@ -1,0 +1,18 @@
+Estafeta: Sofia Rodrigues
+Peso Total: 3
+Volume Total: 3
+Inicio da viagem: 2023-12-20 18:30:00
+
+Gondifelos
+Outiz
+Calendário
+    --> Ponto de Recolha
+
+    --> Entrega encomenda 19
+            Hora de entrega 2023-12-20 18:48:00
+            Atraso: 0:00:00
+            Rating: 5
+
+
+Fim da viagem: 2023-12-20 18:48:00
+

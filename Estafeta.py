@@ -93,12 +93,9 @@ class Estafeta:
                         minutes2 = remainder2 // 60
 
                         cliente = self.gl.get_cliente(encomenda.idCliente)
-                        ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome, encomenda.preco, encomenda.id)
-                        #df.at[row, 'Distância percorrida'] = f"{round(distancia_acumulativa, 2)} km"
-                        #if ratingCliente < 0: ratingCliente = 0
-                        #elif ratingCliente > 5: ratingCliente = 5
+                        #ratingCliente = cliente.avaliarEstafeta(hours1, minutes1, hours2, minutes2, self.nome, encomenda.preco, encomenda.id)
+
                         ratingEntrega = round(rating, 1)
-                        print(f"Rating global: {ratingEntrega}\n")
 
                         self.rating = round(((self.rating * self.numentregas) + ratingEntrega) / (self.numentregas + 1), 1)
                         self.numentregas += 1
