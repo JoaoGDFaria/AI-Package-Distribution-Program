@@ -124,4 +124,9 @@ class Estafeta:
             self.velocidadeMedia = info.infoVelocidadeMedia[self.veiculo]
             self.dataDisponivel = tempoFinal
 
-            print(f"\nFim da viagem: {tempoFinal}\n", file=file)
+            self.gl.addNodosTotais(len(path))
+            self.gl.addCustoTotal(distancia_acumulativa)
+            self.gl.addNumEntregas()
+
+            print(f"\nFim da viagem: {tempoFinal}", file=file)
+            print(f"Distância percorrida: {round(distancia_acumulativa, 1)} km\n", file=file)

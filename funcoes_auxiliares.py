@@ -5,7 +5,7 @@ from Estafeta import Estafeta
 
 
 def estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g, ag):
-     d = {'Algoritmo': [], 'Tempo execução': []}
+     d = {'Algoritmo': [], 'Tempo execução': [], 'Distância percorrida': [], 'Número de nodos visitados': [], 'Número de entregas': []}
      df = pd.DataFrame(data=d)
 
      df.at[0, 'Algoritmo'] = "DFS"
@@ -39,6 +39,12 @@ def estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g
 
          timeTaken = f"{(perf_counter() - start_time) * 1000 :.2f}"
          df.at[i, 'Tempo execução'] = f"{timeTaken} ms"
+         df.at[i, 'Distância percorrida'] = f"{round(gl.custo_total, 1)} km"
+         df.at[i, 'Número de entregas'] = f"{gl.numeroEntregas}"
+
+         gl.resetCustoTotal()
+         gl.resetNodosTotais()
+         gl.resetNumEntregas()
 
      pd.set_option('display.max_rows', None)
      pd.set_option('display.max_columns', None)
@@ -50,7 +56,7 @@ def estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g
 
 
 def estudoDeUmaEntrega2(pontoslevantamento, lista_encomenda, datetimeStart, gl, g, ag, row):
-    d = {'Algoritmo': [], 'Tempo execução': []}
+    d = {'Algoritmo': [], 'Tempo execução': [], 'Distância percorrida': [], 'Número de nodos visitados': [], 'Número de entregas': []}
     df = pd.DataFrame(data=d)
 
     df.at[0, 'Algoritmo'] = "DFS"
@@ -74,6 +80,13 @@ def estudoDeUmaEntrega2(pontoslevantamento, lista_encomenda, datetimeStart, gl, 
 
     timeTaken = f"{(perf_counter() - start_time) * 1000 :.2f}"
     df.at[row, 'Tempo execução'] = f"{timeTaken} ms"
+    df.at[row, 'Distância percorrida'] = f"{round(gl.custo_total, 1)} km"
+    df.at[row, 'Número de nodos visitados'] = f"{gl.nodosTotais}"
+    df.at[row, 'Número de entregas'] = f"{gl.numeroEntregas}"
+
+    gl.resetCustoTotal()
+    gl.resetNodosTotais()
+    gl.resetNumEntregas()
 
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)

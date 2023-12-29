@@ -1,13 +1,12 @@
-from itertools import permutations
-from Graph import Graph as gr
-import info
-from itertools import chain, combinations
 
 class Global:
     def __init__(self):
         self.todos_clientes = {}
         self.todos_encomendas = {}
         self.todos_estafetas = {}
+        self.custo_total = 0
+        self.nodosTotais = 0
+        self.numeroEntregas = 0
 
     def add_cliente(self, cliente):
         total_length = len(self.todos_clientes)
@@ -24,6 +23,23 @@ class Global:
         self.todos_estafetas[total_length+1] = estafeta
         return total_length + 1
 
+    def addCustoTotal(self, custo):
+        self.custo_total+=custo
+
+    def addNodosTotais(self, n_nodos):
+        self.nodosTotais+=n_nodos
+
+    def addNumEntregas(self):
+        self.numeroEntregas +=1
+
+    def resetCustoTotal(self):
+        self.custo_total = 0
+
+    def resetNodosTotais(self):
+        self.nodosTotais = 0
+
+    def resetNumEntregas(self):
+        self.numeroEntregas = 0
 
     def get_cliente(self, id):
         return self.todos_clientes.get(id, None)
