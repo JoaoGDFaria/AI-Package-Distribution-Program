@@ -13,10 +13,9 @@ def estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g
      df.at[2, 'Algoritmo'] = "Uniforme"
      df.at[3, 'Algoritmo'] = "Greedy"
      df.at[4, 'Algoritmo'] = "A*"
-     #df.at[5, 'Algoritmo'] = "Iterativa"
 
-     all_algorithms = [g.procura_DFS, g.procura_BFS, g.procura_UCS, g.greedy, g.procura_aStar,g.procura_iterativa]
-     fileNames = ["1.DFS", "2.BFS", "3.Uniforme", "4.Greedy", "5.aStar", "6.Iterativa"]
+     all_algorithms = [g.procura_DFS, g.procura_BFS, g.procura_UCS, g.greedy, g.procura_aStar]
+     fileNames = ["1.DFS", "2.BFS", "3.Uniforme", "4.Greedy", "5.aStar"]
 
 
      for i in range(5):
@@ -59,10 +58,9 @@ def estudoDeUmaEntrega2(pontoslevantamento, lista_encomenda, datetimeStart, gl, 
     df.at[2, 'Algoritmo'] = "Uniforme"
     df.at[3, 'Algoritmo'] = "Greedy"
     df.at[4, 'Algoritmo'] = "A*"
-    #df.at[5, 'Algoritmo'] = "Iterativa"
 
-    all_algorithms = [g.procura_DFS, g.procura_BFS, g.procura_UCS, g.greedy, g.procura_aStar, g.procura_iterativa]
-    fileNames = ["1.DFS", "2.BFS", "3.Uniforme", "4.Greedy", "5.aStar", "6.Iterativa"]
+    all_algorithms = [g.procura_DFS, g.procura_BFS, g.procura_UCS, g.greedy, g.procura_aStar]
+    fileNames = ["1.DFS", "2.BFS", "3.Uniforme", "4.Greedy", "5.aStar"]
     start_time = perf_counter()
 
     for enc in lista_encomenda:

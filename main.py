@@ -95,7 +95,6 @@ def main():
                     print("3-Usar o algoritmo Procura Custo Uniforme")
                     print("4-Usar o algoritmo Greedy")
                     print("5-Usar o algoritmo A*")
-                    #print("6-Usar o algoritmo Procura Iterativa")
                     
                     try:
                         saida = int(input("Introduza a sua opção-> "))
