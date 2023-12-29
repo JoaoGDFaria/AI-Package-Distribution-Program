@@ -40,6 +40,7 @@ def estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g
          timeTaken = f"{(perf_counter() - start_time) * 1000 :.2f}"
          df.at[i, 'Tempo execução'] = f"{timeTaken} ms"
          df.at[i, 'Distância percorrida'] = f"{round(gl.custo_total, 1)} km"
+         df.at[i, 'Número de nodos visitados'] = f"{gl.nodosTotais}"
          df.at[i, 'Número de entregas'] = f"{gl.numeroEntregas}"
 
          gl.resetCustoTotal()
