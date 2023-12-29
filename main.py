@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 import shutil
 from datetime import datetime
 from Cliente import Cliente
@@ -10,7 +9,6 @@ import Graph as gr
 import pandas as pd
 import funcoes_auxiliares as fa
 import menu
-
 
 def main():
     gl = Global()
@@ -144,5 +142,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# print(len(gl.get_encomendas_sem_entregador()))

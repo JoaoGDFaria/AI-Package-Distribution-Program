@@ -1,10 +1,7 @@
 import math
 import os
 from datetime import timedelta,datetime
-
-
 import info
-
 
 class Encomenda:
 
@@ -40,8 +37,6 @@ class Encomenda:
         melhorEntregaVeiculo = {}
 
 
-        #print("\n\nListagem de todos os caminhos possíveis:" )
-
         # Para todos os pontos de recolha da encomenda
         for pontoRecolha in self.pontosRecolha:
 
@@ -54,10 +49,6 @@ class Encomenda:
 
                 posicaoInicial = localizacao_veiculo[0]
                 veiculo = localizacao_veiculo[1]
-
-                #aux = "Inicio:"+posicaoInicial + "||" + str(all_paths)
-                #print(aux)
-
 
                 (path, custo) = self.calculaMelhorCaminho(posicaoInicial, all_paths, algorithmFunction)
 
@@ -176,7 +167,7 @@ class Encomenda:
             pontoRecolha = list_information[2][3]
 
         else:
-            print(f"Não existe nenhum estafeta" )
+            print(f"\nNao existem estafetas disponiveis neste momento para esta encomenda!", file=self.file)
             return
 
         print(f"\n----> Veículo escolhido: {veiculo}", file=self.file)

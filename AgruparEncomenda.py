@@ -25,12 +25,9 @@ class AgruparEncomenda:
                     encomenda = all_encomendas[0][0]
                     path = all_encomendas[0][1]
 
-                    # print(f"ENTREGA {pontoRecolha} - {veiculo}")
-
                     self.listaEncomendas[veiculo][pontoRecolha].remove((encomenda, path))
                     estafeta = self.gl.get_estafeta_available_by_location(path[0], veiculo)
                     if estafeta is None:
-                        print(encomenda.id)
                         flag = True
                         encomenda.redoEncomendaPath(algoritmo)
                     else:
@@ -61,8 +58,8 @@ class AgruparEncomenda:
 
                     Entrega(lista_entrega, self.g, self.pontosRecolha, self.gl, algoritmo, veiculo, peso_atual, volume_atual, fileName)
 
-        #if flag is True:
-            #self.agruparPorEstafeta(algoritmo, fileName)
+        if flag is True:
+            self.agruparPorEstafeta(algoritmo, fileName)
 
 
 
@@ -75,5 +72,3 @@ class AgruparEncomenda:
                 for encomenda, path in encomendas_paths_list:
                     print(f"    Encomenda: {encomenda.id}, Path: {path}")
         print("\n\n")
-
-

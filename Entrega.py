@@ -1,8 +1,6 @@
 import math
 from itertools import permutations
 
-
-
 class Entrega:
     def __init__(self, listaEncomendas, graph, pontosRecolha, gl, algorithm, veiculo, pesoTotal, volumeTotal, fileName):
         self.listaEncomendas = listaEncomendas
@@ -22,14 +20,9 @@ class Entrega:
 
     def melhorCaminho(self, algorithmFunction):
         all_permutations_path = list(permutations(self.locaisEntrega))
-        #start_time = perf_counter()
-        list_information = []
-        melhorEntregaVeiculo = {}
         melhorCusto = math.inf
         melhorPath = []
 
-
-        #print("\n\nListagem de todos os caminhos possíveis:", file= self.file)
 
         # Para todos os pontos de recolha da encomenda
         for pontoRecolha in self.pontosRecolha:
@@ -44,9 +37,6 @@ class Entrega:
 
                     (path, custo) = self.calculaMelhorCaminho(localizacao_estafeta, all_paths, algorithmFunction)
 
-                    #aux = "Inicio:"+posicaoInicial + "||" + str(all_paths)
-                    #print(aux)
-
                     if custo < melhorCusto:
                         melhorPath = path
                         melhorCusto = round(custo, 2)
@@ -59,7 +49,7 @@ class Entrega:
                 self.veiculo = "carro"
                 self.melhorCaminho(algorithmFunction)
             else:
-                print("Nao existem estafetas disponiveis neste momento para essa encomenda")
+                print(f"Nao existem estafetas disponiveis neste momento para a encomenda")
                 return
         else:
             estafeta = self.gl.get_estafeta_available_by_location(melhorPath[0], self.veiculo)
@@ -82,4 +72,3 @@ class Entrega:
             custo_final += custo
 
         return caminho_final, custo_final
-

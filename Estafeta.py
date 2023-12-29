@@ -1,9 +1,6 @@
-import math
 import os
 from datetime import timedelta
-
 import info
-import random
 
 class Estafeta:
 
@@ -128,6 +125,3 @@ class Estafeta:
             self.dataDisponivel = tempoFinal
 
             print(f"\nFim da viagem: {tempoFinal}\n", file=file)
-            #df.at[row, 'Tempo de entrega'] = tempoFinal - tempoInicio
-
-            #self.gl.printAllGlobal()
