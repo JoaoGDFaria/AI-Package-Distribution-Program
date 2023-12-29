@@ -49,7 +49,7 @@ def main():
                 break
 
             elif saida == 1:
-                g.desenha(pos)
+                g.desenha(pos, pontoslevantamento)
 
             elif saida == 2:
                 auxFunction(g.procura_DFS, pontoslevantamento, g)
