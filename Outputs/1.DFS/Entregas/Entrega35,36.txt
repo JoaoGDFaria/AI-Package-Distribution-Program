@@ -1,0 +1,40 @@
+Estafeta: Ricardo Horta
+Peso Total: 5
+Volume Total: 4
+Inicio da viagem: 2023-12-20 18:30:00
+Velocidade média inicial: 32.5 km/h
+
+Aldreu
+Quintiães
+    --> Ponto de Recolha
+
+Vilar do Monte
+Vila Cova
+Perelhal
+Gilmonde
+Barcelos
+Pereira
+Carvalhas
+Grimancelos
+Gondifelos
+Fradelos
+Lousado
+    --> Entrega encomenda 36
+            Hora de entrega 2023-12-20 21:19:00
+            Atraso: 0:00:00
+            Rating: 5
+            Peso da encomenda: 2 kg
+            Velocidade média: 33.5 km/h
+
+Calendário
+    --> Entrega encomenda 35
+            Hora de entrega 2023-12-20 21:30:00
+            Atraso: 0:00:00
+            Rating: 5
+            Peso da encomenda: 3 kg
+            Velocidade média: 35.0 km/h
+
+Lousado
+
+Fim da viagem: 2023-12-20 21:30:00
+

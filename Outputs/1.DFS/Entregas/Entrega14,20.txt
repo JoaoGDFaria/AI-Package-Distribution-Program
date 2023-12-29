@@ -1,0 +1,44 @@
+Estafeta: Marta Santos Costa
+Peso Total: 100
+Volume Total: 80
+Inicio da viagem: 2023-12-20 18:30:00
+Velocidade média inicial: 40.0 km/h
+
+Cabeçudos
+Abade de Vermoim
+Calendário
+Lousado
+Fradelos
+Gondifelos
+Grimancelos
+Carvalhas
+Pereira
+Barcelos
+Galegos
+    --> Ponto de Recolha
+
+Barcelos
+Pereira
+Carvalhas
+Grimancelos
+Gondifelos
+Fradelos
+Lousado
+Calendário
+    --> Entrega encomenda 14
+            Hora de entrega 2023-12-20 21:43:00
+            Atraso: 0:00:00
+            Rating: 5
+            Peso da encomenda: 50 kg
+            Velocidade média: 45.0 km/h
+
+    --> Entrega encomenda 20
+            Hora de entrega 2023-12-20 21:44:00
+            Atraso: 0:00:00
+            Rating: 5
+            Peso da encomenda: 50 kg
+            Velocidade média: 50.0 km/h
+
+
+Fim da viagem: 2023-12-20 21:44:00
+

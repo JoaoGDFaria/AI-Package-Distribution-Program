@@ -1,0 +1,61 @@
+Estafeta: Mutassim Peter
+Peso Total: 5
+Volume Total: 20
+Inicio da viagem: 2023-12-20 18:30:00
+Velocidade média inicial: 49.5 km/h
+
+Várzea
+Areias de Vilar
+Galegos
+    --> Ponto de Recolha
+
+Barcelos
+Pereira
+Carvalhas
+Grimancelos
+Gondifelos
+Fradelos
+Lousado
+Calendário
+Famalicão
+Requião
+Castelões
+Novais
+    --> Entrega encomenda 3
+            Hora de entrega 2023-12-20 20:28:00
+            Atraso: 0:00:00
+            Rating: 5
+            Peso da encomenda: 1 kg
+            Velocidade média: 49.6 km/h
+
+    --> Entrega encomenda 9
+            Hora de entrega 2023-12-20 20:29:00
+            Atraso: 0:00:00
+            Rating: 5
+            Peso da encomenda: 1 kg
+            Velocidade média: 49.7 km/h
+
+    --> Entrega encomenda 15
+            Hora de entrega 2023-12-20 20:30:00
+            Atraso: 0:00:00
+            Rating: 5
+            Peso da encomenda: 1 kg
+            Velocidade média: 49.8 km/h
+
+    --> Entrega encomenda 21
+            Hora de entrega 2023-12-20 20:31:00
+            Atraso: 0:00:00
+            Rating: 5
+            Peso da encomenda: 1 kg
+            Velocidade média: 49.9 km/h
+
+    --> Entrega encomenda 27
+            Hora de entrega 2023-12-20 20:32:00
+            Atraso: 0:00:00
+            Rating: 5
+            Peso da encomenda: 1 kg
+            Velocidade média: 50.0 km/h
+
+
+Fim da viagem: 2023-12-20 20:32:00
+

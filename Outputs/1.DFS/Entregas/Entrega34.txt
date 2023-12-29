@@ -1,0 +1,33 @@
+Estafeta: Clayton Esteves
+Peso Total: 4
+Volume Total: 3
+Inicio da viagem: 2023-12-20 18:30:00
+Velocidade média inicial: 33.0 km/h
+
+Barcelos
+Pereira
+Carvalhas
+Grimancelos
+Gondifelos
+Fradelos
+Lousado
+Calendário
+Famalicão
+Requião
+Castelões
+    --> Ponto de Recolha
+
+Requião
+Famalicão
+Calendário
+Abade de Vermoim
+    --> Entrega encomenda 34
+            Hora de entrega 2023-12-20 21:18:00
+            Atraso: 0:00:00
+            Rating: 5
+            Peso da encomenda: 4 kg
+            Velocidade média: 35.0 km/h
+
+
+Fim da viagem: 2023-12-20 21:18:00
+

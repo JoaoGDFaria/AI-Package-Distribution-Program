@@ -126,9 +126,7 @@ def auxFunction(algorithmFunction, nodeStops, nodes):
 def checkIfExists(nome, nodo):
     while True:
         val = input(f"{nome}-> ")
-        if not nodo.node_exists(val):
-            print("Nodo não existe.\n")
-        else:
+        if nodo.node_exists(val):
             break
     return val
 
