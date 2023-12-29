@@ -53,7 +53,7 @@ def main():
 
 
     lista_encomenda = []
-    datetimeStart = datetime(year=2023, month=11, day=22, hour=18, minute=30)
+    datetimeStart = datetime(year=2023, month=12, day=20, hour=18, minute=30)
 
     while True:
         print("1-Consultar clientes")

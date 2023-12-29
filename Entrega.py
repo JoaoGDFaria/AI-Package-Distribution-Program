@@ -51,10 +51,20 @@ class Entrega:
                         melhorPath = path
                         melhorCusto = round(custo, 2)
 
-
-        estafeta = self.gl.get_estafeta_available_by_location(melhorPath[0], self.veiculo)
-        estafeta.calculaVelocidadeMedia(self.pesoTotalEncomendas)
-        estafeta.efetuarEncomenda(melhorPath, self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas, self.volumeTotalEncomendas, self.pontosRecolha, self.fileName)
+        if melhorPath == []:
+            if self.veiculo == "bicicleta":
+                self.veiculo = "mota"
+                self.melhorCaminho(algorithmFunction)
+            elif self.veiculo == "mota":
+                self.veiculo = "carro"
+                self.melhorCaminho(algorithmFunction)
+            else:
+                print("Nao existem estafetas disponiveis neste momento para essa encomenda")
+                return
+        else:
+            estafeta = self.gl.get_estafeta_available_by_location(melhorPath[0], self.veiculo)
+            estafeta.calculaVelocidadeMedia(self.pesoTotalEncomendas)
+            estafeta.efetuarEncomenda(melhorPath, self.tempoInicio, self.locaisEntrega, self.graph, self.listaEncomendas, self.pesoTotalEncomendas, self.volumeTotalEncomendas, self.pontosRecolha, self.fileName)
 
 
     def calculaMelhorCaminho(self, localinicial, locaisentrega, algorithmFunction):
