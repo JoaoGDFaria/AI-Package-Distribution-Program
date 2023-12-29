@@ -46,7 +46,8 @@ class Estafeta:
             print(f"Estafeta: {self.nome}", file=file)
             print(f"Peso Total: {pesoTotalEncomendas}", file=file)
             print(f"Volume Total: {volumeTotalEncomendas}", file=file)
-            print(f"Inicio da viagem: {encomenda.tempoInicio}\n", file=file)
+            print(f"Inicio da viagem: {encomenda.tempoInicio}", file=file)
+            print(f"Velocidade média inicial: {self.velocidadeMedia} km/h\n", file=file)
 
             tempoFinal = tempoInicio + timedelta(minutes=len(locaisEntrega))
             distancia_percorrida = 0
@@ -107,15 +108,19 @@ class Estafeta:
                         taxa = 1
 
                         if atraso.seconds >0: taxa = info.taxaAtraso["taxa"]
+
                         encomenda.preco = round((encomenda.preco + (distancia_em_10km * info.taxaEntrega[self.veiculo])*taxa), 2)
+                        pesoTotalEncomendas -= encomenda.peso
+                        self.calculaVelocidadeMedia(pesoTotalEncomendas)
 
                         print(f"    --> Entrega encomenda {encomenda.id}\n"
                               f"            Hora de entrega {tempoFinal}\n"
                               f"            Atraso: {atraso}\n"
-                              f"            Rating: {ratingEntrega}\n", file=file)
+                              f"            Rating: {ratingEntrega}\n"
+                              f"            Peso da encomenda: {encomenda.peso} kg\n"
+                              f"            Velocidade média: {self.velocidadeMedia} km/h\n", file=file)
 
-                        pesoTotalEncomendas -= encomenda.peso
-                        self.calculaVelocidadeMedia(pesoTotalEncomendas)
+
 
                 caminho_anterior = caminho
             # Redefine tudo para o estado inicial
