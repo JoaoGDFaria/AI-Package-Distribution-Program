@@ -78,7 +78,7 @@ def estudoDeUmaEntrega2(pontoslevantamento, lista_encomenda, datetimeStart, gl, 
                                 fileName=fileNames[row])
 
     ag.agruparPorEstafeta(all_algorithms[row], fileNames[row])
-
+    ag.listaEncomendas = {}
 
     timeTaken = f"{(perf_counter() - start_time) * 1000 :.2f}"
     df.at[row, 'Tempo execução'] = f"{timeTaken} ms"
