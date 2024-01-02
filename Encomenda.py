@@ -97,6 +97,7 @@ class Encomenda:
             print(f"Velocidade média mínima: {velocidade_media} km/h", file=self.file)
             list_information.append((ac[0], velocidade_media, ac[1], ac[2]))
             print(f"\nPeso: {self.peso} kg", file=self.file)
+            print(f"Volume: {self.volume} L", file=self.file)
         self.determina_veiculo(list_information)
 
 

@@ -41,8 +41,8 @@ class Estafeta:
             file.truncate(0)
 
             print(f"Estafeta: {self.nome}", file=file)
-            print(f"Peso Total: {pesoTotalEncomendas}", file=file)
-            print(f"Volume Total: {volumeTotalEncomendas}", file=file)
+            print(f"Peso Total: {pesoTotalEncomendas} kg", file=file)
+            print(f"Volume Total: {volumeTotalEncomendas} L", file=file)
             print(f"Inicio da viagem: {encomenda.tempoInicio}", file=file)
             print(f"Velocidade média inicial: {self.velocidadeMedia} km/h\n", file=file)
 
