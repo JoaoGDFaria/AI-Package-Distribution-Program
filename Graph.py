@@ -3,8 +3,6 @@ import math
 from copy import deepcopy
 from queue import Queue
 
-from networkx import is_connected
-
 from Nodo import Node
 import networkx as nx
 import matplotlib.pyplot as plt

@@ -84,7 +84,7 @@ def main():
                     lista_encomenda.append((linha.idcliente, linha.peso, linha.preco, linha.volume, linha.tempoFim))
                 fa.estudoDeUmaEntrega(pontoslevantamento, lista_encomenda, datetimeStart, gl, g, ag)
                 lista_encomenda.clear()
-                print("-----------------------------")
+                break
 
             elif saida == 4:
                 while True:
@@ -93,6 +93,7 @@ def main():
                     print("3-Usar o algoritmo Procura Custo Uniforme")
                     print("4-Usar o algoritmo Greedy")
                     print("5-Usar o algoritmo A*")
+                    print("6-Usar o algoritmo Iterativo")
                     print("0-Sair")
                     
                     
@@ -103,7 +104,7 @@ def main():
                             print("Saindo .......")
                             break
                     
-                        elif saida>= 1 and saida<=5:
+                        elif saida>= 1 and saida<=6:
                             print("A ler ficheiro .csv .......")
                             df_encomendas = pd.read_csv("Files/Encomendas/encomendas.csv", encoding='utf-8')
                             for linha in df_encomendas.itertuples(index=False):
