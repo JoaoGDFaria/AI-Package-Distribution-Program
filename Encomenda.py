@@ -113,8 +113,8 @@ class Encomenda:
     def calculaVelocidadeDeEncomenda(self, path):
         intervaloDeTempo = self.prazoLimite - self.tempoInicio
         intervaloDeTempoEmHoras = intervaloDeTempo.total_seconds() / 3600
-
-        velocidadeMedia = self.distanceToEncomenda(path)/intervaloDeTempoEmHoras
+        if intervaloDeTempoEmHoras == 0: velocidadeMedia=0
+        else: velocidadeMedia = self.distanceToEncomenda(path)/intervaloDeTempoEmHoras
 
         return round(velocidadeMedia, 2)
 
