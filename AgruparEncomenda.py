@@ -32,7 +32,6 @@ class AgruparEncomenda:
                         encomenda.redoEncomendaPath(algoritmo)
                     else:
                         estafeta.efetuarEncomenda(path, encomenda.tempoInicio, [encomenda.localEntrega], encomenda.g, [encomenda], encomenda.peso, encomenda.volume, self.pontosRecolha, fileName)
-                    break
 
 
                 elif len(all_encomendas) > 0:
